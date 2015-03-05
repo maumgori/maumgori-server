@@ -1,0 +1,26 @@
+{
+  "name": "maumgori-server",
+  "version": "0.1.0",
+  "description": "Maumgori Server Side Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:maumgori/maumgori-server.git"
+  },
+  "keywords": [
+    "maumgori"
+  ],
+  "author": "maumgori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maumgori/maumgori-server/issues"
+  },
+  "homepage": "https://github.com/maumgori/maumgori-server",
+  "dependencies": {
+    "express": "^4.12.2",
+    "jade": "^1.9.2"
+  }
+}
