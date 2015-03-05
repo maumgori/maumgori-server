@@ -21,7 +21,8 @@
   "homepage": "https://github.com/maumgori/maumgori-server",
   "dependencies": {
     "express": "^4.12.2",
-    "jade": "^1.9.2"
+    "jade": "^1.9.2",
+    "stylus": "^0.50.0"
   },
   "devDependencies": {
     "bower": "^1.3.12"

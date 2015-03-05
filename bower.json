@@ -1,0 +1,28 @@
+{
+  "name": "maumgori-server",
+  "version": "0.1.0",
+  "homepage": "https://github.com/maumgori/maumgori-server",
+  "authors": [
+    "Jongmin Kim <kimjmin@gmail.com>"
+  ],
+  "description": "Maumgori Server Side Project",
+  "keywords": [
+    "maumgori"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "toastr": "~2.1.0",
+    "angular": "~1.3.14",
+    "angular-resource": "~1.3.14",
+    "angular-route": "~1.3.14"
+  }
+}
