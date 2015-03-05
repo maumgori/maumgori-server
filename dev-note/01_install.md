@@ -1,11 +1,5 @@
 #필요한 프로그램 및 라이브러리 설치
 
-다음 두 명령어만 치면 아래 과정 상관 없이 다 인스톨 됨.
-```
-npm install
-node_modules/.bin/bower install
-```
-
 ### 사용할 프로그램 및 패키지
 - NodeJS
 - git
@@ -24,6 +18,13 @@ http://www.nodejs.org/
 cd /usr/local/lib
 sudo chown -R {유저명}:admin node_modules
 ```
+
+노드 설치 후 아래 두 명령어만 치면 앞으로 설명할 내용 다 인스톨 됨.
+```
+npm install
+node_modules/.bin/bower install
+```
+
 
 ### package.json 생성 / express, jade, stylus 추가.
 ```
