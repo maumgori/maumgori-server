@@ -1,12 +1,15 @@
 #서버 실행하는 스켈레톤 생성.
 
 ### server.js 생성 - node 시작 프로그램.
-- server.js 내용 참고.
+- bin/server.js 내용 참고.
 - 노드의 환경변수를 가져오는 설정.
 ```
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 ```
 - `app.get('/')` 대신 `app.get('*')` 쓰는 것이 나음. 루트 뿐 아니라 전체 경로 받음.
+
+### maum 생성 - 시작 스크립트.
+일단은 nodemon bin/server.js. 나중에 start, stop 옵션 추가하고 서버로그는 logs 디렉토리로 옮길것.
 
 ###jade 파일 생성
 - server/views 디렉토리 생성 후 그 안에 index.jade 추가.

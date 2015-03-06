@@ -1,16 +1,4 @@
 (function(){
-  var app = angular.module('app', []);
+  var app = angular.module('app', ['directives','controllers']);
 
-  app.directive('main',function(){
-    return {
-      restrict: 'E',
-      templateUrl: '/conts/main',
-      controller: 'mainCtrl'
-    }
-  });
-
-  app.controller('mainCtrl', function($scope) {
-    $scope.myVar = "Hello Angular";
-  });
-  
 })();

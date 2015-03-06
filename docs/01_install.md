@@ -3,9 +3,10 @@
 ### 사용할 프로그램 및 패키지
 - NodeJS
 - git
-- Bower
-- ExpressJS
-- Stylus
+- bower
+- nodemon
+- express
+- stylus
 - Layout
 - AngularJS
 - Elasticsearch
@@ -13,18 +14,23 @@
 ### node 설치
 http://www.nodejs.org/
 
-설치 후 node 프로그램들은 권한 바꿔주는게 편함. 안 그러면 sudo 로 다 실행해야 함.
+- 설치 후 node 프로그램들은 권한 바꿔주는게 편함. 안 그러면 sudo 로 다 실행해야 함.
 ```
 cd /usr/local/lib
 sudo chown -R {유저명}:admin node_modules
 ```
 
-노드 설치 후 아래 두 명령어만 치면 앞으로 설명할 내용 다 인스톨 됨.
+- 노드 설치 후 아래 두 명령어만 치면 앞으로 설명할 내용 다 인스톨 됨.
 ```
 npm install
 node_modules/.bin/bower install
 ```
 
+- 프로그램 실행은 nodemon 써서 하는것이 좋음. 소스 수정시 자동 로딩 해 주는 프로그램.
+```
+npm install -g nodemon
+nodemon server.js
+```
 
 ### package.json 생성 / express, jade, stylus 추가.
 ```

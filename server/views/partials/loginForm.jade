@@ -1,0 +1,17 @@
+// 로그인 폼
+.panel.panel-default
+  .panel-heading
+    h3.panel-title 로그인
+  .panel-body
+    form
+      p
+        input.form-control(type="text" placeholder="아이디")
+        input.form-control(type="password" placeholder="패스워드")
+      p
+        button.btn.btn-success.btn-block(type="submit")
+          로그인
+        button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal")
+          회원가입
+
+// 회원 가입 모달.
+include signinModal
