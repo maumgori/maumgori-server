@@ -4,8 +4,60 @@
       .modal-header
         button.close(type="button", data-dismiss="modal", aria-label="Close")
           span(aria-hidden="true") &#215;
-        h4.modal-title 회원 가입
+        h4.modal-title 회원 가입 - {{user_obj.signin_step_text()}}
       .modal-body
-        회원 가입합니다.
-      .modal-footer
-        button.btn.btn-danger(type="button") 종료
+        //1단계 : 사용자구분, 아이디, 비밀번호
+        .signin-animation(ng-show="user_obj.signin_step===0")
+          .row
+            .col.col-sm-1
+            .col.col-sm-2.col-xs-5
+              label#user_type_expert.control-label
+                input(type="radio" name="user_type" value="expert" ng-model="user_obj.type")
+                | &nbsp;전문가
+            .col.col-sm-3.col-xs-7
+              label#user_type_user.control-label
+                input(type="radio" name="user_type" value="user" ng-model="user_obj.type")
+                | &nbsp;일반사용자
+          br
+          .row
+            .col.col-sm-1
+            .col.col-sm-11
+              label 아이디
+              span.text-muted
+                | &nbsp;4~20 자 영어 + 숫자.
+            .col.col-sm-1
+            .col.col-sm-4
+              input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" placeholder="아이디")
+            .col.col-sm-7
+              span.text-danger  {{user_obj.passwd_chk().id_txt}}
+          br
+          .row
+            .col.col-sm-1
+            .col.col-xs-11
+              label 비밀번호
+              span.text-muted
+                | &nbsp;6자 이상
+            .col.col-sm-1
+            .col.col-xs-4
+              input#user_passwd.form-control(type="password" ng-model="user_obj.passwd" placeholder="비밀번호")
+            .col.col-xs-7
+              span.text-danger  {{user_obj.passwd_chk().lengthtxt}}
+          br
+          .row
+            .col.col-sm-1
+            .col.col-xs-11
+              label 비밀번호 확인
+            .col.col-sm-1
+            .col.col-xs-4
+              input#user_passwd_re.form-control(type="password" ng-model="user_obj.passwd_re" placeholder="비밀번호 확인")
+            .col.col-xs-7
+              h5(class="{{user_obj.passwd_chk().class}}")
+                | {{user_obj.passwd_chk().text}}
+          br
+          .row
+            .col.col-sm-10.col-xs-8
+            .col.col-sm-2.col-xs-4
+              button.btn.btn-success.btn-block(type="button" ng-disabled="!user_obj.passwd_chk().confirmed" ng-click="user_obj.signin_next(user_obj.signin_step+1)")
+                | 다음 &nbsp;
+                i.glyphicon.glyphicon-arrow-right
+        .signin-animation(ng-show="user_obj.signin_step===1") 두번째 단계

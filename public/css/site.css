@@ -1,0 +1,15 @@
+.text-red {
+  color: #f00;
+}
+.signin-animation {
+  -webkit-transition: 0.5s linear all;
+  transition: 1s linear all;
+  opacity: 1;
+}
+.signin-animation.ng-hide-add,
+.signin-animation.ng-hide-remove {
+  display: block !important;
+}
+.signin-animation.ng-hide {
+  opacity: 0;
+}

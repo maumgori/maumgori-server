@@ -1,12 +1,20 @@
 (function(){
   var app = angular.module('directives',[]);
 
-  app.directive('main',function(){
+  app.directive('loginForm', function(){
     return {
       restrict: 'E',
-      templateUrl: '/partials/main',
+      templateUrl: 'partials/loginForm',
+      controller: 'loginFormCtrl'
+    }
+  });
+
+  app.directive('main', function(){
+    return {
+      restrict: 'E',
+      templateUrl: 'partials/main',
       controller: 'mainCtrl'
     }
   });
-  
+
 })()

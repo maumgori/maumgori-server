@@ -1,15 +1,16 @@
 #필요한 프로그램 및 라이브러리 설치
 
-### 사용할 프로그램 및 패키지
-- NodeJS
-- git
-- bower
-- nodemon
-- express
-- stylus
-- Layout
-- AngularJS
-- Elasticsearch
+###사용된 프로그램 및 라이브러리.
+- node.js 0.12.0
+- nodemon 1.3.7
+- express 4.12.2
+- body-parser 1.12.0
+- jade 1.9.2
+- stylus 0.50.0
+- bower 1.3.12
+- bootstrap 3.3.2
+- toastr 2.1.0
+- angular.js 1.3.14
 
 ### node 설치
 http://www.nodejs.org/

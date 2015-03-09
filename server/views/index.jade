@@ -5,15 +5,14 @@ html
     .container
       // 페이지 타이틀 영역
       .page-header
-        h3 희망을 찾는 연결고리, 마음고리
-          small  사람들의 마음을 치유하는 서비스를 만듭니다.
-            행복이 가득한 세상을 만듭니다.
-
+        h3 희망을 찾는 연결고리, 마음고리&nbsp;
+          small
+            | 사람들의 마음을 치유하는 서비스를 만듭니다.
+            | 행복이 가득한 세상을 만듭니다.
       .row
         // 왼쪽 메뉴 영역
-        .col.col-md-2
-          include partials/loginForm
-
+        .col.col-md-2.col-sm-3
+          login-form
         // 중앙 메인 영역
-        .col.col-md-10
+        .col.col-md-10.col-sm-9
           main
