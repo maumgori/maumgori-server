@@ -1,0 +1,103 @@
+form(name="user_frm_2")
+  .signin-animation(ng-show="user_obj.signin_step===1")
+    .row
+      .col.col-sm-3.text-center
+        {{user_obj.user_photo}}
+        label(for="user_photo")
+          img.img-rounded(ng-show="user_obj.user_photo" src="{{user_obj.user_photo}}" width="100%")
+          img.img-rounded(ng-hide="user_obj.user_photo" src="https://pbs.twimg.com/profile_images/460384953667039232/GDXB_8x4.jpeg" width="100%")
+        label(for="user_photo").btn.btn-xs.btn-block.btn-default 사진파일 선택
+        input#user_photo(type="file" ng-model="user_obj.user_photo" style="display:none" accept="image/*")
+      .col.col-sm-9
+        .row
+          .col.col-xs-2.text-right(style="padding:1px;")
+            h5
+              label(for="user_name") 이름
+          .col.col-xs-4
+            input#user_name.form-control(type="text" maxlength=20 ng-model="user_obj.name" placeholder="이름" required)
+          .col.col-sm-1
+          .col.col-sm-5(style="padding:5px 0px;")
+            label.control-label
+              input(type="radio" name="gender" value="male" ng-model="user_obj.gender")
+              | &nbsp;남성
+            | &nbsp;&nbsp;&nbsp;&nbsp;
+            label.control-label
+              input(type="radio" name="gender" value="female" ng-model="user_obj.gender")
+              | &nbsp;여성
+        .row
+          .col.col-xs-2.text-right(style="padding:1px;")
+            h5
+              label 생년월일
+          .col.col-xs-8(style="padding:0;")
+            .col.col-xs-5(style="padding:0;")
+              .col.col-xs-9(style="padding-right:2px;")
+                select.form-control(ng-model="user_obj.birthday.year" style="padding:5px;")
+                  option(ng-repeat="year_val in user_obj.birth_option().years") {{year_val}}
+              .col.col-xs-3(style="padding-left:2px;")
+                h5 년
+            .col.col-xs-7(style="padding:0;")
+              .col.col-xs-4(style="padding:0px 2px;")
+                select.form-control(ng-model="user_obj.birthday.month" style="padding:5px;")
+                  option(ng-repeat="month_val in user_obj.birth_option().months") {{month_val}}
+              .col.col-xs-2(style="padding-left:2px;")
+                h5 월
+              .col.col-xs-4(style="padding:0px 2px;")
+                select.form-control(ng-model="user_obj.birthday.day" style="padding:5px;")
+                  option(ng-repeat="day_val in user_obj.birth_option().days") {{day_val}}
+              .col.col-xs-2(style="padding-left:2px;")
+                h5 일
+          .col.col-xs-2(style="padding-left:1px;")
+            h5.text-primary
+              | 만 {{user_obj.age}}세
+        .row
+          .col.col-xs-2.text-right(style="padding:1px;")
+            h5
+              label(for="phone") 전화번호
+          .col.col-xs-4(style="padding-right:2px;")
+            input#phone.form-control(type="text" placeholder="전화번호 1" ng-model="user_obj.phone[0]")
+          .col.col-xs-4(style="padding-right:2px;")
+            input.form-control(type="text" placeholder="전화번호 2" ng-model="user_obj.phone[1]")
+        .row
+          .col.col-xs-2.text-right(style="padding:1px;")
+            h5
+              label(for="email") 이메일
+          .col.col-xs-5
+            input#phone.form-control(type="email" name="user_email" placeholder="이메일" ng-model="user_obj.email" required)
+          .col.col-xs-5(style="padding-left:1px;")
+            h5.text-danger(ng-hide="user_frm_2.user_email.$valid || user_obj.email==''")
+              | 잘못된 메일 형식입니다.
+            h5.text-primary(ng-show="user_frm_2.user_email.$valid")
+              | 올바른 메일 형식입니다.
+      .row(ng-show="user_obj.type==='expert'")
+        .col.col-sm-2.text-right(style="padding:1px;")
+          h5
+            label(for="homepage") 홈페이지
+        .col.col-sm-6
+          input#homepage.form-control(type="text" ng-model="user_obj.homepage" placeholder="홈페이지 / 블로그S")
+      .row(ng-show="user_obj.type==='expert'")
+        .col.col-sm-2.text-right(style="padding:1px;")
+          h5
+            label(for="career") 학력/전공
+        .col.col-sm-6
+          input#career.form-control(type="text" ng-model="user_obj.career" placeholder="OO학교 XX전공 석사 등..")
+      .row(ng-show="user_obj.type==='expert'")
+        .col.col-sm-2.text-right(style="padding:1px;")
+          h5
+            label(for="qualification") 자격사항
+        .col.col-sm-6
+          input#qualification.form-control(type="text" ng-model="user_obj.career" placeholder="코치협회 인증, 국가상담사 자격 등..")
+        .col.col-sm-4
+          input.form-contro(type="file")
+    br
+    .row
+      .col.col-sm-1
+      .col.col-sm-2.col-xs-4
+        button.btn.btn-warning.btn-block(type="button" ng-disabled="!user_obj.step_0_chk().confirmed" ng-click="user_obj.signin_before()")
+          i.glyphicon.glyphicon-arrow-left
+          | &nbsp;이전
+      .col.col-sm-6.col-xs-4
+      .col.col-sm-2.col-xs-4
+        button.btn.btn-success.btn-block(type="button" ng-disabled="!user_obj.step_0_chk().confirmed" ng-click="user_obj.signin_next()")
+          | 다음 &nbsp;
+          i.glyphicon.glyphicon-arrow-right
+      .col.col-sm-1

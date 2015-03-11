@@ -24,7 +24,8 @@
     "express": "^4.12.2",
     "jade": "^1.9.2",
     "nodemon": "^1.3.7",
-    "stylus": "^0.50.0"
+    "stylus": "^0.50.0",
+    "yamljs": "^0.2.1"
   },
   "devDependencies": {
     "bower": "^1.3.12"
