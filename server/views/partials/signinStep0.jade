@@ -26,7 +26,7 @@ form(name="user_frm_1")
             span.text-danger
               | *
             | &nbsp;아이디
-      .col.col-sm-3.col-xs-7(style="padding-right:2px;")
+      .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().id_form_class}}")
         input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" placeholder="아이디 (4~20자)" ng-change="user_obj.id_check()")
       .col.col-sm-7.col-xs-12
         h5
@@ -36,21 +36,22 @@ form(name="user_frm_1")
       .col.col-sm-2.col-xs-5.text-right(style="padding:1px;")
         h5
           label(for="user_passwd") 비밀번호
-      .col.col-sm-3.col-xs-7(style="padding-right:2px;")
+      .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().passwd_1_form_class}}")
         input#user_passwd.form-control(type="password" ng-model="user_obj.passwd" placeholder="비밀번호(6자 이상)")
       .col.col-sm-7.col-xs-12
         h5
-          span.text-danger  {{user_obj.step_0_chk().lengthtxt}}
+          span(class="{{user_obj.step_0_chk().passwd_1_class}}")
+            |  {{user_obj.step_0_chk().passwd_1_txt}}
     .row
       .col.col-sm-2.col-xs-5.text-right(style="padding:1px;")
         h5
           label(for="user_passwd_re") 비밀번호 확인
-      .col.col-sm-3.col-xs-7(style="padding-right:2px;")
+      .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().passwd_2_form_class}}")
         input#user_passwd_re.form-control(type="password" ng-model="user_obj.passwd_re" placeholder="비밀번호 확인")
       .col.col-sm-7.col-xs-12
         h5
-          span(class="{{user_obj.step_0_chk().class}}")
-            |  {{user_obj.step_0_chk().text}}
+          span(class="{{user_obj.step_0_chk().passwd_2_class}}")
+            |  {{user_obj.step_0_chk().passwd_2_txt}}
     br
     .row
       .col.col-sm-9.col-xs-8

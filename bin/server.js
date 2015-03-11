@@ -1,12 +1,14 @@
 var express = require('express');
 var stylus = require('stylus');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');  //데이터 입력을 위한 패키지.
+var multiparty = require('multiparty');   //파일 업로드를 위한 패키지.
 var YAML = require('yamljs');
 var http = require('http');
+var fs = require('fs');
+var es = require('./es.js');
 
 // 마음고리 홈 디렉토리.
-var $MAUM_HOME = require('path').join(__dirname, '../');
-
+var $MAUM_HOME = require('path').join(__dirname, '..');
 //마음고리 환경설정 정보가 담긴 객체.
 var config_obj = YAML.load($MAUM_HOME+'/config/maum.yml');
 // console.log("%j",config_obj);
@@ -33,69 +35,66 @@ app.use(express.static($MAUM_HOME + '/public'));
 //body-paerser 미들웨어 적용.
 app.use(bodyParser.json())
 
-// 회원가입 데이터 받는 REST API
+// 회원정보 입력.
 app.post('/signin', function(req, res){
-  var user_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
-  // 엘라스틱서치 사용자정보 입력 시작.
-  var userString = JSON.stringify(user_obj);
-  console.log(userString);
-  var headers = {
-    'Content-Type': 'application/json'
-  };
-  var options = {
-    host: 'localhost', port: 9200, path: '/users/user/'+user_obj.id,
-    method: 'POST',
-    headers: headers
-  };
-  var es_req = http.request(options, function(es_res) {
-    es_res.setEncoding('utf-8');
-    var responseString = '';
-    es_res.on('data', function(data) {
-      responseString += data;
-    });
-    es_res.on('end', function() {
-      console.log(responseString);
-      var resultObject = JSON.parse(responseString);
-    });
-  });
-  es_req.write(userString);
-  es_req.end();
-  // 엘라스틱서치 사용자정보 입력 끝.
-
-  res.send('user inserted');
+  es.insertUser(req, res);
 });
 
 // 회원 가입 시 아이디 체크.
 app.get('/users/:id', function(req, res){
-  var id = req.params.id;
-//  console.log("id : "+id);
-  var idExist = false;
-  var headers = {
-    'Content-Type': 'application/json'
-  };
-  var options = {
-    host: 'localhost', port: 9200, path: '/users/user/'+id,
-    method: 'GET',
-    headers: headers
-  };
-  var es_req = http.request(options, function(es_res) {
-    es_res.setEncoding('utf-8');
-    var responseString = '';
-    es_res.on('data', function(data) {
-      var resultObject = JSON.parse(data);
-//      console.log("%j",resultObject);
-      if(resultObject.found){
-        idExist = resultObject.found;
-      } else {
-        idExist = false;
-      }
-      res.send(idExist);
-    }).on('error', function(error) {
-      console.log(error);
-      res.send(false);
-    });
+  es.checkId(req,res);
+});
+
+// 이미지 파일 업로드.
+// https://github.com/andrewrk/node-multiparty/ 잘 참고할것.
+app.post('/fileupload/photo', function(req, res) {
+  var form = new multiparty.Form();
+  var size = '';
+  var fileName = '';
+  // 전체. 파일 아닌 경우도.
+  form.on('part', function(part){
+      if(!part.filename) return;
+      size = part.byteCount;
+      fileName = part.filename;
   });
-  es_req.end();
+  // 파일인 경우.
+  form.on('file', function(name,file){
+    /*
+    console.log(file.path);
+    console.log('file.fieldName: ' + file.fieldName);
+    console.log('file.originalFilename: ' + file.originalFilename);
+    console.log('file.size: ' + file.size);
+    console.log('file.path: ' + file.path);
+    console.log('filename: ' + fileName);
+    console.log('fileSize: '+ size);
+    */
+    if(!fileName)
+      fileName = file.originalFilename;
+    var tmp_path = file.path;   //이 함수가 실행될 때 이미 이미지는 업로드 되어 있음. 저장된 임시 디렉토리.
+    var target_path = $MAUM_HOME+'/public/images/profile/'+fileName;
+    //임시 디렉토리에서 target_path로 이미지 무브.
+    fs.rename(tmp_path, target_path, function(err) {
+      if (err) throw err;
+      fs.unlink(tmp_path, function() {
+        if (err) throw err;
+        res.send('/images/profile/'+fileName);
+      });
+    });
+
+  });
+  form.parse(req);
+});
+
+//이미지 파일들 리턴
+app.get('/images/:id', function(req, res) {
+  res.render('partials/' + req.params.id);
+});
+
+// /metadata 에서 메타데이터 리턴. config/metadata.yml 파싱.
+app.get('/metadata', function(req, res){
+  var metadata_obj = YAML.load($MAUM_HOME+'/config/metadata.yml');
+  res.writeHead(200, {"Content-Type": "application/json"});
+  res.end(JSON.stringify(metadata_obj));
 });
 
 //jade 에서 include 하는 파트 파일들 존재하는 디렉토리.
@@ -105,7 +104,7 @@ app.get('/partials/:partialFile', function(req, res) {
 
 // index.jade 실행.
 // '/' 대신 '*' 로 해 놓으면 모든 경로에서 로딩.
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
   res.render('index', {
     // index.jade 에 보낼 object data 설정.
   });

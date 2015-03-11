@@ -5,6 +5,7 @@
 - nodemon 1.3.7
 - express 4.12.2
 - body-parser 1.12.0
+- multiparty 4.1.1
 - jade 1.9.2
 - yamljs 0.2.1
 - stylus 0.50.0

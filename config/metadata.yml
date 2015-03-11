@@ -1,0 +1,14 @@
+specialized :
+  - name : "관계"
+    comment : "부부, 자녀, 친구와의 관계 회복"
+  - name : "발견"
+    comment : "적성발견, 꿈찾기"
+  - name : "성장"
+    comment : "새로운 도전과 발전"
+  - name : "극복"
+    comment : "컴플렉스, 트라우마 극복"
+  - name : "치유"
+    comment : "왕따, 고아 등 환경에 의한 상처 회복"
+  - name : "마음"
+    comment : "명상을 통한 영적 훈련"
+target: ["유아, 아등","청소년","청년","직장인","부부","노인"]

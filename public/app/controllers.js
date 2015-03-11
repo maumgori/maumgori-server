@@ -6,7 +6,7 @@
     사용자 정보 담는 객체.
     */
     $scope.user_obj = {
-      signin_step : 1,
+      signin_step : 2,
       id : '',
       id_check : function(){
         if($scope.user_obj.id.length > 0){
@@ -23,39 +23,49 @@
       passwd_re : '',
       step_0_chk : function() {
         var data = {
-          class : 'text-danger',
-          text : '',
+          passwd_1_class : 'text-danger',
+          passwd_2_class : 'text-danger',
+          passwd_1_form_class : 'has-error',
+          passwd_2_form_class : 'has-error',
+          passwd_1_txt : '',
+          passwd_2_txt : '',
           id_class : 'text-danger',
+          id_form_class : 'has-error',
           id_txt : '',
-          lengthtxt : '',
           id_confirmed : false,
-          passwd_confirmed : false,
+          passwd_1_confirmed : false,
+          passwd_2_confirmed : false,
           confirmed : false
         }
 
         // 아이디 검증.
         if($scope.user_obj.id === ''){
           data.id_class = "";
+          data.id_form_class = "";
           data.id_txt = ""
           data.id_confirmed = false;
         } else {
           var ck_validation = /^[a-z0-9_]{0,20}$/;
           if(!ck_validation.test($scope.user_obj.id)){
             data.id_class = "text-danger";
+            data.id_form_class = "has-error";
             data.id_txt = "영어 소문자, 숫자, '_' 만 입력 가능합니다."
             data.id_confirmed = false;
           } else {
             if($scope.user_obj.id.length < 4){
               data.id_class = "text-danger";
+              data.id_form_class = "has-error";
               data.id_txt = "4자리 이상 입력하세요."
               data.id_confirmed = false;
             } else {
               if($scope.user_obj.id_check_val){
                 data.id_class = "text-danger";
+                data.id_form_class = "has-error";
                 data.id_txt = "이미 존재하는 아이디 입니다."
                 data.id_confirmed = false;
               } else {
                 data.id_class = "text-primary";
+                data.id_form_class = "has-primary";
                 data.id_txt = "사용 가능한 아이디 입니다."
                 data.id_confirmed = true;
               }
@@ -65,34 +75,45 @@
 
         // 비밀번호 검증.
         if($scope.user_obj.passwd === ''){
-          data.class = "";
-          data.lengthtxt = "";
-          data.text = "";
-          data.passwd_confirmed = false;
+          data.passwd_1_class = "",
+          data.passwd_1_form_class = "",
+          data.passwd_1_txt = "",
+          data.passwd_1_confirmed = false;
         } else {
           if($scope.user_obj.passwd.length < 6){
-            data.lengthtxt = "비밀번호는 6자리 이상 입력하세요.";
+            data.passwd_1_class = "text-danger",
+            data.passwd_1_form_class = "has-error",
+            data.passwd_1_txt = "비밀번호는 6자리 이상 입력하세요.",
             data.passwd_confirmed = false;
           } else {
-            if($scope.user_obj.passwd_re === ''){
-              data.class = "";
-              data.text = "";
-              data.passwd_confirmed = false;
-            } else {
-              if($scope.user_obj.passwd === $scope.user_obj.passwd_re){
-                data.class = "text-primary";
-                data.text = "비밀번호가 확인되었습니다.";
-                data.passwd_confirmed = true;
-              } else {
-                data.class = "text-danger";
-                data.text = "비밀번호가 동일하지 않습니다.";
-                data.passwd_confirmed = false;
-              }
-            }
+            data.passwd_1_class = "text-primary",
+            data.passwd_1_form_class = "has-primary",
+            data.passwd_1_txt = "사용 가능한 비밀번호입니다.",
+            data.passwd_1_confirmed = true;
           }
         }
 
-        data.confirmed = data.id_confirmed && data.passwd_confirmed;
+        // 비밀번호 확인 검증.
+        if($scope.user_obj.passwd_re === ''){
+          data.passwd_2_class = "",
+          data.passwd_2_form_class = "",
+          data.passwd_2_txt = "",
+          data.passwd_2_confirmed = false;
+        } else {
+          if($scope.user_obj.passwd === $scope.user_obj.passwd_re){
+            data.passwd_2_class = "text-primary",
+            data.passwd_2_form_class = "has-primary",
+            data.passwd_2_txt = "비밀번호가 확인되었습니다.",
+            data.passwd_2_confirmed = true;
+          } else {
+            data.passwd_2_class = "text-danger",
+            data.passwd_2_form_class = "has-error",
+            data.passwd_2_txt = "비밀번호가 동일하지 않습니다.",
+            data.passwd_2_confirmed = false;
+          }
+        }
+
+        data.confirmed = data.id_confirmed && data.passwd_1_confirmed && data.passwd_2_confirmed;
         return data;
       },
       signin_before : function() {
@@ -101,8 +122,8 @@
       signin_next : function() {
         // /signin 에 POST 로 user_obj 데이터 전달.
         $http.post('/signin',$scope.user_obj).success(function(data){
-          $scope.user_obj.signin_step++;
           console.log("result : "+data);
+          $scope.user_obj.signin_step++;
         }).error(function(error){
           console.log("error : "+error);
         });
@@ -114,7 +135,26 @@
           return "개인정보 입력"
         }
       },
-      user_photo : null,
+      user_photo : '/images/blank-user.jpg',
+      upload_photo : function(){
+        var form = document.getElementsByName('user_photo_frm')[0];
+        var formData = new FormData(form);
+        $.ajax({
+           url: '/fileupload/photo',
+           processData: false,
+           contentType: false,
+           data: formData,
+           type: 'POST',
+           success: function(result){
+//             console.log("result: "+result);
+             $scope.user_obj.user_photo = result;
+             $scope.$apply();   //안하면 이미지 릴로드 안됨.
+           },
+           error:function(e){
+            console.log(e.responseText);
+          }
+        });
+      },
       name : '',
       gender : 'male',
       birthday : {
@@ -157,8 +197,17 @@
       homepage : '',
       career : '',
       qualification : '',
-
+      metadata : {},
+      getMeta : function(){
+        $http.get('/metadata').success(function(data){
+          //console.log(data);
+          $scope.user_obj.metadata = data;
+        }).error(function(error){
+          console.log("error : "+error);
+        });
+      }(),
     }
+
   });
 
   app.controller('mainCtrl', function($scope) {

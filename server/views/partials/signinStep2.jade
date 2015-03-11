@@ -1,0 +1,14 @@
+form(name="user_frm_2")
+  .signin-animation(ng-show="user_obj.signin_step===2")
+    .row
+      .col.col-sm-6
+        .col.col-xs-12
+        h4
+          | 전문분야
+        .col.col-xs-12(ng-repeat="spec in user_obj.metadata.specialized" style="padding-left:0px;")
+          label.control-label
+            input(type="checkbox")
+            span
+            | &nbsp;{{spec.name}} -
+            small.text-muted
+              | &nbsp;{{spec.comment}}

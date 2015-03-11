@@ -1,5 +1,8 @@
 # 마음고리 환경 설절 정보
 # YAML 형식으로 입력.
 
-host: maumgori.com
-api_key: APIKEYSTRING
+host: "maumgori.com"
+api_key: "APIKEYSTRING"
+es:
+  host: "localhost"
+  port: 9200
