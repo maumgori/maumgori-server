@@ -1,1 +1,10 @@
 //- 메인 영역
+.col.col-md-4.col-sm-6.col-xs-12(ng-repeat="expert in expertList")
+  .thumbnail
+    img(ng-src="{{expert.user_photo}}")
+    .caption
+      h3 {{expert.name}}
+      p {{expert.qualification}}
+      p
+        button.btn.btn-default
+          | 자세히 보기

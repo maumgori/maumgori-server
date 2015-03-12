@@ -5,10 +5,38 @@ form(name="user_frm_2")
         .col.col-xs-12
         h4
           | 전문분야
-        .col.col-xs-12(ng-repeat="spec in user_obj.metadata.specialized" style="padding-left:0px;")
+        .col.col-xs-12(ng-repeat="spec in user_obj.metadata.specialized track by $index" style="padding-left:0px;")
           label.control-label
-            input(type="checkbox")
+            input(type="checkbox" name="specialized" ng-click="user_obj.checkChecked();" value="{{spec.name}}")
             span
             | &nbsp;{{spec.name}} -
             small.text-muted
               | &nbsp;{{spec.comment}}
+      .col.col-sm-6
+        .container-fluid(style="padding:0px;")
+          .col.col-xs-12
+          h4
+            | 대상
+          .col.col-xs-6(ng-repeat="target in user_obj.metadata.target" style="padding-left:0px;")
+            label.control-label
+              input(type="checkbox" name="target" ng-click="user_obj.checkChecked();" value="{{target}}")
+              | &nbsp;{{target}}
+        br
+        .container-fluid(style="padding:0px;")
+          .col.col-xs-12
+          h4
+            | 키워드
+          .col.col-xs-12(style="padding-left:0px;")
+            textarea.form-control(ng-model="user_obj.keyword")
+    br
+    .row
+      .col.col-sm-1
+      .col.col-sm-2.col-xs-4
+        button.btn.btn-warning.btn-block(type="button" ng-click="user_obj.signin_before()")
+          i.glyphicon.glyphicon-arrow-left
+          | &nbsp;이전
+      .col.col-sm-5.col-xs-4
+      .col.col-sm-3.col-xs-4
+        button.btn.btn-success.btn-block(type="button" ng-click="user_obj.signin_next();")
+          | 회원가입 완료
+      .col.col-sm-1

@@ -18,8 +18,8 @@ var config_obj = YAML.load($MAUM_HOME+'/config/maum.yml');
 exports.insertUser = function (req, res) {
   // 엘라스틱서치 사용자정보 입력 시작.
   var user_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
+  console.log("%j",user_obj);
   var userString = JSON.stringify(user_obj);
-//  console.log(userString);
   var headers = {
     'Content-Type': 'application/json'
   };
@@ -86,5 +86,34 @@ exports.checkId = function(req, res){
 
 //전문가 목록 겟.
 exports.getExpertList = function(req, res){
-
+  var expert_list = [];
+  var headers = {
+    'Content-Type': 'application/json'
+  };
+  var options = {
+    host: config_obj.es.host,
+    port: config_obj.es.port,
+    path: '/users/user/_search',
+    method: 'GET',
+    headers: headers
+  };
+  var es_req = http.request(options, function(es_res) {
+    es_res.setEncoding('utf-8');
+    var responseString = '';
+    es_res.on('data', function(data) {
+      var resultObject = JSON.parse(data);
+      console.log("%j",resultObject);
+      if(resultObject.hits){
+        for(var i=0; i < resultObject.hits.hits.length; i++){
+          expert_list.push(resultObject.hits.hits[i]._source)
+        }
+      } else {
+      }
+      res.send(expert_list);
+    }).on('error', function(error) {
+      console.log(error);
+      res.send(false);
+    });
+  });
+  es_req.end();
 }

@@ -6,7 +6,7 @@
     사용자 정보 담는 객체.
     */
     $scope.user_obj = {
-      signin_step : 2,
+      signin_step : 0,
       id : '',
       id_check : function(){
         if($scope.user_obj.id.length > 0){
@@ -18,7 +18,7 @@
         }
       },
       id_check_val : false,
-      type : 'expert',
+      type : 'user',
       passwd : '',
       passwd_re : '',
       step_0_chk : function() {
@@ -124,6 +124,9 @@
         $http.post('/signin',$scope.user_obj).success(function(data){
           console.log("result : "+data);
           $scope.user_obj.signin_step++;
+          if($scope.user_obj.signin_step > 2){
+            $('#signinModal').modal('hide');
+          }
         }).error(function(error){
           console.log("error : "+error);
         });
@@ -133,6 +136,8 @@
           return "아이디 생성"
         } else if($scope.user_obj.signin_step === 1){
           return "개인정보 입력"
+        } else if($scope.user_obj.signin_step === 2){
+          return "전문분야 및 대상"
         }
       },
       user_photo : '/images/blank-user.jpg',
@@ -206,11 +211,35 @@
           console.log("error : "+error);
         });
       }(),
+      specialized: [],
+      target: [],
+      checkChecked : function(){
+        $scope.user_obj.specialized = [];
+        $("input[name=specialized]:checked").each(function (index) {
+          $scope.user_obj.specialized.push($(this).val());
+        });
+
+        $scope.user_obj.target = [];
+        $("input[name=target]:checked").each(function (index) {
+          $scope.user_obj.target.push($(this).val());
+        });
+      },
+      keyword: ''
     }
 
   });
 
-  app.controller('mainCtrl', function($scope) {
+  app.controller('mainCtrl', function($scope,$http) {
+    $scope.expertList = [];
+
+    $scope.getExpertList = function(){
+      $http.get('/expertlist').success(function(data){
+        console.log(data);
+        $scope.expertList = data;
+      }).error(function(error){
+        console.log("error : "+error);
+      });
+    }();
 
   });
 

@@ -45,6 +45,10 @@ app.get('/users/:id', function(req, res){
   es.checkId(req,res);
 });
 
+app.get('/expertlist', function(req, res){
+  es.getExpertList(req,res);
+});
+
 // 이미지 파일 업로드.
 // https://github.com/andrewrk/node-multiparty/ 잘 참고할것.
 app.post('/fileupload/photo', function(req, res) {
