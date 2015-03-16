@@ -1,12 +1,18 @@
 // 로그인 폼
 .panel.panel-default
   .panel-body
-    form
+    div(ng-hide="user_obj.id && user_obj.signin_step > 0")
       p
         input.form-control(type="text" placeholder="아이디")
         input.form-control(type="password" placeholder="패스워드")
       p
         button.btn.btn-success.btn-block(type="submit") 로그인
         button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal") 회원가입
+    div(ng-show="user_obj.id && user_obj.signin_step > 0")
+      p
+        img.img-rounded(ng-src="{{user_obj.user_photo}}" width="100%")
+      p
+        button.btn.btn-warning.btn-block(type="button") 로그아웃
+        button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal") 정보 수정
 // 회원 가입 모달.
 include signinModal

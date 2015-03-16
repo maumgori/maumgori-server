@@ -18,7 +18,7 @@ var config_obj = YAML.load($MAUM_HOME+'/config/maum.yml');
 exports.insertUser = function (req, res) {
   // 엘라스틱서치 사용자정보 입력 시작.
   var user_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
-  console.log("%j",user_obj);
+//  console.log("%j",user_obj);
   var userString = JSON.stringify(user_obj);
   var headers = {
     'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ exports.getExpertList = function(req, res){
     var responseString = '';
     es_res.on('data', function(data) {
       var resultObject = JSON.parse(data);
-      console.log("%j",resultObject);
+      //console.log("%j",resultObject);
       if(resultObject.hits){
         for(var i=0; i < resultObject.hits.hits.length; i++){
           expert_list.push(resultObject.hits.hits[i]._source)

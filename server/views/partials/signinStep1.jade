@@ -1,14 +1,33 @@
-form(name="user_photo_frm" enctype="multipart/form-data" method="POST" action="/fileupload/photo")
-  input#user_photo(type="file" name="photoFile" accept="image/*" style="display:none;" onchange="if(this.value!=='')($('#photo_up_btn').removeAttr('disabled'));")
+input#user_photo_file(type="file" name="photoFile" accept="image/*" style="display:none;" onchange="$('#imgUploadModal').modal('show')")
+form(name="user_photo_frm" method="POST" action="/fileupload/photo")
+  //input#user_photo_file(type="file" name="photoFile" accept="image/*" style="display:none;" onchange="if(this.value!=='')($('#photo_up_btn').removeAttr('disabled'));")
+  input(type="hidden" name="user_id" ng-value="user_obj.id")
+  input#user_photo_file_crop(type="hidden" name="photoFileCrop")
+  .modal#imgUploadModal(data-keyboard="false" data-backdrop="static")
+    .modal-dialog
+      .modal-content
+        .modal-body
+          .row
+            .col.col-sm-9
+              .cropArea
+                img-crop(image="myImage" result-image="user_obj.user_photo_data" area-min-size=40 result-image-size=480)
+            .col.col-sm-3(style="padding-left: 0px")
+              .thumbnail
+                img.img-circle(ng-src="{{user_obj.user_photo_data}}" width="100%")
+              button.btn.btn-block.btn-success(type="button" ng-click="user_obj.upload_photo();")
+                | 이미지 저장
+              //button.btn.btn-block.btn-success(type="button" ng-click="user_obj.user_photo_append();")
+                | 이미지 저장
+              button.btn.btn-block.btn-danger(type="button" onclick="$('#imgUploadModal').modal('hide')")
+                | 취소
 form(name="user_frm_2")
   .signin-animation(ng-show="user_obj.signin_step===1")
     .row
       .col.col-sm-3.text-center
-        label(for="user_photo")
-          img#user_photo.img-rounded(ng-src="{{user_obj.user_photo}}" width="100%")
-        label(for="user_photo").btn.btn-xs.btn-block.btn-default 사진 선택
-        button#photo_up_btn.btn.btn-xs.btn-block.btn-info(type="button" ng-click="user_obj.upload_photo();" disabled="disabled")
-          | 업로드
+        label(for="user_photo_file")
+          img.img-circle(ng-src="{{user_obj.user_photo}}" width="100%")
+        label.btn.btn-sm.btn-block.btn-default(for="user_photo_file")
+          | 사진 선택
       .col.col-sm-9
         .row
           .col.col-xs-12
@@ -93,7 +112,7 @@ form(name="user_frm_2")
           h5
             label(for="qualification") 자격사항
         .col.col-sm-7
-          input#qualification.form-control(type="text" ng-model="user_obj.career" placeholder="코치협회 인증, 국가상담사 자격 등..")
+          input#qualification.form-control(type="text" ng-model="user_obj.qualification" placeholder="코치협회 인증, 국가상담사 자격 등..")
       .row(ng-show="user_obj.type==='expert'")
         .col.col-sm-2.text-right(style="padding:1px;")
           h5

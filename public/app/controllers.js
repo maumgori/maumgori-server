@@ -1,5 +1,5 @@
 (function(){
-  var app = angular.module('controllers',[]);
+  var app = angular.module('controllers',['ngImgCrop']);
 
   app.controller('loginFormCtrl', function($scope,$http){
     /**
@@ -18,7 +18,7 @@
         }
       },
       id_check_val : false,
-      type : 'user',
+      type : 'expert',
       passwd : '',
       passwd_re : '',
       step_0_chk : function() {
@@ -141,24 +141,42 @@
         }
       },
       user_photo : '/images/blank-user.jpg',
+      user_photo_data : '',
       upload_photo : function(){
+//        console.log($scope.user_obj.user_photo_data);
+        var photoData = {
+          photo : $scope.user_obj.user_photo_data,
+          id : $scope.user_obj.id
+        };
+        $http.post('/fileupload/photo',photoData).success(function(data){
+          console.log("result : "+data);
+        }).error(function(error){
+          console.log("error : "+error);
+        });
+        /*
+        $('#user_photo_file_crop').val($scope.user_obj.user_photo_data);
         var form = document.getElementsByName('user_photo_frm')[0];
         var formData = new FormData(form);
         $.ajax({
-           url: '/fileupload/photo',
-           processData: false,
-           contentType: false,
-           data: formData,
-           type: 'POST',
-           success: function(result){
-//             console.log("result: "+result);
-             $scope.user_obj.user_photo = result;
-             $scope.$apply();   //안하면 이미지 릴로드 안됨.
-           },
-           error:function(e){
+          url: '/fileupload/photo',
+          processData: false,
+          contentType: false,
+          data: formData,
+          type: 'POST',
+          success: function(result){
+//          console.log("result: "+result);
+            $scope.user_obj.user_photo = result;
+            $scope.$apply();   //안하면 이미지 릴로드 안됨.
+          },
+          error:function(e){
             console.log(e.responseText);
           }
         });
+        */
+      },
+      user_photo_append : function(){
+        $scope.user_obj.user_photo = $scope.user_obj.user_photo_data;
+        $('#imgUploadModal').modal('hide');
       },
       name : '',
       gender : 'male',
@@ -225,7 +243,28 @@
         });
       },
       keyword: ''
-    }
+    };
+
+    // 로그인 사용자 객체 초기화.
+    angular.copy($scope.user_obj,$scope.user_init);
+    var clear_user = function(){
+      $scope.user_obj = $scope.user_init;
+    };
+
+    // 이미지 크롭
+    $scope.myImage='';
+    $scope.myCroppedImage='';
+    var handleFileSelect=function(evt) {
+      var file=evt.currentTarget.files[0];
+      var reader = new FileReader();
+      reader.onload = function (evt) {
+        $scope.$apply(function($scope){
+          $scope.myImage=evt.target.result;
+        });
+      };
+      reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#user_photo_file')).on('change',handleFileSelect);
 
   });
 
@@ -234,7 +273,7 @@
 
     $scope.getExpertList = function(){
       $http.get('/expertlist').success(function(data){
-        console.log(data);
+        //console.log(data);
         $scope.expertList = data;
       }).error(function(error){
         console.log("error : "+error);

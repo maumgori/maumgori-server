@@ -1,7 +1,7 @@
 //- 메인 영역
-.col.col-md-4.col-sm-6.col-xs-12(ng-repeat="expert in expertList")
+.col.col-lg-3.col-md-4.col-sm-6.col-xs-12(ng-repeat="expert in expertList")
   .thumbnail
-    img(ng-src="{{expert.user_photo}}")
+    img.img-rounded(ng-src="{{expert.user_photo}}" width="100%")
     .caption
       h3 {{expert.name}}
       p {{expert.qualification}}

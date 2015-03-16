@@ -86,6 +86,7 @@ node_modules/.bin/bower init
 node_modules/.bin/bower install bootstrap --save
 node_modules/.bin/bower install toastr --save
 node_modules/.bin/bower install angular angular-resource angular-route --save
+node_modules/.bin/bower install ngImgCrop --save
 ```
 - toastr 는 팝업을 좀 더 편하게 만들어 주는 라이브러리.
 - 여기까지 하고 나면 public/vendor 아래에 각종 패키지 설치됨.

@@ -33,11 +33,13 @@ app.use(stylus.middleware(
 ));
 app.use(express.static($MAUM_HOME + '/public'));
 //body-paerser 미들웨어 적용.
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}))
 
 // 회원정보 입력.
 app.post('/signin', function(req, res){
-  es.insertUser(req, res);
+  var user_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
+  console.log("%j",user_obj);
+//  es.insertUser(req, res);
 });
 
 // 회원 가입 시 아이디 체크.
@@ -52,41 +54,15 @@ app.get('/expertlist', function(req, res){
 // 이미지 파일 업로드.
 // https://github.com/andrewrk/node-multiparty/ 잘 참고할것.
 app.post('/fileupload/photo', function(req, res) {
-  var form = new multiparty.Form();
-  var size = '';
-  var fileName = '';
-  // 전체. 파일 아닌 경우도.
-  form.on('part', function(part){
-      if(!part.filename) return;
-      size = part.byteCount;
-      fileName = part.filename;
+  var bodyVal = req.body;
+  //console.log('%j', bodyVal);
+  var fileName = $MAUM_HOME+'/public/images/profile/'+bodyVal.id+".png";
+  var base64Data = bodyVal.photo.replace(/^data:image\/png;base64,/, "");
+  require("fs").writeFile(fileName, base64Data, 'base64', function(err) {
+    if(err) throw err;
   });
-  // 파일인 경우.
-  form.on('file', function(name,file){
-    /*
-    console.log(file.path);
-    console.log('file.fieldName: ' + file.fieldName);
-    console.log('file.originalFilename: ' + file.originalFilename);
-    console.log('file.size: ' + file.size);
-    console.log('file.path: ' + file.path);
-    console.log('filename: ' + fileName);
-    console.log('fileSize: '+ size);
-    */
-    if(!fileName)
-      fileName = file.originalFilename;
-    var tmp_path = file.path;   //이 함수가 실행될 때 이미 이미지는 업로드 되어 있음. 저장된 임시 디렉토리.
-    var target_path = $MAUM_HOME+'/public/images/profile/'+fileName;
-    //임시 디렉토리에서 target_path로 이미지 무브.
-    fs.rename(tmp_path, target_path, function(err) {
-      if (err) throw err;
-      fs.unlink(tmp_path, function() {
-        if (err) throw err;
-        res.send('/images/profile/'+fileName);
-      });
-    });
+  //  http://stackoverflow.com/questions/6926016/nodejs-saving-a-base64-encoded-image-to-disk : 참고.
 
-  });
-  form.parse(req);
 });
 
 //이미지 파일들 리턴

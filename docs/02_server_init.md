@@ -35,3 +35,8 @@ node server.js
 node server.js 하던지
 nodemon 설치해서 하던지 ( npm install nodemon -g )
 nodemon server.js
+
+
+이미지 크롭 라이브러리.
+
+https://www.npmjs.com/package/ng-img-crop
