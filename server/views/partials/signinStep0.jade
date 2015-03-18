@@ -9,11 +9,11 @@ form(name="user_frm_1")
             | &nbsp;사용자 구분
       .col.col-sm-4.col-xs-7(style="padding-top:8px;")
         label.control-label
-          input(type="radio" name="user_type" value="expert" ng-model="user_obj.type")
+          input#user_type_1(type="radio" ng-disabled="user_obj.id_created" name="user_type" value="expert" ng-model="user_obj.type")
           | &nbsp;전문가
         | &nbsp;&nbsp;
         label.control-label
-          input(type="radio" name="user_type" value="user" ng-model="user_obj.type")
+          input#user_type_2(type="radio" ng-disabled="user_obj.id_created" name="user_type" value="user" ng-model="user_obj.type")
           | &nbsp;일반사용자
       .col.col-sm-6.col-xs-12(style="padding-left:2px;")
         h5
@@ -27,7 +27,7 @@ form(name="user_frm_1")
               | *
             | &nbsp;아이디
       .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().id_form_class}}")
-        input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" placeholder="아이디 (4~20자)" ng-change="user_obj.id_check()")
+        input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" ng-disabled="user_obj.id_created" placeholder="아이디 (4~20자)" ng-change="user_obj.id_check()")
       .col.col-sm-7.col-xs-12
         h5
           span(class="{{user_obj.step_0_chk().id_class}}")
@@ -37,7 +37,7 @@ form(name="user_frm_1")
         h5
           label(for="user_passwd") 비밀번호
       .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().passwd_1_form_class}}")
-        input#user_passwd.form-control(type="password" ng-model="user_obj.passwd" placeholder="비밀번호(6자 이상)")
+        input#user_passwd.form-control(type="password" ng-disabled="user_obj.id_created" ng-model="user_obj.passwd" placeholder="비밀번호(6자 이상)")
       .col.col-sm-7.col-xs-12
         h5
           span(class="{{user_obj.step_0_chk().passwd_1_class}}")
@@ -47,7 +47,7 @@ form(name="user_frm_1")
         h5
           label(for="user_passwd_re") 비밀번호 확인
       .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().passwd_2_form_class}}")
-        input#user_passwd_re.form-control(type="password" ng-model="user_obj.passwd_re" placeholder="비밀번호 확인")
+        input#user_passwd_re.form-control(type="password" ng-disabled="user_obj.id_created" ng-model="user_obj.passwd_re" placeholder="비밀번호 확인")
       .col.col-sm-7.col-xs-12
         h5
           span(class="{{user_obj.step_0_chk().passwd_2_class}}")

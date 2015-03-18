@@ -1,11 +1,11 @@
 var express = require('express');
 var stylus = require('stylus');
 var bodyParser = require('body-parser');  //데이터 입력을 위한 패키지.
-var multiparty = require('multiparty');   //파일 업로드를 위한 패키지.
 var YAML = require('yamljs');
 var http = require('http');
-var fs = require('fs');
-var es = require('./es.js');
+
+var es = require('./es.js');  // 엘라스틱서치 처리.
+var file = require('./file.js');  //파일 업로드 처리.
 
 // 마음고리 홈 디렉토리.
 var $MAUM_HOME = require('path').join(__dirname, '..');
@@ -35,13 +35,14 @@ app.use(express.static($MAUM_HOME + '/public'));
 //body-paerser 미들웨어 적용.
 app.use(bodyParser.json({limit: '50mb'}))
 
+//로그인
+app.post('/login', function(req, res){
+  es.login(req, res);
+});
 // 회원정보 입력.
 app.post('/signin', function(req, res){
-  var user_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
-  console.log("%j",user_obj);
-//  es.insertUser(req, res);
+  es.insertUser(req, res);
 });
-
 // 회원 가입 시 아이디 체크.
 app.get('/users/:id', function(req, res){
   es.checkId(req,res);
@@ -52,22 +53,8 @@ app.get('/expertlist', function(req, res){
 });
 
 // 이미지 파일 업로드.
-// https://github.com/andrewrk/node-multiparty/ 잘 참고할것.
 app.post('/fileupload/photo', function(req, res) {
-  var bodyVal = req.body;
-  //console.log('%j', bodyVal);
-  var fileName = $MAUM_HOME+'/public/images/profile/'+bodyVal.id+".png";
-  var base64Data = bodyVal.photo.replace(/^data:image\/png;base64,/, "");
-  require("fs").writeFile(fileName, base64Data, 'base64', function(err) {
-    if(err) throw err;
-  });
-  //  http://stackoverflow.com/questions/6926016/nodejs-saving-a-base64-encoded-image-to-disk : 참고.
-
-});
-
-//이미지 파일들 리턴
-app.get('/images/:id', function(req, res) {
-  res.render('partials/' + req.params.id);
+  file.saveProfileImg(req,res);
 });
 
 // /metadata 에서 메타데이터 리턴. config/metadata.yml 파싱.

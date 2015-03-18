@@ -3,31 +3,51 @@ form(name="user_frm_2")
     .row
       .col.col-sm-6
         .col.col-xs-12
-        h4
-          | 전문분야
-        .col.col-xs-12(ng-repeat="spec in user_obj.metadata.specialized track by $index" style="padding-left:0px;")
+        h5
+          label 전문 분야 -
+            span.text-danger
+              | &nbsp;최대 3개까지 선택 가능합니다.
+        .col.col-xs-12(ng-repeat="cate in user_obj.metadata.category track by $index" style="padding-left:0px;")
           label.control-label
-            input(type="checkbox" name="specialized" ng-click="user_obj.checkChecked();" value="{{spec.name}}")
+            input(type="checkbox" name="category" ng-click="user_obj.checkChecked();" value="{{cate.name}}" ng-disabled="user_obj.category.length>2 && !user_obj.category_ischecked[$index]")
             span
-            | &nbsp;{{spec.name}} -
+            | &nbsp;{{cate.name}} -
             small.text-muted
-              | &nbsp;{{spec.comment}}
+              | &nbsp;{{cate.comment}}
       .col.col-sm-6
         .container-fluid(style="padding:0px;")
-          .col.col-xs-12
-          h4
-            | 대상
-          .col.col-xs-6(ng-repeat="target in user_obj.metadata.target" style="padding-left:0px;")
-            label.control-label
-              input(type="checkbox" name="target" ng-click="user_obj.checkChecked();" value="{{target}}")
-              | &nbsp;{{target}}
+          .col.col-xs-4
+            h5
+              label 보유자격
+          .col.col-xs-8(style="padding-left:0px;")
+            select.form-control(ng-model="user_obj.expert_type" style="padding:5px;")
+              option(ng-repeat="expert_type in user_obj.metadata.expert_type") {{expert_type}}
+        .container-fluid(style="padding:0px;")
+          .col.col-xs-4
+            h5
+              label 활동지역
+          .col.col-xs-8(style="padding-left:0px;")
+            select.form-control(ng-model="user_obj.location" style="padding:5px;")
+              option(ng-repeat="location in user_obj.metadata.location") {{location}}
         br
         .container-fluid(style="padding:0px;")
           .col.col-xs-12
-          h4
-            | 키워드
+            label 학력/경력
           .col.col-xs-12(style="padding-left:0px;")
-            textarea.form-control(ng-model="user_obj.keyword")
+            textarea.form-control(ng-model="user_obj.career" placeholder="OO학교 XX전공 석사, 국제 ICF 공인 코치...")
+        br
+        .container-fluid(style="padding:0px;")
+          .col.col-xs-12
+            label 활동이력
+          .col.col-xs-12(style="padding-left:0px;")
+            textarea.form-control(ng-model="user_obj.activity" placeholder="각종 대학 강연, KBS1 아침마당 \"행복이란\" 출연...")
+    br
+    .row(ng-show="user_obj.type==='expert'")
+      .col.col-sm-2.text-right(style="padding:1px;")
+        h5
+          label(for="qualification_files") 증빙자료
+      .col.col-sm-7
+        input#qualification_files(type="file" onchange="alert(this.value);")
     br
     .row
       .col.col-sm-1

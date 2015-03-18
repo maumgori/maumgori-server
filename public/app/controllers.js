@@ -2,12 +2,45 @@
   var app = angular.module('controllers',['ngImgCrop']);
 
   app.controller('loginFormCtrl', function($scope,$http){
+
+    $scope.login_obj = {
+      id : '',
+      passwd : '',
+      login : function(){
+        //사용자 로그인
+        $http.post('/login',$scope.login_obj).success(function(data){
+          if(!data.idExist){
+            alert("존재하지 않는 아이디입니다.");
+          } else {
+            if(!data.correctPasswd){
+              alert("패스워드가 일치하지 않습니다.");
+            } else {
+              var obj_keys = ["signin_step","id","type","passwd","user_photo","name","gender","age","phone","email","homepage"];
+              for(var i=0; i < obj_keys.length; i++){
+                $scope.user_obj[obj_keys[i]] = data.user_obj[obj_keys[i]];
+              }
+              //생년월일도 추가해야 하는데, 좀 고민해볼것.
+              //console.log(data);
+              //console.log($scope.user_obj);
+              $scope.user_obj.passwd_re = data.user_obj.passwd;
+              $scope.user_obj.id_created = true;
+              $scope.user_obj.is_loggedin = true;
+            }
+          }
+        }).error(function(error){
+          console.log("error : "+error);
+        });
+      }
+    }
+
     /**
-    사용자 정보 담는 객체.
+    user_obj : 회원 가입 정보 담는 객체.
     */
     $scope.user_obj = {
+      is_loggedin : false,
       signin_step : 0,
       id : '',
+      id_created : false,
       id_check : function(){
         if($scope.user_obj.id.length > 0){
           $http.get('/users/'+$scope.user_obj.id).success(function(data){
@@ -45,11 +78,11 @@
           data.id_txt = ""
           data.id_confirmed = false;
         } else {
-          var ck_validation = /^[a-z0-9_]{0,20}$/;
+          var ck_validation = /^[A-Za-z0-9_]{0,20}$/;
           if(!ck_validation.test($scope.user_obj.id)){
             data.id_class = "text-danger";
             data.id_form_class = "has-error";
-            data.id_txt = "영어 소문자, 숫자, '_' 만 입력 가능합니다."
+            data.id_txt = "영어, 숫자, '_' 만 입력 가능합니다."
             data.id_confirmed = false;
           } else {
             if($scope.user_obj.id.length < 4){
@@ -72,7 +105,6 @@
             }
           }
         }
-
         // 비밀번호 검증.
         if($scope.user_obj.passwd === ''){
           data.passwd_1_class = "",
@@ -92,7 +124,6 @@
             data.passwd_1_confirmed = true;
           }
         }
-
         // 비밀번호 확인 검증.
         if($scope.user_obj.passwd_re === ''){
           data.passwd_2_class = "",
@@ -122,10 +153,13 @@
       signin_next : function() {
         // /signin 에 POST 로 user_obj 데이터 전달.
         $http.post('/signin',$scope.user_obj).success(function(data){
-          console.log("result : "+data);
-          $scope.user_obj.signin_step++;
           if($scope.user_obj.signin_step > 2){
             $('#signinModal').modal('hide');
+          } else {
+            if($scope.user_obj.id !== ''){
+              $scope.user_obj.id_created = true;
+            }
+            $scope.user_obj.signin_step++;
           }
         }).error(function(error){
           console.log("error : "+error);
@@ -135,9 +169,9 @@
         if($scope.user_obj.signin_step === 0){
           return "아이디 생성"
         } else if($scope.user_obj.signin_step === 1){
-          return "개인정보 입력"
+          return "개인 정보"
         } else if($scope.user_obj.signin_step === 2){
-          return "전문분야 및 대상"
+          return "전문 분야"
         }
       },
       user_photo : '/images/blank-user.jpg',
@@ -150,29 +184,11 @@
         };
         $http.post('/fileupload/photo',photoData).success(function(data){
           console.log("result : "+data);
+          $scope.user_obj.user_photo = data;
+          $('#imgUploadModal').modal('hide');
         }).error(function(error){
           console.log("error : "+error);
         });
-        /*
-        $('#user_photo_file_crop').val($scope.user_obj.user_photo_data);
-        var form = document.getElementsByName('user_photo_frm')[0];
-        var formData = new FormData(form);
-        $.ajax({
-          url: '/fileupload/photo',
-          processData: false,
-          contentType: false,
-          data: formData,
-          type: 'POST',
-          success: function(result){
-//          console.log("result: "+result);
-            $scope.user_obj.user_photo = result;
-            $scope.$apply();   //안하면 이미지 릴로드 안됨.
-          },
-          error:function(e){
-            console.log(e.responseText);
-          }
-        });
-        */
       },
       user_photo_append : function(){
         $scope.user_obj.user_photo = $scope.user_obj.user_photo_data;
@@ -218,32 +234,45 @@
       phone : [],
       email : '',
       homepage : '',
-      career : '',
-      qualification : '',
+      kakao : '',
+      naver_line : '',
+      facebook : '',
+      twitter : '',
+      googleplus : '',
+      linkedin : '',
+      instagram : '',
       metadata : {},
       getMeta : function(){
         $http.get('/metadata').success(function(data){
           //console.log(data);
+          //전문자격 값 설정.
+          $scope.user_obj.expert_type = data.expert_type[0];
+          $scope.user_obj.location = data.location[0];
           $scope.user_obj.metadata = data;
         }).error(function(error){
           console.log("error : "+error);
         });
-      }(),
-      specialized: [],
-      target: [],
+      },
+      category: null,
+      category_ischecked: null,
       checkChecked : function(){
-        $scope.user_obj.specialized = [];
-        $("input[name=specialized]:checked").each(function (index) {
-          $scope.user_obj.specialized.push($(this).val());
+        $scope.user_obj.category = [];
+        $scope.user_obj.category_ischecked = [];
+        $("input[name=category]:checked").each(function (index) {
+          $scope.user_obj.category.push($(this).val());
         });
-
-        $scope.user_obj.target = [];
-        $("input[name=target]:checked").each(function (index) {
-          $scope.user_obj.target.push($(this).val());
+        //3개까지만 체크하기 위해 체크여부 담겨있는 배열 생성.
+        $("input[name=category]").each(function (index) {
+          $scope.user_obj.category_ischecked.push($(this).is(":checked"));
         });
       },
-      keyword: ''
+      expert_type : '',
+      location : '',
+      career : '',
+      activity: ''
     };
+    //생성 이후에 실행 해야 실행되는 것들도 있음.
+    $scope.user_obj.getMeta();
 
     // 로그인 사용자 객체 초기화.
     angular.copy($scope.user_obj,$scope.user_init);
