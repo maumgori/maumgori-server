@@ -5,10 +5,34 @@
         button.close(type="button", data-dismiss="modal", aria-label="Close")
           span(aria-hidden="true") &#215;
         h4.modal-title 회원 가입 - {{user_obj.signin_step_text()}}
-      .modal-body
-        //회원가입 1단계 : 사용자구분, 아이디, 비밀번호
+      .modal-body(style="height:300px; overflow-x:hidden; overflow-y:auto;")
+        //회원가입 0단계 : 사용자구분, 아이디, 비밀번호
         include signinStep0
-        //회원가입 2단계 : 이름, 성별, 생년월일 등 신상정보.
+        //회원가입 1단계 : 이름, 성별, 생년월일 등 신상정보.
         include signinStep1
-        //회원가입 2단계 : 이름, 성별, 생년월일 등 신상정보.
+        //회원가입 2단계 : 전문분야, 자격, 경력 등.
         include signinStep2
+        //회원가입 3단계 : 비용 입력.
+        include signinStep3
+      .modal-footer
+        .row
+          .col.col-sm-1
+          .col.col-sm-2.col-xs-4
+            button.btn.btn-warning.btn-block(ng-hide="user_obj.signin_step===0" type="button" ng-click="user_obj.signin_before()")
+              i.glyphicon.glyphicon-arrow-left
+              | &nbsp;이전
+          .col.col-sm-6.col-xs-4
+          .col.col-sm-2.col-xs-4
+            button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===0" type="button" ng-disabled="!user_obj.step_0_chk().confirmed && !user_obj.passwd_enc" ng-click="user_obj.signin_next()")
+              | 다음 &nbsp;
+              i.glyphicon.glyphicon-arrow-right
+            button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===1" type="button" ng-disabled="!(user_obj.name && user_obj.phone[0] && user_obj.email)" ng-click="user_obj.signin_next()")
+              | 다음 &nbsp;
+              i.glyphicon.glyphicon-arrow-right
+            button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===2" type="button" ng-click="user_obj.signin_next();")
+              | 다음 &nbsp;
+              i.glyphicon.glyphicon-arrow-right
+            button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===3" type="button" ng-disabled="!(user_obj.price.phone_enable || user_obj.price.email_enable || user_obj.price.message_enable || user_obj.price.interview_enable)" ng-click="user_obj.signin_next();")
+              | 완료 &nbsp;
+              i.glyphicon.glyphicon-ok
+          .col.col-sm-1

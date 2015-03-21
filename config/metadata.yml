@@ -1,21 +1,48 @@
 category :
   - name : "꿈과 진로"
     comment : "적성발견, 꿈찾기, 직업상담"
+    style :
+      color : "#fff"
+      background-color : "#FA5858"
   - name : "연애"
     comment : "이성과의 만남, 교제"
+    style :
+      color : "#fff"
+      background-color : "#DA81F5"
   - name : "인간관계"
     comment : "사회성 훈련, 성격개조"
+    style :
+      color : "#fff"
+      background-color : "#8181F7"
   - name : "힐링"
     comment : "마음 회복"
+    style :
+      color : "#222"
+      background-color : "#81BEF7"
   - name : "치유"
     comment : "왕따, 고아 등 환경에 의한 상처 회복"
+    style :
+      color : "#222"
+      background-color : "#81F7F3"
   - name : "자아성찰"
     comment : "자아 성찰"
+    style :
+      color : "#222"
+      background-color : "#81F7BE"
   - name : "가정"
     comment : "결혼, 부부생활, 육아"
+    style :
+      color : "#222"
+      background-color : "#81F781"
   - name : "훈련"
     comment : "새로운 도전과 발전"
+    style :
+      color : "#222"
+      background-color : "#81F781"
   - name : "경청"
     comment : "고해성사, 대화"
+    style :
+      color : "#222"
+      background-color : "#FFFF00"
 expert_type: ["라이프코치","심리치료사","정신과의사","전문상담사","복지전문가"]
-location: ["전국","서울","경기도","인천/부천","대구","경상북도","경상남도","부산","대전","충청도","광주","전라도","강원도","제주도"]
+location: ["전국","서울/인천/경기","대구/부산/경상","세종/대전/충청","광주/전라","춘천/강릉/강원","제주도"]

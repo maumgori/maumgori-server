@@ -3,6 +3,7 @@
 
   app.controller('loginFormCtrl', function($scope,$http){
 
+    //로그인 id, pw 객체
     $scope.login_obj = {
       id : '',
       passwd : '',
@@ -15,26 +16,71 @@
             if(!data.correctPasswd){
               alert("패스워드가 일치하지 않습니다.");
             } else {
-              var obj_keys = ["signin_step","id","type","passwd","user_photo","name","gender","age","phone","email","homepage"];
-              for(var i=0; i < obj_keys.length; i++){
-                $scope.user_obj[obj_keys[i]] = data.user_obj[obj_keys[i]];
-              }
-              //생년월일도 추가해야 하는데, 좀 고민해볼것.
-              //console.log(data);
-              //console.log($scope.user_obj);
-              $scope.user_obj.passwd_re = data.user_obj.passwd;
-              $scope.user_obj.id_created = true;
+              append_user_obj(data.user_obj);
               $scope.user_obj.is_loggedin = true;
+              if($scope.user_obj.signin_step < 3){
+                $scope.user_obj.signin_step++;
+              }
             }
           }
         }).error(function(error){
           console.log("error : "+error);
         });
+      },
+      passwd_pre : '',
+      checkPasswd : function(){
+        $http.post('/encpasswd',$scope.login_obj).success(function(data){
+          //console.log(data);
+          if(!data.passwd_pre_enc){
+            $scope.login_obj.passwd_pre_correct = false;
+          } else {
+            if(data.passwd_pre_enc === $scope.user_obj.passwd_enc){
+              //console.log("패스워드 일치.")
+              $scope.login_obj.passwd_pre_correct = true;
+            } else {
+              $scope.login_obj.passwd_pre_correct = false;
+            }
+          }
+        }).error(function(error){
+          console.log("error : "+error);
+        });
+      },
+      passwd_pre_correct : false
+    }
+
+    // 서버에서 가져온 사용자 정보를 user_obj에 대입.
+    var append_user_obj = function(data){
+//      console.log(data);
+      var obj_keys = Object.keys(data); // key Array 가져옴. ["signin_step","id","type","passwd", ...];
+
+      for(var i=0; i < obj_keys.length; i++){
+        $scope.user_obj[obj_keys[i]] = data[obj_keys[i]];
+      }
+      $scope.user_obj.passwd_enc = data.passwd;
+      $scope.user_obj.passwd = "";
+      $scope.user_obj.passwd_re = "";
+      if($scope.user_obj.id !== ''){
+        $scope.user_obj.id_created = true;
+      }
+      //생년월일 적용
+      var bday = new Date(data.birthday);
+      $scope.user_obj.birthday = {};
+      $scope.user_obj.birthday.year = bday.getFullYear();
+      $scope.user_obj.birthday.month = bday.getMonth()+1; //month 는 0~11
+      $scope.user_obj.birthday.day = bday.getDate();
+
+      //카테고리 적용
+      if(data.category !== null){
+        $("input[name=category]").each(function (index) {
+          if(data.category.indexOf($(this).val()) > -1)
+            $(this).attr("checked", true);
+        });
+        $scope.user_obj.checkChecked();
       }
     }
 
     /**
-    user_obj : 회원 가입 정보 담는 객체.
+    user_obj : 가입/로그인 사용자 정보 담는 객체.
     */
     $scope.user_obj = {
       is_loggedin : false,
@@ -54,6 +100,8 @@
       type : 'expert',
       passwd : '',
       passwd_re : '',
+      passwd_enc : '',
+      passwd_pre : '',
       step_0_chk : function() {
         var data = {
           passwd_1_class : 'text-danger',
@@ -153,12 +201,11 @@
       signin_next : function() {
         // /signin 에 POST 로 user_obj 데이터 전달.
         $http.post('/signin',$scope.user_obj).success(function(data){
-          if($scope.user_obj.signin_step > 2){
+          append_user_obj(data);
+          if($scope.user_obj.signin_step === 3){
+            $scope.user_obj.is_loggedin = true;
             $('#signinModal').modal('hide');
           } else {
-            if($scope.user_obj.id !== ''){
-              $scope.user_obj.id_created = true;
-            }
             $scope.user_obj.signin_step++;
           }
         }).error(function(error){
@@ -172,6 +219,8 @@
           return "개인 정보"
         } else if($scope.user_obj.signin_step === 2){
           return "전문 분야"
+        } else if($scope.user_obj.signin_step === 3){
+          return "비용 입력"
         }
       },
       user_photo : '/images/blank-user.jpg',
@@ -241,18 +290,6 @@
       googleplus : '',
       linkedin : '',
       instagram : '',
-      metadata : {},
-      getMeta : function(){
-        $http.get('/metadata').success(function(data){
-          //console.log(data);
-          //전문자격 값 설정.
-          $scope.user_obj.expert_type = data.expert_type[0];
-          $scope.user_obj.location = data.location[0];
-          $scope.user_obj.metadata = data;
-        }).error(function(error){
-          console.log("error : "+error);
-        });
-      },
       category: null,
       category_ischecked: null,
       checkChecked : function(){
@@ -269,15 +306,43 @@
       expert_type : '',
       location : '',
       career : '',
-      activity: ''
+      activity: '',
+      price: {
+        phone_enable : true,
+        phone_amount : 20000,
+        email_enable : true,
+        email_amount : 10000,
+        message_enable : true,
+        message_amount : 20000,
+        interview_enable : true,
+        interview_amount : 50000,
+      }
     };
-    //생성 이후에 실행 해야 실행되는 것들도 있음.
-    $scope.user_obj.getMeta();
+
+    //메타데이타 생성
+    $scope.metadata = {};
+    var getMeta = function(){
+      $http.get('/metadata').success(function(data){
+        //console.log(data);
+        //전문자격 값 설정.
+        $scope.user_obj.expert_type = data.expert_type[0];
+        $scope.user_obj.location = data.location[0];
+        $scope.metadata = data;
+        console.log(data);
+      }).error(function(error){
+        console.log("error : "+error);
+      });
+    }();
 
     // 로그인 사용자 객체 초기화.
-    angular.copy($scope.user_obj,$scope.user_init);
-    var clear_user = function(){
-      $scope.user_obj = $scope.user_init;
+    var user_init = {};   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.
+    angular.copy($scope.user_obj, user_init);
+
+    // 로그아웃.
+    $scope.clear_user = function(){
+      $scope.login_obj.id='';
+      $scope.login_obj.passwd='';
+      angular.copy(user_init,$scope.user_obj);
     };
 
     // 이미지 크롭

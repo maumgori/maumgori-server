@@ -1,5 +1,5 @@
 form(name="user_frm_2")
-  .signin-animation(ng-show="user_obj.signin_step===2")
+  .animate-show(ng-show="user_obj.signin_step===2")
     .row
       .col.col-sm-6
         .col.col-xs-12
@@ -7,13 +7,13 @@ form(name="user_frm_2")
           label 전문 분야 -
             span.text-danger
               | &nbsp;최대 3개까지 선택 가능합니다.
-        .col.col-xs-12(ng-repeat="cate in user_obj.metadata.category track by $index" style="padding-left:0px;")
-          label.control-label
-            input(type="checkbox" name="category" ng-click="user_obj.checkChecked();" value="{{cate.name}}" ng-disabled="user_obj.category.length>2 && !user_obj.category_ischecked[$index]")
-            span
-            | &nbsp;{{cate.name}} -
-            small.text-muted
-              | &nbsp;{{cate.comment}}
+        .col.col-xs-12(ng-repeat="cate in metadata.category track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': user_obj.category_ischecked[$index] }")
+          label.control-label(ng-class="{'text-muted': user_obj.category.length>2 && !user_obj.category_ischecked[$index] }" style="margin:0px;")
+            input(type="checkbox" name="category" style="margin:3px;" ng-click="user_obj.checkChecked();" value="{{cate.name}}" ng-disabled="user_obj.category.length>2 && !user_obj.category_ischecked[$index]")
+            span.cate-name(ng-style="cate.style")
+              | {{cate.name}}
+            small(ng-class="{'text-muted': user_obj.category.length>2 && !user_obj.category_ischecked[$index] }")
+              | &nbsp; - {{cate.comment}}
       .col.col-sm-6
         .container-fluid(style="padding:0px;")
           .col.col-xs-4
@@ -21,14 +21,14 @@ form(name="user_frm_2")
               label 보유자격
           .col.col-xs-8(style="padding-left:0px;")
             select.form-control(ng-model="user_obj.expert_type" style="padding:5px;")
-              option(ng-repeat="expert_type in user_obj.metadata.expert_type") {{expert_type}}
+              option(ng-repeat="expert_type in metadata.expert_type") {{expert_type}}
         .container-fluid(style="padding:0px;")
           .col.col-xs-4
             h5
               label 활동지역
           .col.col-xs-8(style="padding-left:0px;")
             select.form-control(ng-model="user_obj.location" style="padding:5px;")
-              option(ng-repeat="location in user_obj.metadata.location") {{location}}
+              option(ng-repeat="location in metadata.location") {{location}}
         br
         .container-fluid(style="padding:0px;")
           .col.col-xs-12
@@ -41,22 +41,3 @@ form(name="user_frm_2")
             label 활동이력
           .col.col-xs-12(style="padding-left:0px;")
             textarea.form-control(ng-model="user_obj.activity" placeholder="각종 대학 강연, KBS1 아침마당 \"행복이란\" 출연...")
-    br
-    .row(ng-show="user_obj.type==='expert'")
-      .col.col-sm-2.text-right(style="padding:1px;")
-        h5
-          label(for="qualification_files") 증빙자료
-      .col.col-sm-7
-        input#qualification_files(type="file" onchange="alert(this.value);")
-    br
-    .row
-      .col.col-sm-1
-      .col.col-sm-2.col-xs-4
-        button.btn.btn-warning.btn-block(type="button" ng-click="user_obj.signin_before()")
-          i.glyphicon.glyphicon-arrow-left
-          | &nbsp;이전
-      .col.col-sm-5.col-xs-4
-      .col.col-sm-3.col-xs-4
-        button.btn.btn-success.btn-block(type="button" ng-click="user_obj.signin_next();")
-          | 회원가입 완료
-      .col.col-sm-1

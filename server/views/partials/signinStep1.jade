@@ -21,7 +21,7 @@ form(name="user_photo_frm" method="POST" action="/fileupload/photo")
               button.btn.btn-block.btn-danger(type="button" onclick="$('#imgUploadModal').modal('hide')")
                 | 취소
 form(name="user_frm_2")
-  .signin-animation(ng-show="user_obj.signin_step===1")
+  .animate-show(ng-show="user_obj.signin_step===1")
     .row
       .col.col-sm-3.text-center
         label(for="user_photo_file")
@@ -79,7 +79,10 @@ form(name="user_frm_2")
         .row
           .col.col-xs-2.text-right(style="padding:1px;")
             h5
-              label(for="phone") 전화번호
+              label(for="phone")
+                span.text-danger
+                  | *
+                | &nbsp;전화번호
           .col.col-xs-4(style="padding-right:2px;")
             input#phone.form-control(type="text" placeholder="전화번호-1" ng-model="user_obj.phone[0]")
           .col.col-xs-4(style="padding-right:2px;")
@@ -87,7 +90,10 @@ form(name="user_frm_2")
         .row
           .col.col-xs-2.text-right(style="padding:1px;")
             h5
-              label(for="email") 이메일
+              label(for="email")
+                span.text-danger
+                  | *
+                | &nbsp;이메일
           .col.col-xs-5(ng-class="{'has-error' : !user_obj.email && user_obj.email!=''}")
             //원래는 user_frm_2.user_email.$valid 형식으로 해야 하는데 이렇게 하니까 안되고 !user_obj.email 로 하니 정상적으로 실행됨.
             input#email.form-control(type="email" name="user_email" placeholder="aaa@email.com" ng-model="user_obj.email")
@@ -143,16 +149,3 @@ form(name="user_frm_2")
             img.img-rounded(src="/images/icon/instagram.jpeg" style="width:35px;")
         .col.col-sm-7
           input#instagram.form-control(type="text" ng-model="user_obj.instagram" placeholder="http://instagram.com/...")
-    br
-    .row
-      .col.col-sm-1
-      .col.col-sm-2.col-xs-4
-        button.btn.btn-warning.btn-block(type="button" ng-click="user_obj.signin_before()")
-          i.glyphicon.glyphicon-arrow-left
-          | &nbsp;이전
-      .col.col-sm-6.col-xs-4
-      .col.col-sm-2.col-xs-4
-        button.btn.btn-success.btn-block(type="button" ng-disabled="!user_obj.name" ng-click="user_obj.signin_next()")
-          | 다음 &nbsp;
-          i.glyphicon.glyphicon-arrow-right
-      .col.col-sm-1

@@ -29,15 +29,30 @@ form(name="user_frm_1")
       .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().id_form_class}}")
         input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" ng-disabled="user_obj.id_created" placeholder="아이디 (4~20자)" ng-change="user_obj.id_check()")
       .col.col-sm-7.col-xs-12
-        h5
+        h5(ng-hide="user_obj.id_created")
           span(class="{{user_obj.step_0_chk().id_class}}")
             | {{user_obj.step_0_chk().id_txt}}
+    .row(ng-show="user_obj.passwd_enc")
+      .col.col-sm-2.col-xs-5.text-right(style="padding:1px;")
+        h5
+          label(for="user_passwd") 기존 비밀번호
+      .col.col-sm-3.col-xs-7(style="padding-right:2px;")
+        input#user_passwd.form-control(type="password" ng-model="login_obj.passwd_pre" ng-change="login_obj.checkPasswd();" placeholder="기존 비밀번호")
+      .col.col-sm-7.col-xs-12(ng-hide="login_obj.passwd_pre_correct")
+        h5.text-danger
+          | 비밀번호를 변경하려면 기존 비밀번호를 입력하십시오
+      .col.col-sm-4.col-xs-12(ng-show="login_obj.passwd_pre_correct")
+        h5.text-primary
+          | 비밀번호가 확인되었습니다.
+      .col.col-sm-2.col-xs-12(ng-show="login_obj.passwd_pre_correct" style="padding:0px;")
+        button.btn.btn-success.btn-block(ng-click="login_obj.passwd_pre='';user_obj.passwd_enc='';")
+          | 비밀번호 변경
     .row
       .col.col-sm-2.col-xs-5.text-right(style="padding:1px;")
         h5
           label(for="user_passwd") 비밀번호
       .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().passwd_1_form_class}}")
-        input#user_passwd.form-control(type="password" ng-disabled="user_obj.id_created" ng-model="user_obj.passwd" placeholder="비밀번호(6자 이상)")
+        input#user_passwd.form-control(type="password" ng-disabled="user_obj.passwd_enc" ng-model="user_obj.passwd" placeholder="비밀번호(6자 이상)")
       .col.col-sm-7.col-xs-12
         h5
           span(class="{{user_obj.step_0_chk().passwd_1_class}}")
@@ -47,16 +62,8 @@ form(name="user_frm_1")
         h5
           label(for="user_passwd_re") 비밀번호 확인
       .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().passwd_2_form_class}}")
-        input#user_passwd_re.form-control(type="password" ng-disabled="user_obj.id_created" ng-model="user_obj.passwd_re" placeholder="비밀번호 확인")
+        input#user_passwd_re.form-control(type="password" ng-disabled="user_obj.passwd_enc" ng-model="user_obj.passwd_re" placeholder="비밀번호 확인")
       .col.col-sm-7.col-xs-12
         h5
           span(class="{{user_obj.step_0_chk().passwd_2_class}}")
             |  {{user_obj.step_0_chk().passwd_2_txt}}
-    br
-    .row
-      .col.col-sm-9.col-xs-8
-      .col.col-sm-2.col-xs-4
-        button.btn.btn-success.btn-block(type="button" ng-disabled="!user_obj.step_0_chk().confirmed" ng-click="user_obj.signin_next()")
-          | 다음 &nbsp;
-          i.glyphicon.glyphicon-arrow-right
-      .col.col-sm-1

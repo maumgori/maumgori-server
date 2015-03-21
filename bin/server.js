@@ -48,6 +48,15 @@ app.get('/users/:id', function(req, res){
   es.checkId(req,res);
 });
 
+//패스워드 암호화 해서 리턴.
+app.post('/encpasswd', function(req, res){
+  var login_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
+  var hash = require('crypto').createHash('sha256');
+  var passwd_val = hash.update(login_obj.passwd_pre).digest('hex');
+  var ret_obj = {passwd_pre_enc : passwd_val};
+  res.send(ret_obj);
+});
+
 app.get('/expertlist', function(req, res){
   es.getExpertList(req,res);
 });

@@ -20,13 +20,19 @@ exports.insertUser = function (req, res) {
   var user_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
 //  console.log("%j",user_obj);
   var passwd_val = '';
-  //처음 저장이면 패스워드 sha256 암호화. 아닌 경우 그냥 저장.
-  if(!user_obj.id_created){
-    var hash = require('crypto').createHash('sha256');
-    passwd_val = hash.update(user_obj.passwd).digest('hex');
+  //처음 저장이면 패스워드 sha256 암호화. 아닌 경우 그냥 저장. // 잠시 보류
+  if(user_obj.passwd_enc === ''){
+    if(user_obj.passwd !== ''){
+      var hash = require('crypto').createHash('sha256');
+      passwd_val = hash.update(user_obj.passwd).digest('hex');
+    } else {
+      // 오류 리턴
+    }
   } else {
-    passwd_val = user_obj.passwd;
+    passwd_val = user_obj.passwd_enc;
   }
+
+  //엘라스틱서치 users/user 에 저장되는 사용자 도큐먼트.
   var es_obj = {
     signin_step : user_obj.signin_step,
     type : user_obj.type,
@@ -35,11 +41,24 @@ exports.insertUser = function (req, res) {
     user_photo : user_obj.user_photo,
     name : user_obj.name,
     gender : user_obj.gender,
-    birthday : user_obj.birthday.year+'-'+user_obj.birthday.month+'-'+user_obj.birthday.day,
+    birthday : new Date(user_obj.birthday.year,user_obj.birthday.month-1,user_obj.birthday.day),
     age : user_obj.age,
     phone : user_obj.phone,
     email : user_obj.email,
     homepage : user_obj.homepage,
+    kakao : user_obj.kakao,
+    naver_line : user_obj.naver_line,
+    facebook : user_obj.facebook,
+    twitter : user_obj.twitter,
+    googleplus : user_obj.googleplus,
+    linkedin : user_obj.linkedin,
+    instagram : user_obj.instagram,
+    category: user_obj.category,
+    expert_type : user_obj.expert_type,
+    location : user_obj.location,
+    career : user_obj.career,
+    activity: user_obj.activity,
+    price : user_obj.price
   }
 //  console.log('%j',es_obj);
 
@@ -62,7 +81,7 @@ exports.insertUser = function (req, res) {
     });
     es_res.on('end', function() {
 //      console.log(responseString);
-      res.send("사용자 정보가 입력되었습니다.");
+      res.send(userString);
 //      return JSON.parse(responseString);
     });
   });
@@ -174,6 +193,7 @@ exports.login = function(req, res){
       if(resultObject.found){
         if(login_obj.id === resultObject._source.id ){
           resObj.idExist = true;
+          // 패스워드 암호화.
           var hash = require('crypto').createHash('sha256');
           var passwd_val = hash.update(login_obj.passwd).digest('hex');
           if(passwd_val === resultObject._source.passwd ){
