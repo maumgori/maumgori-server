@@ -11,14 +11,14 @@
         //사용자 로그인
         $http.post('/login',$scope.login_obj).success(function(data){
           if(!data.idExist){
-            alert("존재하지 않는 아이디입니다.");
+            toastr.error('존재하지 않는 아이디입니다.', '로그인 실패')
           } else {
             if(!data.correctPasswd){
-              alert("패스워드가 일치하지 않습니다.");
+              toastr.error('패스워드가 일치하지 않습니다.', '로그인 실패');
             } else {
               append_user_obj(data.user_obj);
               $scope.user_obj.is_loggedin = true;
-              if($scope.user_obj.signin_step < 3){
+              if($scope.user_obj.signin_step < $scope.user_obj.signin_step_text.length){
                 $scope.user_obj.signin_step++;
               }
             }
@@ -201,8 +201,9 @@
       signin_next : function() {
         // /signin 에 POST 로 user_obj 데이터 전달.
         $http.post('/signin',$scope.user_obj).success(function(data){
+          toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
           append_user_obj(data);
-          if($scope.user_obj.signin_step === 3){
+          if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
             $scope.user_obj.is_loggedin = true;
             $('#signinModal').modal('hide');
           } else {
@@ -212,17 +213,7 @@
           console.log("error : "+error);
         });
       },
-      signin_step_text : function(){
-        if($scope.user_obj.signin_step === 0){
-          return "아이디 생성"
-        } else if($scope.user_obj.signin_step === 1){
-          return "개인 정보"
-        } else if($scope.user_obj.signin_step === 2){
-          return "전문 분야"
-        } else if($scope.user_obj.signin_step === 3){
-          return "비용 입력"
-        }
-      },
+      signin_step_text : ["아이디 생성","개인 정보","전문 분야","소개","비용 입력"],
       user_photo : '/images/blank-user.jpg',
       user_photo_data : '',
       upload_photo : function(){
@@ -232,7 +223,7 @@
           id : $scope.user_obj.id
         };
         $http.post('/fileupload/photo',photoData).success(function(data){
-          console.log("result : "+data);
+          //console.log("result : "+data);
           $scope.user_obj.user_photo = data;
           $('#imgUploadModal').modal('hide');
         }).error(function(error){
@@ -307,6 +298,30 @@
       location : '',
       career : '',
       activity: '',
+      profile_title : '',
+      profile_text : '',
+      proflie_txt_color : false,
+      proflie_txt_location : 'top',
+      profile_bg_img : '/images/profile_background.jpg',
+      profileBgImgUpload : function(){
+        $('#bntBgImgSave').attr('disabeld',true);
+        var bgCanvas = $('#profile_bg_img').cropper('getCroppedCanvas');
+        //console.log(bgCanvas.toDataURL());
+        var photoData = {
+          photo : bgCanvas.toDataURL(),
+          id : $scope.user_obj.id+'_bg'
+        };
+        $http.post('/fileupload/photo',photoData).success(function(data){
+          //console.log("result : "+data);
+          d = new Date();
+          $scope.user_obj.profile_bg_img = data+"?"+d.getTime();
+          $("#profile_bg_img_div").load();
+          $('#profileBgModal').modal('hide');
+          $('#profile_bg_img').cropper('destroy');
+        }).error(function(error){
+          console.log("error : "+error);
+        });
+      },
       price: {
         phone_enable : true,
         phone_amount : 20000,
@@ -328,7 +343,6 @@
         $scope.user_obj.expert_type = data.expert_type[0];
         $scope.user_obj.location = data.location[0];
         $scope.metadata = data;
-        console.log(data);
       }).error(function(error){
         console.log("error : "+error);
       });
@@ -345,7 +359,7 @@
       angular.copy(user_init,$scope.user_obj);
     };
 
-    // 이미지 크롭
+    // 사용자 이미지 크롭
     $scope.myImage='';
     $scope.myCroppedImage='';
     var handleFileSelect=function(evt) {

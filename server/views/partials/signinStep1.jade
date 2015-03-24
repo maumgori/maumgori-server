@@ -1,6 +1,5 @@
 input#user_photo_file(type="file" name="photoFile" accept="image/*" style="display:none;" onchange="$('#imgUploadModal').modal('show')")
 form(name="user_photo_frm" method="POST" action="/fileupload/photo")
-  //input#user_photo_file(type="file" name="photoFile" accept="image/*" style="display:none;" onchange="if(this.value!=='')($('#photo_up_btn').removeAttr('disabled'));")
   input(type="hidden" name="user_id" ng-value="user_obj.id")
   input#user_photo_file_crop(type="hidden" name="photoFileCrop")
   .modal#imgUploadModal(data-keyboard="false" data-backdrop="static")

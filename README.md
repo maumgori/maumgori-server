@@ -15,6 +15,7 @@
 - bootstrap 3.3.2
 - toastr 2.1.0
 - angular.js 1.3.14
+- ngImgCrop 0.3.2
 
 ### 프로그램 설치.
 Node.js가 먼저 설치 되어 있어야 합니다.

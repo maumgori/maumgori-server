@@ -58,6 +58,11 @@ exports.insertUser = function (req, res) {
     location : user_obj.location,
     career : user_obj.career,
     activity: user_obj.activity,
+    profile_title: user_obj.profile_title,
+    profile_text: user_obj.profile_text,
+    proflie_txt_color: user_obj.proflie_txt_color,
+    proflie_txt_location: user_obj.proflie_txt_location,
+    profile_bg_img: user_obj.profile_bg_img,
     price : user_obj.price
   }
 //  console.log('%j',es_obj);
