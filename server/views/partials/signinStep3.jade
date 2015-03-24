@@ -1,0 +1,61 @@
+//input#profile_bg_file(type="file" name="profile_bg_img" accept="image/*" style="display:none;" onchange="readBgImg(this);")
+input#profile_bg_file(type="file" name="profile_bg_img" accept="image/*" style="display:none;" onchange="profileBgImgCrop(this);")
+form(name="profile_bg_frm" method="POST" action="/fileupload/photo")
+  input(type="hidden" name="user_id" ng-value="user_obj.id")
+  input#profile_bg_crop(type="hidden" name="profileBgCrop")
+  .modal#profileBgModal(data-keyboard="false" data-backdrop="static")
+    .modal-dialog
+      .modal-content
+        .modal-body
+          .row
+            .col.col-sm-9
+              img#profile_bg_img(width="100%")
+            .col.col-sm-3(style="padding-left: 0px")
+              button#bntBgImgSave.btn.btn-block.btn-success(type="button" ng-click="user_obj.profileBgImgUpload();")
+                | 배경 저장
+              button.btn.btn-block.btn-danger(type="button" onclick="$('#profileBgModal').modal('hide')")
+                | 취소
+form(name="user_frm_3")
+  .animate-show(ng-show="user_obj.signin_step===3")
+    .row
+      .col.col-sm-2.text-right(style="padding:1px;")
+        h5
+          label(for="profile_title")
+            span.text-danger
+              | *
+            | &nbsp;한줄 소개
+      .col.col-sm-6(style="padding-right:2px;")
+        input#profile_title.form-control(type="text" maxlength=30 ng-model="user_obj.profile_title" placeholder="한줄 소개 (최대 30자)")
+      .col.col-sm-3
+        label.btn.btn-block.btn-info(for="profile_bg_file")
+          | 배경 이미지
+    .row
+      .col.col-sm-2.text-right(style="padding:1px;")
+        h5
+          label(for="profile_text")
+            | 상세 소개
+      .col.col-sm-6(style="padding-right:2px;")
+        textarea#profile_text.form-control(rows=3 maxlength=120 ng-model="user_obj.profile_text" placeholder="상세 소개 (최대 120자)")
+      .col.col-sm-4(style="padding-right:2px;")
+        label.control-label
+          input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="top")
+          | &nbsp;텍스트 배치 - 상단
+        label.control-label
+          input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="bottom")
+          | &nbsp;텍스트 배치 - 하단
+        label.control-label
+          input(type="checkbox" ng-model="user_obj.proflie_txt_color")
+          | &nbsp;텍스트 색 반전
+    .row
+      .col.col-sm-2
+        h4
+          | 미리보기
+    .row
+      .col.col-sm-12
+        .thumbnail
+          #profile_bg_img_div(style="position:relative;width:560px;height:280px;background-size:560px;background-image:url({{user_obj.profile_bg_img}});")
+            div(style="position:absolute; {{user_obj.proflie_txt_location}}:0; padding:12px;" ng-class="{'text-stroke-white':!user_obj.proflie_txt_color,'text-stroke-black':user_obj.proflie_txt_color}")
+              h4
+                | {{user_obj.profile_title}}
+              span(style="white-space: pre;")
+                | {{user_obj.profile_text}}
