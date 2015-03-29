@@ -16,9 +16,10 @@
             if(!data.correctPasswd){
               toastr.error('패스워드가 일치하지 않습니다.', '로그인 실패');
             } else {
+              //console.log(data.user_obj);
               append_user_obj(data.user_obj);
               $scope.user_obj.is_loggedin = true;
-              if($scope.user_obj.signin_step < $scope.user_obj.signin_step_text.length){
+              if($scope.user_obj.signin_step < ($scope.user_obj.signin_step_text.length - 1)){
                 $scope.user_obj.signin_step++;
               }
             }
