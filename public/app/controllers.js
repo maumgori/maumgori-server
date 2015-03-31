@@ -1,4 +1,7 @@
 (function(){
+
+  var socket = io();  //socket.io 생성.
+
   var app = angular.module('controllers',['ngImgCrop']);
 
   app.controller('loginFormCtrl', function($scope,$http){
@@ -78,6 +81,8 @@
         });
         $scope.user_obj.checkChecked();
       }
+      var search_data = {};
+      socket.emit('getExpertList',search_data);
     }
 
     /**
@@ -380,14 +385,14 @@
   app.controller('mainCtrl', function($scope,$http) {
     $scope.expertList = [];
 
-    $scope.getExpertList = function(){
-      $http.get('/expertlist').success(function(data){
-        //console.log(data);
-        $scope.expertList = data;
-      }).error(function(error){
-        console.log("error : "+error);
-      });
-    }();
+    socket.on('expertList', function(data){
+      //console.log(data);
+      $scope.expertList = data;
+      $scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
+    });
+
+    var search_data = {}; //나중에 Elastcisearch 검색 쿼리 입력.
+    socket.emit('getExpertList',search_data);
 
   });
 

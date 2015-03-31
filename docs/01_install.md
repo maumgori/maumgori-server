@@ -15,6 +15,7 @@
 - angular.js 1.3.14
 - ngImgCrop 0.3.2
 - cropper 0.9.1
+- socket.io 1.3.5
 
 ### node 설치
 http://www.nodejs.org/

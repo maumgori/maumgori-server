@@ -17,6 +17,19 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 
+// socket.io 사용. : http://socket.io/docs/
+var server = http.Server(app);
+var io = require('socket.io').listen(server);
+io.on('connection', function(socket){
+
+  //전문가 목록 겟.
+  socket.on('getExpertList', function(data){
+    es.getExpertList(socket, data);
+  });
+
+});
+
+
 function compile(str, path) {
   return stylus(str).set('filename', path);
 }
@@ -57,10 +70,6 @@ app.post('/encpasswd', function(req, res){
   res.send(ret_obj);
 });
 
-app.get('/expertlist', function(req, res){
-  es.getExpertList(req,res);
-});
-
 // 이미지 파일 업로드.
 app.post('/fileupload/photo', function(req, res) {
   file.saveProfileImg(req,res);
@@ -87,5 +96,7 @@ app.get('/', function(req, res) {
 });
 
 var port = 3000;
-app.listen(port);
+//app.listen(port);
 console.log('Start maumgori-server on port ' + port + '...');
+
+server.listen(port);  //socket.io 사용하려면 이렇게 변경.

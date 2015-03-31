@@ -133,8 +133,8 @@ exports.checkId = function(req, res){
   es_req.end();
 }
 
-//전문가 목록 겟.
-exports.getExpertList = function(req, res){
+//전문가 목록 : 웹속켓용
+exports.getExpertList = function(socket,req_data){
   var expert_list = [];
   var headers = {
     'Content-Type': 'application/json'
@@ -143,14 +143,14 @@ exports.getExpertList = function(req, res){
     host: config_obj.es.host,
     port: config_obj.es.port,
     path: '/users/user/_search',
-    method: 'GET',
+    method: 'POST',
     headers: headers
   };
   var es_req = http.request(options, function(es_res) {
     es_res.setEncoding('utf-8');
     var responseString = '';
-    es_res.on('data', function(data) {
-      var resultObject = JSON.parse(data);
+    es_res.on('data', function(res_data) {
+      var resultObject = JSON.parse(res_data);
       //console.log("%j",resultObject);
       if(resultObject.hits){
         for(var i=0; i < resultObject.hits.hits.length; i++){
@@ -158,12 +158,13 @@ exports.getExpertList = function(req, res){
         }
       } else {
       }
-      res.send(expert_list);
+      socket.emit('expertList',expert_list);  //소켓 통신.
     }).on('error', function(error) {
       console.log(error);
-      res.send(false);
+      return { result : error };
     });
   });
+  es_req.write(JSON.stringify(req_data));
   es_req.end();
 }
 
