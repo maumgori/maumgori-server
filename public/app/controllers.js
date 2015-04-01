@@ -342,6 +342,16 @@
 
     //메타데이타 생성
     $scope.metadata = {};
+    socket.on('metaData', function(data){
+      console.log(data);
+      $scope.user_obj.expert_type = data.expert_type[0];
+      $scope.user_obj.location = data.location[0];
+      $scope.metadata = data;
+      $scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
+    });
+    socket.emit('getMetaData');
+    
+    /*
     var getMeta = function(){
       $http.get('/metadata').success(function(data){
         //console.log(data);
@@ -352,7 +362,8 @@
       }).error(function(error){
         console.log("error : "+error);
       });
-    }();
+    };
+    */
 
     // 로그인 사용자 객체 초기화.
     var user_init = {};   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.

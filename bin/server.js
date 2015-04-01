@@ -27,6 +27,12 @@ io.on('connection', function(socket){
     es.getExpertList(socket, data);
   });
 
+  //메타데이타 겟.
+  socket.on('getMetaData', function(){
+    var metadata_obj = YAML.load($MAUM_HOME+'/config/metadata.yml');
+    socket.emit('metaData',metadata_obj);
+  });
+
 });
 
 
@@ -76,11 +82,13 @@ app.post('/fileupload/photo', function(req, res) {
 });
 
 // /metadata 에서 메타데이터 리턴. config/metadata.yml 파싱.
+/*
 app.get('/metadata', function(req, res){
   var metadata_obj = YAML.load($MAUM_HOME+'/config/metadata.yml');
   res.writeHead(200, {"Content-Type": "application/json"});
   res.end(JSON.stringify(metadata_obj));
 });
+*/
 
 //jade 에서 include 하는 파트 파일들 존재하는 디렉토리.
 app.get('/partials/:partialFile', function(req, res) {
