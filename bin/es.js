@@ -32,6 +32,36 @@ exports.insertUser = function (req, res) {
     passwd_val = user_obj.passwd_enc;
   }
 
+  var price_obj = user_obj.price;
+  price_obj.enable_list = [];
+  var price_arr = [];
+  if(price_obj.phone_enable === true){
+    price_arr.push(price_obj.phone_amount);
+    price_obj.enable_list.push("phone");
+  }
+  if(price_obj.email_enable === true){
+    price_arr.push(price_obj.email_amount);
+    price_obj.enable_list.push("email");
+  }
+  if(price_obj.message_enable === true){
+    price_arr.push(price_obj.message_amount);
+    price_obj.enable_list.push("message");
+  }
+  if(price_obj.interview_enable === true){
+    price_arr.push(price_obj.interview_amount);
+    price_obj.enable_list.push("interview");
+  }
+
+  price_arr.sort();
+  console.log(price_arr);
+  if(price_arr.length > 0){
+    price_obj.min_amount = price_arr[0];
+    price_obj.max_amount = price_arr[price_arr.length-1];
+  } else {
+    price_obj.min_amount = 0;
+    price_obj.max_amount = 0;
+  }
+
   //엘라스틱서치 users/user 에 저장되는 사용자 도큐먼트.
   var es_obj = {
     signin_step : user_obj.signin_step,
@@ -41,7 +71,7 @@ exports.insertUser = function (req, res) {
     user_photo : user_obj.user_photo,
     name : user_obj.name,
     gender : user_obj.gender,
-    birthday : new Date(user_obj.birthday.year,user_obj.birthday.month-1,user_obj.birthday.day),
+    birthday : new Date(user_obj.birthday.year,user_obj.birthday.month+1,user_obj.birthday.day),
     age : user_obj.age,
     phone : user_obj.phone,
     email : user_obj.email,
@@ -63,7 +93,7 @@ exports.insertUser = function (req, res) {
     proflie_txt_color: user_obj.proflie_txt_color,
     proflie_txt_location: user_obj.proflie_txt_location,
     profile_bg_img: user_obj.profile_bg_img,
-    price : user_obj.price
+    price : price_obj
   }
 //  console.log('%j',es_obj);
 
@@ -74,7 +104,7 @@ exports.insertUser = function (req, res) {
   var options = {
     host: config_obj.es.host,
     port: config_obj.es.port,
-    path: '/users/user/'+user_obj.id.toLowerCase(),
+    path: '/users/user',
     method: 'POST',
     headers: headers
   };

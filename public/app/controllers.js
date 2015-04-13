@@ -343,7 +343,7 @@
     //메타데이타 생성
     $scope.metadata = {};
     socket.on('metaData', function(data){
-      console.log(data);
+      //console.log(data);
       $scope.user_obj.expert_type = data.expert_type[0];
       $scope.user_obj.location = data.location[0];
       $scope.metadata = data;
@@ -351,20 +351,6 @@
     });
     socket.emit('getMetaData');
     
-    /*
-    var getMeta = function(){
-      $http.get('/metadata').success(function(data){
-        //console.log(data);
-        //전문자격 값 설정.
-        $scope.user_obj.expert_type = data.expert_type[0];
-        $scope.user_obj.location = data.location[0];
-        $scope.metadata = data;
-      }).error(function(error){
-        console.log("error : "+error);
-      });
-    };
-    */
-
     // 로그인 사용자 객체 초기화.
     var user_init = {};   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.
     angular.copy($scope.user_obj, user_init);
