@@ -53,7 +53,6 @@ exports.insertUser = function (req, res) {
   }
 
   price_arr.sort();
-  console.log(price_arr);
   if(price_arr.length > 0){
     price_obj.min_amount = price_arr[0];
     price_obj.max_amount = price_arr[price_arr.length-1];

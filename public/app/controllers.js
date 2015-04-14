@@ -219,7 +219,7 @@
           console.log("error : "+error);
         });
       },
-      signin_step_text : ["아이디 생성","개인 정보","전문 분야","소개","비용 입력"],
+      signin_step_text : ["아이디 생성","개인 정보","전문 분야","소개","서비스 비용"],
       user_photo : '/images/blank-user.jpg',
       user_photo_data : '',
       upload_photo : function(){
@@ -350,7 +350,7 @@
       $scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
     });
     socket.emit('getMetaData');
-    
+
     // 로그인 사용자 객체 초기화.
     var user_init = {};   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.
     angular.copy($scope.user_obj, user_init);
