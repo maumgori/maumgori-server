@@ -81,7 +81,14 @@
         });
         $scope.user_obj.checkChecked();
       }
-      var search_data = {};
+
+      var search_data = {
+        filter : {
+          term : {
+            register_done : true
+          }
+        }
+      };
       socket.emit('getExpertList',search_data);
     }
 
@@ -90,6 +97,7 @@
     */
     $scope.user_obj = {
       is_loggedin : false,
+      register_done : false,
       signin_step : 0,
       id : '',
       id_created : false,
@@ -205,6 +213,11 @@
         $scope.user_obj.signin_step--;
       },
       signin_next : function() {
+        // 마지막 단계까지 끝.
+        if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
+          $scope.user_obj.register_done = true;
+        }
+
         // /signin 에 POST 로 user_obj 데이터 전달.
         $http.post('/signin',$scope.user_obj).success(function(data){
           toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
@@ -308,7 +321,7 @@
       profile_text : '',
       proflie_txt_color : false,
       proflie_txt_location : 'top',
-      profile_bg_img : '/images/profile_background.jpg',
+      profile_bg_img : '/images/profile_background.png',
       profileBgImgUpload : function(){
         $('#bntBgImgSave').attr('disabeld',true);
         var bgCanvas = $('#profile_bg_img').cropper('getCroppedCanvas');
@@ -351,14 +364,25 @@
     });
     socket.emit('getMetaData');
 
+    $scope.filterByCategory = function(expected, actual){
+      //console.log("expected : "+expected);
+      //console.log("actual : "+actual);
+      if(actual !== null){
+        //가입 하다가 만 경우 actual == null 나옴.
+        return actual.indexOf(expected) > -1;
+      }
+    };
+
     // 로그인 사용자 객체 초기화.
     var user_init = {};   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.
     angular.copy($scope.user_obj, user_init);
+    //console.log(user_init);
 
     // 로그아웃.
     $scope.clear_user = function(){
       $scope.login_obj.id='';
       $scope.login_obj.passwd='';
+      //console.log(user_init); // 자꾸 로그아웃 해도 카테고리 값이 남아있다. 왜 그럴까.
       angular.copy(user_init,$scope.user_obj);
     };
 
@@ -388,7 +412,13 @@
       $scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
     });
 
-    var search_data = {}; //나중에 Elastcisearch 검색 쿼리 입력.
+    var search_data = {
+      filter : {
+        term : {
+          register_done : true
+        }
+      }
+    }; //나중에 Elastcisearch 검색 쿼리 입력.
     socket.emit('getExpertList',search_data);
 
   });

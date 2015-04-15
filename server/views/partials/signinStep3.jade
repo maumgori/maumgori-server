@@ -25,7 +25,7 @@ form(name="user_frm_3")
               | *
             | &nbsp;한줄 소개
       .col.col-sm-6(style="padding-right:2px;")
-        input#profile_title.form-control(type="text" maxlength=30 ng-model="user_obj.profile_title" placeholder="한줄 소개 (최대 30자)")
+        input#profile_title.form-control(type="text" maxlength=20 ng-model="user_obj.profile_title" placeholder="한줄 소개 (최대 20자)")
       .col.col-sm-3
         label.btn.btn-block.btn-info(for="profile_bg_file")
           | 배경 이미지
@@ -35,7 +35,7 @@ form(name="user_frm_3")
           label(for="profile_text")
             | 상세 소개
       .col.col-sm-6(style="padding-right:2px;")
-        textarea#profile_text.form-control(rows=3 maxlength=120 ng-model="user_obj.profile_text" placeholder="상세 소개 (최대 120자)")
+        textarea#profile_text.form-control(rows=3 maxlength=100 ng-model="user_obj.profile_text" placeholder="상세 소개 (최대 100자)")
       .col.col-sm-4(style="padding-right:2px;")
         label.control-label
           input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="top")
@@ -46,16 +46,56 @@ form(name="user_frm_3")
         label.control-label
           input(type="checkbox" ng-model="user_obj.proflie_txt_color")
           | &nbsp;텍스트 색 반전
+    br
     .row
-      .col.col-sm-2
-        h4
-          | 미리보기
-    .row
-      .col.col-sm-12
-        .thumbnail
-          #profile_bg_img_div(style="position:relative;width:560px;height:280px;background-size:560px;background-image:url({{user_obj.profile_bg_img}});")
-            div(style="position:absolute; {{user_obj.proflie_txt_location}}:0; padding:12px;" ng-class="{'text-stroke-white':!user_obj.proflie_txt_color,'text-stroke-black':user_obj.proflie_txt_color}")
-              h4
-                | {{user_obj.profile_title}}
-              span(style="white-space: pre;")
-                | {{user_obj.profile_text}}
+      .col.col-sm-2.text-right(style="padding:1px;")
+        h5
+          label(for="profile_text")
+            | 앱 미리보기
+      .col.col-sm-10
+        .thumbnail(style="width:360px;padding:20px;background-color:black;border-radius: 40px;")
+          div(style="width:320px;height:40px;padding:10px;margin:0px;")
+            div(style="width:50px;height:10px;background-color:#444;border-radius: 5px;margin:auto;")
+          div(style="width:320px;padding:0px;margin:0px;")
+            #profile_bg_img_div(style="position:relative;width:320px;height:160px;background-size:320px;background-image:url({{user_obj.profile_bg_img}});margin:0px;padding:0px;")
+              div(style="position:absolute; {{user_obj.proflie_txt_location}}:0; padding:12px;" ng-class="{'text-stroke-white':!user_obj.proflie_txt_color,'text-stroke-black':user_obj.proflie_txt_color}")
+                h4
+                  | {{user_obj.profile_title}}
+                span(style="white-space: pre;")
+                  | {{user_obj.profile_text}}
+            div(style="background-color:white;padding:15px 5px;margin:0px;")
+              .row
+                .col.col-xs-3.text-right(style="padding-right:0px;")
+                  strong
+                    | 이름
+                .col.col-xs-9
+                  | {{user_obj.name}}
+              .row
+                .col.col-xs-3.text-right(style="padding-right:0px;")
+                  strong
+                    | 전문자격
+                .col.col-xs-9
+                  | {{user_obj.expert_type}}
+              .row
+                .col.col-xs-3.text-right(style="padding-right:0px;")
+                  strong
+                    | 전문분야
+                .col.col-xs-9
+                  span(style="margin-right:6px;padding:2px 4px;font-size:12px;" class="cate-name" ng-repeat="cate in metadata.category | filter:{name:user_obj.category}:filterByCategory" ng-style="cate.style")
+                    | {{cate.name}}
+              .row
+                .col.col-xs-3.text-right(style="padding-right:0px;")
+                  strong
+                    | 학력/경력
+                .col.col-xs-9
+                  span(style="white-space: pre;")
+                    | {{user_obj.career}}
+              .row
+                .col.col-xs-3.text-right(style="padding-right:0px;")
+                  strong
+                    | 활동 이력
+                .col.col-xs-9
+                  span(style="white-space: pre;")
+                    | {{user_obj.activity}}
+          div(style="width:320px;height:70px;padding-top:20px;margin:0px;")
+            div(style="width:50px;height:50px;background-color:#444;border-radius: 50%;margin:auto;")

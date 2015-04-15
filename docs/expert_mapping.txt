@@ -5,6 +5,7 @@ curl -XPUT http://localhost:9200/users -d '
       "_id" : { "path" : "id" },
       "_timestamp" : { "enabled" : true, "store" : true },
       "properties" : {
+        "register_done" : { "type" : "boolean" },
         "signin_step" : { "type" : "integer" },
         "type" : { "type" : "string", "index" : "not_analyzed" },
         "id" : { "type" : "string", "index" : "no" },
@@ -54,6 +55,14 @@ curl -XPUT http://localhost:9200/users -d '
           }
         }
       }
+    }
+  }
+}'
+
+curl -XPUT localhost:9200/users/_mapping/user -d '{
+  "user" : {
+    "properties" : {
+      "register_done" : { "type" : "boolean" }
     }
   }
 }'

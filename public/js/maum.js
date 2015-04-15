@@ -20,7 +20,7 @@ toastr.options = {
 //프로필 배경 이미지 미리보기. file 속성은 ng-change 가 안되서 컨트롤러에 넣지 않고 일반 함수로 입력.
 var profileBgImgCrop = function(input) {
   //https://github.com/fengyuanchen/cropper 사용.
-//  $('#profile_bg_img').attr('src', '/images/profile_background.jpg');
+//  $('#profile_bg_img').attr('src', '/images/profile_background.png');
   if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {

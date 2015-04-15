@@ -63,6 +63,7 @@ exports.insertUser = function (req, res) {
 
   //엘라스틱서치 users/user 에 저장되는 사용자 도큐먼트.
   var es_obj = {
+    register_done : user_obj.register_done,
     signin_step : user_obj.signin_step,
     type : user_obj.type,
     id : user_obj.id,

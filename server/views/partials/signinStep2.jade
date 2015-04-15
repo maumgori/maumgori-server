@@ -4,7 +4,10 @@ form(name="user_frm_2")
       .col.col-sm-6
         .col.col-xs-12
         h5
-          label 전문 분야 -
+          label
+            span.text-danger
+              | *
+            | &nbsp;전문 분야 -
             span.text-danger
               | &nbsp;최대 3개까지 선택 가능합니다.
         .col.col-xs-12(ng-repeat="cate in metadata.category track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': user_obj.category_ischecked[$index] }")
