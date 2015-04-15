@@ -22,7 +22,7 @@ var server = http.Server(app);
 var io = require('socket.io').listen(server);
 io.on('connection', function(socket){
 
-  console.log('socket.io connected');
+  //console.log('socket.io connected');
 
   //전문가 목록 겟.
   socket.on('getExpertList', function(data){
@@ -33,6 +33,37 @@ io.on('connection', function(socket){
   socket.on('getMetaData', function(){
     var metadata_obj = YAML.load($MAUM_HOME+'/config/metadata.yml');
     socket.emit('metaData',metadata_obj);
+  });
+
+  //_search로 aggs 겟.
+  socket.on('getAggs', function(data){
+    es.getAggs(socket, data);
+  });
+
+  //_search로 hits 겟.
+  socket.on('getHits', function(data){
+    es.getHits(socket, data);
+  });
+
+  //document 직접 겟.
+  socket.on('getDocument', function(data){
+    es.getDocument(socket, data);
+  });
+
+  //로그인
+  socket.on('login', function(data){
+    es.login(socket, data);
+  });
+
+  //패스워드 암호화 해서 리턴.
+  socket.on('encPasswd', function(data){
+    var req_passwd = data.passwd; //passwd
+    var req_emit = data.emit; //emit 값.
+
+    var hash = require('crypto').createHash('sha256');
+    var passwd_val = hash.update(req_passwd).digest('hex');
+    var ret_obj = {passwd_enc : passwd_val};
+    socket.emit(req_emit,ret_obj);
   });
 
 });
@@ -59,22 +90,10 @@ app.use(bodyParser.json({limit: '50mb'}))
 app.post('/login', function(req, res){
   es.login(req, res);
 });
+
 // 회원정보 입력.
 app.post('/signin', function(req, res){
   es.insertUser(req, res);
-});
-// 회원 가입 시 아이디 체크.
-app.get('/users/:id', function(req, res){
-  es.checkId(req,res);
-});
-
-//패스워드 암호화 해서 리턴.
-app.post('/encpasswd', function(req, res){
-  var login_obj = req.body; //body-parser 있어야 사용 가능. JSON 형식만 읽어들이기 가능.
-  var hash = require('crypto').createHash('sha256');
-  var passwd_val = hash.update(login_obj.passwd_pre).digest('hex');
-  var ret_obj = {passwd_pre_enc : passwd_val};
-  res.send(ret_obj);
 });
 
 // 이미지 파일 업로드.

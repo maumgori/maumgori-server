@@ -6,7 +6,7 @@
         input.form-control(type="text" placeholder="아이디" ng-model="login_obj.id")
         input.form-control(type="password" placeholder="패스워드" ng-model="login_obj.passwd")
       p
-        button.btn.btn-success.btn-block(type="submit" ng-disabled="!(login_obj.id && login_obj.passwd)" ng-click="login_obj.login()") 로그인
+        button.btn.btn-success.btn-block(type="submit" ng-disabled="!(login_obj.id.length > 3 && login_obj.passwd)" ng-click="login()") 로그인
         button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal") 회원가입
     div(ng-show="user_obj.is_loggedin")
       p

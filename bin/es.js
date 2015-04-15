@@ -125,39 +125,178 @@ exports.insertUser = function (req, res) {
   // 엘라스틱서치 사용자정보 입력 끝.
 };
 
-/**
-  아이디 존재하는지 체크하는 함수.
-  REST URL에 사용될 아이디는 무조건 소문자로 변환해서 저장.
-*/
-exports.checkId = function(req, res){
-  var id = req.params.id.toLowerCase();
-//  console.log("id : "+id);
-  var idExist = false;
+//aggregation 가져오기.
+exports.getAggs = function(socket,req_data){
+  searchEs(socket,req_data,"aggregations")
+};
+
+//hits 가져오기.
+exports.getHits = function(socket,req_data){
+  searchEs(socket,req_data,"hits")
+};
+
+var searchEs = function(socket, req_data, element){
+  var req_index = req_data.index; //index
+  var req_type = req_data.type; //type
+  var req_emit = req_data.emit; //emit 값.
+  var req_query = req_data.query;   //QueryDSL
   var headers = {
     'Content-Type': 'application/json'
-  };
+  }
+  var path_val = "";
+  if(req_index !== null && req_index !== ""){
+    path_val += "/"+req_index;
+    if(req_type !== null && req_type !== ""){
+      path_val += "/"+req_type;
+    }
+  } else {
+    path_val += "/_all";
+  }
+  path_val += "/_search";
+
   var options = {
     host: config_obj.es.host,
     port: config_obj.es.port,
-    path: '/users/user/'+id,
+    path: path_val,
+    method: 'POST',
+    headers: headers
+  };
+  var es_req = http.request(options, function(es_res) {
+    es_res.setEncoding('utf-8');
+    var responseString = '';
+    es_res.on('data', function(res_data) {
+      var resultObject = JSON.parse(res_data);
+      //console.log("%j",resultObject);
+      if(resultObject){
+        socket.emit(req_emit,resultObject[element]);  //소켓 통신.
+      } else {
+        socket.emit('error',error);
+      }
+    }).on('error', function(error) {
+      console.log(error);
+      socket.emit('error',error);
+    });
+  });
+  es_req.write(JSON.stringify(req_query));
+  es_req.end();
+}
+
+//도큐먼트 1건 가져오기.
+exports.getDocument = function(socket, req_data){
+  var req_index = req_data.index; //index
+  var req_type = req_data.type; //type
+  var req_id = req_data.id; //type
+  var req_element = req_data.element; //found 또는 _source
+  var req_emit = req_data.emit; //emit 값.
+
+  var headers = {
+    'Content-Type': 'application/json'
+  };
+
+  var path_val = "";
+  if(req_index !== null && req_index !== ""){
+    path_val += "/"+req_index;
+    if(req_type !== null && req_type !== ""){
+      path_val += "/"+req_type;
+      if(req_id !== null && req_id !== ""){
+        path_val += "/"+req_id.toLowerCase();
+      }
+    }
+  }
+
+  var options = {
+    host: config_obj.es.host,
+    port: config_obj.es.port,
+    path: path_val,
     method: 'GET',
     headers: headers
   };
   var es_req = http.request(options, function(es_res) {
     es_res.setEncoding('utf-8');
     var responseString = '';
-    es_res.on('data', function(data) {
-      var resultObject = JSON.parse(data);
+    es_res.on('data', function(res_data) {
+      var resultObject = JSON.parse(res_data);
 //      console.log("%j",resultObject);
-      if(resultObject.found){
-        idExist = resultObject.found;
+      if(resultObject){
+        socket.emit(req_emit,resultObject[req_element]);
       } else {
-        idExist = false;
+        socket.emit('error',error);
       }
-      res.send(idExist);
     }).on('error', function(error) {
       console.log(error);
-      res.send(false);
+      socket.emit('error',error);
+    });
+  });
+  es_req.end();
+}
+
+//로그인용
+exports.login = function(socket, req_data){
+  var req_index = req_data.index; //index
+  var req_type = req_data.type; //type
+  var req_id = req_data.id; //type
+  var req_passwd = req_data.passwd; //type
+  //var req_element = req_data.element; //found 또는 _source
+  var req_emit = req_data.emit; //emit 값.
+
+  var headers = {
+    'Content-Type': 'application/json'
+  };
+
+  var path_val = "";
+  if(req_index !== null && req_index !== ""){
+    path_val += "/"+req_index;
+    if(req_type !== null && req_type !== ""){
+      path_val += "/"+req_type;
+      if(req_id !== null && req_id !== ""){
+        path_val += "/"+req_id.toLowerCase();
+      }
+    }
+  }
+
+  var resObj = {
+    idExist : false,
+    correctPasswd : false,
+    isError : false,
+    user_obj : null
+  }
+
+  var options = {
+    host: config_obj.es.host,
+    port: config_obj.es.port,
+    path: path_val,
+    method: 'GET',
+    headers: headers
+  };
+  var es_req = http.request(options, function(es_res) {
+    es_res.setEncoding('utf-8');
+    var responseString = '';
+    es_res.on('data', function(res_data) {
+      var resultObject = JSON.parse(res_data);
+//      console.log("%j",resultObject);
+      if(resultObject){
+        if(resultObject.found){
+          if(req_id === resultObject._source.id ){
+            resObj.idExist = true;
+            // 패스워드 암호화.
+            var hash = require('crypto').createHash('sha256');
+            var passwd_val = hash.update(req_passwd).digest('hex');
+            if(passwd_val === resultObject._source.passwd ){
+              resObj.correctPasswd = true;
+              resObj.user_obj = resultObject._source;
+            }
+          }
+        } else {
+          resObj.idExist = false;
+        }
+
+        socket.emit(req_emit,resObj);
+      } else {
+        socket.emit('error',error);
+      }
+    }).on('error', function(error) {
+      console.log(error);
+      socket.emit('error',error);
     });
   });
   es_req.end();
@@ -200,6 +339,7 @@ exports.getExpertList = function(socket,req_data){
 
 //로그인. ES에서 사용자 ID 가져와서 패스워드와 매치.
 // http://bcho.tistory.com/920 참고해서 세션 작업까지 완료 할 것.
+/*
 exports.login = function(req, res){
   var login_obj = req.body;
   //console.log(login_obj);
@@ -249,3 +389,4 @@ exports.login = function(req, res){
   });
   es_req.end();
 }
+*/

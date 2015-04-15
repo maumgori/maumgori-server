@@ -1,7 +1,7 @@
 (function(){
-  var app = angular.module('directives',[]);
+  var directives = angular.module('directives',[]);
 
-  app.directive('loginForm', function(){
+  directives.directive('loginForm', function(){
     return {
       restrict: 'E',
       templateUrl: 'partials/loginForm',
@@ -9,7 +9,7 @@
     }
   });
 
-  app.directive('main', function(){
+  directives.directive('main', function(){
     return {
       restrict: 'E',
       templateUrl: 'partials/main',

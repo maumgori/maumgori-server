@@ -27,7 +27,7 @@ form(name="user_frm_1")
               | *
             | &nbsp;아이디
       .col.col-sm-3.col-xs-7(style="padding-right:2px;" class="{{user_obj.step_0_chk().id_form_class}}")
-        input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" ng-disabled="user_obj.id_created" placeholder="아이디 (4~20자)" ng-change="user_obj.id_check()")
+        input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" ng-disabled="user_obj.id_created" placeholder="아이디 (4~20자)" ng-change="id_check()")
       .col.col-sm-7.col-xs-12
         h5(ng-hide="user_obj.id_created")
           span(class="{{user_obj.step_0_chk().id_class}}")
@@ -37,7 +37,7 @@ form(name="user_frm_1")
         h5
           label(for="user_passwd") 기존 비밀번호
       .col.col-sm-3.col-xs-7(style="padding-right:2px;")
-        input#user_passwd.form-control(type="password" ng-model="login_obj.passwd_pre" ng-change="login_obj.checkPasswd();" placeholder="기존 비밀번호")
+        input#user_passwd.form-control(type="password" ng-model="login_obj.passwd_pre" ng-change="checkPasswd(login_obj.passwd_pre);" placeholder="기존 비밀번호")
       .col.col-sm-7.col-xs-12(ng-hide="login_obj.passwd_pre_correct")
         h5.text-danger
           | 비밀번호를 변경하려면 기존 비밀번호를 입력하십시오

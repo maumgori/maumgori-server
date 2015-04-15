@@ -1,56 +1,69 @@
 (function(){
 
-  var socket = io();  //socket.io 생성.
+  var ctrls = angular.module('controllers',['ngImgCrop','services']);
 
-  var app = angular.module('controllers',['ngImgCrop']);
-
-  app.controller('loginFormCtrl', function($scope,$http){
+  //로그인/회원가입 컨트롤러.
+  ctrls.controller('loginFormCtrl', function($scope,$http,socket){
 
     //로그인 id, pw 객체
     $scope.login_obj = {
       id : '',
       passwd : '',
-      login : function(){
-        //사용자 로그인
-        $http.post('/login',$scope.login_obj).success(function(data){
-          if(!data.idExist){
-            toastr.error('존재하지 않는 아이디입니다.', '로그인 실패')
-          } else {
-            if(!data.correctPasswd){
-              toastr.error('패스워드가 일치하지 않습니다.', '로그인 실패');
-            } else {
-              //console.log(data.user_obj);
-              append_user_obj(data.user_obj);
-              $scope.user_obj.is_loggedin = true;
-              if($scope.user_obj.signin_step < ($scope.user_obj.signin_step_text.length - 1)){
-                $scope.user_obj.signin_step++;
-              }
-            }
-          }
-        }).error(function(error){
-          console.log("error : "+error);
-        });
-      },
       passwd_pre : '',
-      checkPasswd : function(){
-        $http.post('/encpasswd',$scope.login_obj).success(function(data){
-          //console.log(data);
-          if(!data.passwd_pre_enc){
-            $scope.login_obj.passwd_pre_correct = false;
-          } else {
-            if(data.passwd_pre_enc === $scope.user_obj.passwd_enc){
-              //console.log("패스워드 일치.")
-              $scope.login_obj.passwd_pre_correct = true;
-            } else {
-              $scope.login_obj.passwd_pre_correct = false;
-            }
-          }
-        }).error(function(error){
-          console.log("error : "+error);
-        });
-      },
       passwd_pre_correct : false
     }
+
+    //사용자 로그인
+    $scope.login = function(){
+      var login_s_obj = {
+        index : "users",
+        type : "user",
+        id : $scope.login_obj.id,
+        passwd : $scope.login_obj.passwd,
+        emit : "login"
+      }
+      socket.emit('login',login_s_obj);
+    };
+    socket.on('login', function(data){
+      //console.log(data);
+      if(!data.idExist){
+        toastr.error('존재하지 않는 아이디입니다.', '로그인 실패')
+      } else {
+        if(!data.correctPasswd){
+          toastr.error('패스워드가 일치하지 않습니다.', '로그인 실패');
+        } else {
+          //console.log(data.user_obj);
+          append_user_obj(data.user_obj);
+          $scope.user_obj.is_loggedin = true;
+          if($scope.user_obj.signin_step < ($scope.user_obj.signin_step_text.length - 1)){
+            $scope.user_obj.signin_step++;
+          }
+        }
+      }
+    });
+
+    //패스워드 체크.
+    $scope.checkPasswd = function(passwd){
+      var check_passwd_obj = {
+        passwd : passwd,
+        emit : "getEncPasswd"
+      }
+      socket.emit('passwdPreCorrect',check_passwd_obj);
+    }
+    //이전 패스워드와 맞으면 패스워드 변경 가능.
+    socket.on('passwdPreCorrect',function(data){
+      if(!data.passwd_enc){
+        $scope.login_obj.passwd_pre_correct = false;
+      } else {
+        if(data.passwd_enc === $scope.user_obj.passwd_enc){
+          //console.log("패스워드 일치.")
+          $scope.login_obj.passwd_pre_correct = true;
+        } else {
+          $scope.login_obj.passwd_pre_correct = false;
+        }
+      }
+      //console.log(data);
+    });
 
     // 서버에서 가져온 사용자 정보를 user_obj에 대입.
     var append_user_obj = function(data){
@@ -101,15 +114,6 @@
       signin_step : 0,
       id : '',
       id_created : false,
-      id_check : function(){
-        if($scope.user_obj.id.length > 0){
-          $http.get('/users/'+$scope.user_obj.id).success(function(data){
-            $scope.user_obj.id_check_val = data;
-          }).error(function(error){
-            console.log("error : "+error);
-          });
-        }
-      },
       id_check_val : false,
       type : 'expert',
       passwd : '',
@@ -353,6 +357,24 @@
       }
     };
 
+    //ID 존재하는지 확인
+    $scope.id_check = function(){
+      if($scope.user_obj.id.length > 0){
+        var id_check_obj = {
+          index : "users",
+          type : "user",
+          id : $scope.user_obj.id,
+          element : "found",
+          emit : "idExists"
+        }
+        socket.emit('getDocument',id_check_obj);
+      }
+    };
+    socket.on('idExists', function(data){
+      //console.log(data);
+      $scope.user_obj.id_check_val = data;
+    });
+
     //메타데이타 생성
     $scope.metadata = {};
     socket.on('metaData', function(data){
@@ -360,7 +382,7 @@
       $scope.user_obj.expert_type = data.expert_type[0];
       $scope.user_obj.location = data.location[0];
       $scope.metadata = data;
-      $scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
+      //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.  //factory 하면 됨.
     });
     socket.emit('getMetaData');
 
@@ -403,13 +425,13 @@
 
   });
 
-  app.controller('mainCtrl', function($scope,$http) {
+  ctrls.controller('mainCtrl', function($scope,$http,socket) {
     $scope.expertList = [];
 
     socket.on('expertList', function(data){
       //console.log(data);
       $scope.expertList = data;
-      $scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
+      //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
     });
 
     var search_data = {
@@ -423,4 +445,4 @@
 
   });
 
-})()
+})();
