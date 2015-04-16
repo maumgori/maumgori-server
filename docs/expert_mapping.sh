@@ -24,6 +24,21 @@ curl -XPUT http://localhost:9200/users -d '
         "googleplus" : { "type" : "string", "index" : "not_analyzed" },
         "linkedin" : { "type" : "string", "index" : "not_analyzed" },
         "instagram" : { "type" : "string", "index" : "not_analyzed" },
+        "category_list" : {
+          "type" : "object",
+          "properties" : {
+            "name" : { "type" : "string", "index" : "no" },
+            "comment" : { "type" : "string", "index" : "no" },
+            "checked" : { "type" : "boolean", "index" : "no" },
+            "style" : {
+              "type" : "object",
+              "properties" : {
+                "color" : { "type" : "string", "index" : "no" },
+                "background-color" : { "type" : "string", "index" : "no" }
+              }
+            }
+          }
+        },
         "category" : {
           "type" : "string", "index" : "not_analyzed",
           "fields" : { "indexed" : { "type" : "string", "analyzer" : "standard" } }
@@ -55,14 +70,6 @@ curl -XPUT http://localhost:9200/users -d '
           }
         }
       }
-    }
-  }
-}'
-
-curl -XPUT localhost:9200/users/_mapping/user -d '{
-  "user" : {
-    "properties" : {
-      "register_done" : { "type" : "boolean" }
     }
   }
 }'

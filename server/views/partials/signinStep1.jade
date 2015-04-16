@@ -13,9 +13,9 @@ form(name="user_photo_frm" method="POST" action="/fileupload/photo")
             .col.col-sm-3(style="padding-left: 0px")
               .thumbnail
                 img.img-circle(ng-src="{{user_obj.user_photo_data}}" width="100%")
-              button.btn.btn-block.btn-success(type="button" ng-click="user_obj.upload_photo();")
+              button.btn.btn-block.btn-success(type="button" ng-click="user_obj_func.upload_photo();")
                 | 이미지 저장
-              //button.btn.btn-block.btn-success(type="button" ng-click="user_obj.user_photo_append();")
+              //button.btn.btn-block.btn-success(type="button" ng-click="user_obj_func.user_photo_append();")
                 | 이미지 저장
               button.btn.btn-block.btn-danger(type="button" onclick="$('#imgUploadModal').modal('hide')")
                 | 취소
@@ -58,18 +58,18 @@ form(name="user_frm_2")
             .col.col-xs-5(style="padding:0;")
               .col.col-xs-9(style="padding-right:2px;")
                 select.form-control(ng-model="user_obj.birthday.year" style="padding:5px;")
-                  option(ng-repeat="year_val in user_obj.birth_option().years") {{year_val}}
+                  option(ng-repeat="year_val in user_obj_func.birth_option().years") {{year_val}}
               .col.col-xs-3(style="padding-left:2px;")
                 h5 년
             .col.col-xs-7(style="padding:0;")
               .col.col-xs-4(style="padding:0px 2px;")
                 select.form-control(ng-model="user_obj.birthday.month" style="padding:5px;")
-                  option(ng-repeat="month_val in user_obj.birth_option().months") {{month_val}}
+                  option(ng-repeat="month_val in user_obj_func.birth_option().months") {{month_val}}
               .col.col-xs-2(style="padding-left:2px;")
                 h5 월
               .col.col-xs-4(style="padding:0px 2px;")
                 select.form-control(ng-model="user_obj.birthday.day" style="padding:5px;")
-                  option(ng-repeat="day_val in user_obj.birth_option().days") {{day_val}}
+                  option(ng-repeat="day_val in user_obj_func.birth_option().days") {{day_val}}
               .col.col-xs-2(style="padding-left:2px;")
                 h5 일
           .col.col-xs-2(style="padding-left:1px;")

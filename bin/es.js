@@ -60,7 +60,7 @@ exports.insertUser = function (req, res) {
     price_obj.min_amount = 0;
     price_obj.max_amount = 0;
   }
-
+  
   //엘라스틱서치 users/user 에 저장되는 사용자 도큐먼트.
   var es_obj = {
     register_done : user_obj.register_done,
@@ -83,6 +83,7 @@ exports.insertUser = function (req, res) {
     googleplus : user_obj.googleplus,
     linkedin : user_obj.linkedin,
     instagram : user_obj.instagram,
+    category_list: user_obj.category_list,
     category: user_obj.category,
     expert_type : user_obj.expert_type,
     location : user_obj.location,
@@ -140,6 +141,8 @@ var searchEs = function(socket, req_data, element){
   var req_type = req_data.type; //type
   var req_emit = req_data.emit; //emit 값.
   var req_query = req_data.query;   //QueryDSL
+  //console.log("%j",req_data);
+
   var headers = {
     'Content-Type': 'application/json'
   }
@@ -230,7 +233,7 @@ exports.getDocument = function(socket, req_data){
   es_req.end();
 }
 
-//로그인용
+//로그인
 exports.login = function(socket, req_data){
   var req_index = req_data.index; //index
   var req_type = req_data.type; //type
@@ -301,92 +304,3 @@ exports.login = function(socket, req_data){
   });
   es_req.end();
 }
-
-//전문가 목록 : 웹속켓용
-exports.getExpertList = function(socket,req_data){
-  var expert_list = [];
-  var headers = {
-    'Content-Type': 'application/json'
-  };
-  var options = {
-    host: config_obj.es.host,
-    port: config_obj.es.port,
-    path: '/users/user/_search',
-    method: 'POST',
-    headers: headers
-  };
-  var es_req = http.request(options, function(es_res) {
-    es_res.setEncoding('utf-8');
-    var responseString = '';
-    es_res.on('data', function(res_data) {
-      var resultObject = JSON.parse(res_data);
-      //console.log("%j",resultObject);
-      if(resultObject.hits){
-        for(var i=0; i < resultObject.hits.hits.length; i++){
-          expert_list.push(resultObject.hits.hits[i]._source)
-        }
-      } else {
-      }
-      socket.emit('expertList',expert_list);  //소켓 통신.
-    }).on('error', function(error) {
-      console.log(error);
-      return { result : error };
-    });
-  });
-  es_req.write(JSON.stringify(req_data));
-  es_req.end();
-}
-
-//로그인. ES에서 사용자 ID 가져와서 패스워드와 매치.
-// http://bcho.tistory.com/920 참고해서 세션 작업까지 완료 할 것.
-/*
-exports.login = function(req, res){
-  var login_obj = req.body;
-  //console.log(login_obj);
-  var id = login_obj.id.toLowerCase();
-  var resObj = {
-    idExist : false,
-    correctPasswd : false,
-    isError : false,
-    user_obj : null
-  }
-  var headers = {
-    'Content-Type': 'application/json'
-  };
-  var options = {
-    host: config_obj.es.host,
-    port: config_obj.es.port,
-    path: '/users/user/'+id,
-    method: 'GET',
-    headers: headers
-  };
-  var es_req = http.request(options, function(es_res) {
-    es_res.setEncoding('utf-8');
-    var responseString = '';
-    es_res.on('data', function(data) {
-      var resultObject = JSON.parse(data);
-      //console.log("%j",resultObject);
-      if(resultObject.found){
-        if(login_obj.id === resultObject._source.id ){
-          resObj.idExist = true;
-          // 패스워드 암호화.
-          var hash = require('crypto').createHash('sha256');
-          var passwd_val = hash.update(login_obj.passwd).digest('hex');
-          if(passwd_val === resultObject._source.passwd ){
-            resObj.correctPasswd = true;
-            resObj.user_obj = resultObject._source;
-          }
-        }
-      } else {
-        resObj.idExist = false;
-      }
-      res.send(resObj);
-    }).on('error', function(error) {
-      console.log(error);
-      resObj.isError = true;
-      res.send(resObj);
-    });
-  });
-  es_req.end();
-}
-*/

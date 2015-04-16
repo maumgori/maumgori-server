@@ -13,7 +13,7 @@
       passwd_pre_correct : false
     }
 
-    //사용자 로그인
+    //사용자 로그인: 다른곳에서 호출하는 곳이 있기 때문에 먼저 선언해야 함.
     $scope.login = function(){
       var login_s_obj = {
         index : "users",
@@ -38,17 +38,28 @@
           if($scope.user_obj.signin_step < ($scope.user_obj.signin_step_text.length - 1)){
             $scope.user_obj.signin_step++;
           }
+          //console.log($scope.login_obj);
+          sessionStorage["maum_login_obj"] = JSON.stringify($scope.login_obj);
         }
       }
     });
 
+    if(sessionStorage["maum_login_obj"]){
+      //console.log(sessionStorage["maum_login_obj"]);
+      var login_session = JSON.parse(sessionStorage["maum_login_obj"]);
+      //console.log(login_session);
+      $scope.login_obj = login_session;
+      $scope.login();
+    }
+
     //패스워드 체크.
     $scope.checkPasswd = function(passwd){
+      console.log(passwd);
       var check_passwd_obj = {
         passwd : passwd,
-        emit : "getEncPasswd"
+        emit : "passwdPreCorrect"
       }
-      socket.emit('passwdPreCorrect',check_passwd_obj);
+      socket.emit('encPasswd',check_passwd_obj);
     }
     //이전 패스워드와 맞으면 패스워드 변경 가능.
     socket.on('passwdPreCorrect',function(data){
@@ -67,7 +78,7 @@
 
     // 서버에서 가져온 사용자 정보를 user_obj에 대입.
     var append_user_obj = function(data){
-//      console.log(data);
+      console.log(data);
       var obj_keys = Object.keys(data); // key Array 가져옴. ["signin_step","id","type","passwd", ...];
 
       for(var i=0; i < obj_keys.length; i++){
@@ -87,12 +98,8 @@
       $scope.user_obj.birthday.day = bday.getDate();
 
       //카테고리 적용
-      if(data.category !== null){
-        $("input[name=category]").each(function (index) {
-          if(data.category.indexOf($(this).val()) > -1)
-            $(this).attr("checked", true);
-        });
-        $scope.user_obj.checkChecked();
+      if(data.category !== null && data.category_list !== null){
+        $scope.user_obj_func.categoryCheck();
       }
 
       var search_data = {
@@ -102,7 +109,15 @@
           }
         }
       };
-      socket.emit('getExpertList',search_data);
+      //socket.emit('getExpertList',search_data);
+      var req_data = {
+        index : "users",
+        type : "user",
+        emit: "expertList",
+        query : search_data
+      }
+      socket.emit('getHits',req_data);
+
     }
 
     /**
@@ -120,6 +135,51 @@
       passwd_re : '',
       passwd_enc : '',
       passwd_pre : '',
+      signin_step_text : ["아이디 생성","개인 정보","전문 분야","소개","서비스 비용"],
+      user_photo : '/images/blank-user.jpg',
+      user_photo_data : '',
+      name : '',
+      gender : 'male',
+      birthday : {
+        year : 1990,
+        month : 1,
+        day : 1
+      },
+      age : 0,
+      phone : [],
+      email : '',
+      homepage : '',
+      kakao : '',
+      naver_line : '',
+      facebook : '',
+      twitter : '',
+      googleplus : '',
+      linkedin : '',
+      instagram : '',
+      category_list : null,
+      category: null,
+      expert_type : '',
+      location : '',
+      career : '',
+      activity: '',
+      profile_title : '',
+      profile_text : '',
+      proflie_txt_color : false,
+      proflie_txt_location : 'top',
+      profile_bg_img : '/images/profile_background.png',
+      price: {
+        phone_enable : true,
+        phone_amount : 20000,
+        email_enable : true,
+        email_amount : 10000,
+        message_enable : true,
+        message_amount : 20000,
+        interview_enable : true,
+        interview_amount : 50000,
+      }
+    };
+
+    $scope.user_obj_func = {
       step_0_chk : function() {
         var data = {
           passwd_1_class : 'text-danger',
@@ -209,15 +269,21 @@
             data.passwd_2_confirmed = false;
           }
         }
-
         data.confirmed = data.id_confirmed && data.passwd_1_confirmed && data.passwd_2_confirmed;
         return data;
       },
       signin_before : function() {
         $scope.user_obj.signin_step--;
       },
+      temp_id : "",
+      temp_passwd : "",
       signin_next : function() {
         // 마지막 단계까지 끝.
+        if($scope.user_obj.signin_step === 0){
+          $scope.user_obj_func.temp_id = $scope.user_obj.id;
+          $scope.user_obj_func.temp_passwd = $scope.user_obj.passwd;
+          //console.log($scope.login_obj);
+        }
         if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
           $scope.user_obj.register_done = true;
         }
@@ -227,7 +293,12 @@
           toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
           append_user_obj(data);
           if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
-            $scope.user_obj.is_loggedin = true;
+            //$scope.user_obj.is_loggedin = true;
+            if($scope.user_obj_func.temp_id !== "" && $scope.user_obj_func.temp_passwd !== ""){
+              $scope.login_obj.id = $scope.user_obj_func.temp_id;
+              $scope.login_obj.passwd = $scope.user_obj_func.temp_passwd;
+              $scope.login();
+            }
             $('#signinModal').modal('hide');
           } else {
             $scope.user_obj.signin_step++;
@@ -236,9 +307,6 @@
           console.log("error : "+error);
         });
       },
-      signin_step_text : ["아이디 생성","개인 정보","전문 분야","소개","서비스 비용"],
-      user_photo : '/images/blank-user.jpg',
-      user_photo_data : '',
       upload_photo : function(){
 //        console.log($scope.user_obj.user_photo_data);
         var photoData = {
@@ -257,14 +325,6 @@
         $scope.user_obj.user_photo = $scope.user_obj.user_photo_data;
         $('#imgUploadModal').modal('hide');
       },
-      name : '',
-      gender : 'male',
-      birthday : {
-        year : ((new Date()).getFullYear()-25),
-        month : 1,
-        day : 1
-      },
-      age : 0,
       birth_option : function(){
         var data = {
           years : null,
@@ -294,38 +354,16 @@
         $scope.user_obj.age = (new Date()).getFullYear() - $scope.user_obj.birthday.year;
         return data;
       },
-      phone : [],
-      email : '',
-      homepage : '',
-      kakao : '',
-      naver_line : '',
-      facebook : '',
-      twitter : '',
-      googleplus : '',
-      linkedin : '',
-      instagram : '',
-      category: null,
-      category_ischecked: null,
-      checkChecked : function(){
+      categoryCheck : function(){
         $scope.user_obj.category = [];
-        $scope.user_obj.category_ischecked = [];
-        $("input[name=category]:checked").each(function (index) {
-          $scope.user_obj.category.push($(this).val());
-        });
-        //3개까지만 체크하기 위해 체크여부 담겨있는 배열 생성.
-        $("input[name=category]").each(function (index) {
-          $scope.user_obj.category_ischecked.push($(this).is(":checked"));
-        });
+        for(var i=0; i<$scope.user_obj.category_list.length; i++){
+          if($scope.user_obj.category_list[i].checked){
+            $scope.user_obj.category.push($scope.user_obj.category_list[i].name);
+          }
+        }
+        console.log($scope.user_obj.category_list);
+        console.log($scope.user_obj.category);
       },
-      expert_type : '',
-      location : '',
-      career : '',
-      activity: '',
-      profile_title : '',
-      profile_text : '',
-      proflie_txt_color : false,
-      proflie_txt_location : 'top',
-      profile_bg_img : '/images/profile_background.png',
       profileBgImgUpload : function(){
         $('#bntBgImgSave').attr('disabeld',true);
         var bgCanvas = $('#profile_bg_img').cropper('getCroppedCanvas');
@@ -344,16 +382,6 @@
         }).error(function(error){
           console.log("error : "+error);
         });
-      },
-      price: {
-        phone_enable : true,
-        phone_amount : 20000,
-        email_enable : true,
-        email_amount : 10000,
-        message_enable : true,
-        message_amount : 20000,
-        interview_enable : true,
-        interview_amount : 50000,
       }
     };
 
@@ -376,13 +404,24 @@
     });
 
     //메타데이타 생성
-    $scope.metadata = {};
     socket.on('metaData', function(data){
       //console.log(data);
-      $scope.user_obj.expert_type = data.expert_type[0];
-      $scope.user_obj.location = data.location[0];
       $scope.metadata = data;
-      //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.  //factory 하면 됨.
+      if($scope.user_obj.expert_type === null || $scope.user_obj.expert_type === "" ){
+        $scope.user_obj.expert_type = $scope.metadata.expert_type[0];
+      }
+      if($scope.user_obj.location === null || $scope.user_obj.location === "" ){
+        $scope.user_obj.location = $scope.metadata.location[0];
+      }
+      if($scope.user_obj.category_list === null || $scope.user_obj.category_list === "" || $scope.user_obj.category_list.length === 0){
+        $scope.user_obj.category_list = [];
+        var cate_temp = data.category;
+        for(var i=0; i<cate_temp.length; i++ ){
+          cate_temp[i].checked = false;
+          $scope.user_obj.category_list.push(cate_temp[i]);
+        }
+      }
+      //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함. //factory 하면 됨.
     });
     socket.emit('getMetaData');
 
@@ -396,16 +435,16 @@
     };
 
     // 로그인 사용자 객체 초기화.
-    var user_init = {};   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.
-    angular.copy($scope.user_obj, user_init);
-    //console.log(user_init);
+    var user_init = JSON.stringify($scope.user_obj);   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.
 
     // 로그아웃.
-    $scope.clear_user = function(){
+    $scope.logout = function(){
       $scope.login_obj.id='';
       $scope.login_obj.passwd='';
-      //console.log(user_init); // 자꾸 로그아웃 해도 카테고리 값이 남아있다. 왜 그럴까.
-      angular.copy(user_init,$scope.user_obj);
+      $scope.user_obj = JSON.parse(user_init);  //JSON.stringify 하면 함수는 복사 안됨.
+      $scope.user_obj.expert_type = $scope.metadata.expert_type[0];
+      $scope.user_obj.location = $scope.metadata.location[0];
+      delete sessionStorage["maum_login_obj"];
     };
 
     // 사용자 이미지 크롭
@@ -426,11 +465,14 @@
   });
 
   ctrls.controller('mainCtrl', function($scope,$http,socket) {
-    $scope.expertList = [];
 
     socket.on('expertList', function(data){
-      //console.log(data);
-      $scope.expertList = data;
+      $scope.expertList = [];
+      for(var i=0; i < data.hits.length; i++){
+        //console.log(data.hits[i]._source);
+        $scope.expertList.push(data.hits[i]._source);
+      }
+      //console.log($scope.expertList);
       //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
     });
 
@@ -440,8 +482,14 @@
           register_done : true
         }
       }
-    }; //나중에 Elastcisearch 검색 쿼리 입력.
-    socket.emit('getExpertList',search_data);
+    };
+    var req_data = {
+      index : "users",
+      type : "user",
+      emit: "expertList",
+      query : search_data
+    }
+    socket.emit('getHits',req_data);
 
   });
 

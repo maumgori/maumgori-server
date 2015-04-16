@@ -10,12 +10,12 @@ form(name="user_frm_2")
             | &nbsp;전문 분야 -
             span.text-danger
               | &nbsp;최대 3개까지 선택 가능합니다.
-        .col.col-xs-12(ng-repeat="cate in metadata.category track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': user_obj.category_ischecked[$index] }")
-          label.control-label(ng-class="{'text-muted': user_obj.category.length>2 && !user_obj.category_ischecked[$index] }" style="margin:0px;")
-            input(type="checkbox" name="category" style="margin:3px;" ng-click="user_obj.checkChecked();" value="{{cate.name}}" ng-disabled="user_obj.category.length>2 && !user_obj.category_ischecked[$index]")
+        .col.col-xs-12(ng-repeat="cate in user_obj.category_list track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': cate.checked }")
+          label.control-label(ng-class="{'text-muted': user_obj.category.length > 2 && !cate.checked }" style="margin:0px;")
+            input(type="checkbox" name="category" style="margin:3px;" ng-model="cate.checked" ng-click="user_obj_func.categoryCheck();" ng-disabled="user_obj.category.length>2 && !cate.checked")
             span.cate-name(ng-style="cate.style")
               | {{cate.name}}
-            small(ng-class="{'text-muted': user_obj.category.length>2 && !user_obj.category_ischecked[$index] }")
+            small(ng-class="{'text-muted': user_obj.category.length>2 && !cate.checked }")
               | &nbsp; - {{cate.comment}}
       .col.col-sm-6
         .container-fluid(style="padding:0px;")
