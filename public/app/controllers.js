@@ -44,6 +44,7 @@
       }
     });
 
+    //세션 체크해서 로그인 되어 있으면 로그인.
     if(sessionStorage["maum_login_obj"]){
       //console.log(sessionStorage["maum_login_obj"]);
       var login_session = JSON.parse(sessionStorage["maum_login_obj"]);
@@ -78,7 +79,7 @@
 
     // 서버에서 가져온 사용자 정보를 user_obj에 대입.
     var append_user_obj = function(data){
-      console.log(data);
+      //console.log(data);
       var obj_keys = Object.keys(data); // key Array 가져옴. ["signin_step","id","type","passwd", ...];
 
       for(var i=0; i < obj_keys.length; i++){
@@ -288,7 +289,15 @@
           $scope.user_obj.register_done = true;
         }
 
+        var req_data = {
+          index : "users",
+          type : "user",
+          emit: "inserUserRes",
+          user_obj : $scope.user_obj
+        }
+        socket.emit('inserUser',req_data);
         // /signin 에 POST 로 user_obj 데이터 전달.
+        /*
         $http.post('/signin',$scope.user_obj).success(function(data){
           toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
           append_user_obj(data);
@@ -306,6 +315,7 @@
         }).error(function(error){
           console.log("error : "+error);
         });
+        */
       },
       upload_photo : function(){
 //        console.log($scope.user_obj.user_photo_data);
@@ -361,8 +371,6 @@
             $scope.user_obj.category.push($scope.user_obj.category_list[i].name);
           }
         }
-        console.log($scope.user_obj.category_list);
-        console.log($scope.user_obj.category);
       },
       profileBgImgUpload : function(){
         $('#bntBgImgSave').attr('disabeld',true);
@@ -384,6 +392,24 @@
         });
       }
     };
+
+    //사용자 저장 후 처리.
+    socket.on('inserUserRes',function(data){
+      toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
+      append_user_obj(data);
+      if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
+        //$scope.user_obj.is_loggedin = true;
+        if($scope.user_obj_func.temp_id !== "" && $scope.user_obj_func.temp_passwd !== ""){
+          $scope.login_obj.id = $scope.user_obj_func.temp_id;
+          $scope.login_obj.passwd = $scope.user_obj_func.temp_passwd;
+          $scope.login();
+        }
+        $('#signinModal').modal('hide');
+      } else {
+        $scope.user_obj.signin_step++;
+      }
+      //console.log(data);
+    });
 
     //ID 존재하는지 확인
     $scope.id_check = function(){

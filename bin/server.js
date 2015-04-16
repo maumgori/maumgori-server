@@ -61,6 +61,11 @@ io.on('connection', function(socket){
     socket.emit(req_emit,ret_obj);
   });
 
+  //사용자 저장.
+  socket.on('inserUser', function(data){
+    es.insertUser(socket,data);
+  });
+
 });
 
 function compile(str, path) {
@@ -80,16 +85,6 @@ app.use(stylus.middleware(
 app.use(express.static($MAUM_HOME + '/public'));
 //body-paerser 미들웨어 적용.
 app.use(bodyParser.json({limit: '50mb'}))
-
-//로그인
-app.post('/login', function(req, res){
-  es.login(req, res);
-});
-
-// 회원정보 입력.
-app.post('/signin', function(req, res){
-  es.insertUser(req, res);
-});
 
 // 이미지 파일 업로드.
 app.post('/fileupload/photo', function(req, res) {
