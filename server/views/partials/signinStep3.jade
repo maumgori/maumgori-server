@@ -81,7 +81,7 @@ form(name="user_frm_3")
                   strong
                     | 전문분야
                 .col.col-xs-9
-                  span(style="margin-right:6px;padding:2px 4px;font-size:12px;" class="cate-name" ng-repeat="cate in metadata.category | filter:{name:user_obj.category}:filterByCategory" ng-style="cate.style")
+                  span(style="margin-right:6px;padding:2px 4px;font-size:12px;" class="cate-name" ng-repeat="cate in user_obj.category_list" ng-show="cate.checked" ng-style="cate.style")
                     | {{cate.name}}
               .row
                 .col.col-xs-3.text-right(style="padding-right:0px;")

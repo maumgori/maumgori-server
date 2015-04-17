@@ -57,19 +57,19 @@ form(name="user_frm_2")
           .col.col-xs-8(style="padding:0;")
             .col.col-xs-5(style="padding:0;")
               .col.col-xs-9(style="padding-right:2px;")
-                select.form-control(ng-model="user_obj.birthday.year" style="padding:5px;")
-                  option(ng-repeat="year_val in user_obj_func.birth_option().years") {{year_val}}
+                select.form-control(ng-model="user_obj.birth.year" style="padding:5px;" ng-change="user_obj_func.birth_option.onChange();")
+                  option(ng-repeat="year_val in user_obj_func.birth_option.years" ) {{year_val}}
               .col.col-xs-3(style="padding-left:2px;")
                 h5 년
             .col.col-xs-7(style="padding:0;")
               .col.col-xs-4(style="padding:0px 2px;")
-                select.form-control(ng-model="user_obj.birthday.month" style="padding:5px;")
-                  option(ng-repeat="month_val in user_obj_func.birth_option().months") {{month_val}}
+                select.form-control(ng-model="user_obj.birth.month" style="padding:5px;" ng-change="user_obj_func.birth_option.onChange();")
+                  option(ng-repeat="month_val in user_obj_func.birth_option.months") {{month_val}}
               .col.col-xs-2(style="padding-left:2px;")
                 h5 월
               .col.col-xs-4(style="padding:0px 2px;")
-                select.form-control(ng-model="user_obj.birthday.day" style="padding:5px;")
-                  option(ng-repeat="day_val in user_obj_func.birth_option().days") {{day_val}}
+                select.form-control(ng-model="user_obj.birth.day" style="padding:5px;" ng-change="user_obj_func.birth_option.onChange();")
+                  option(ng-repeat="day_val in user_obj_func.birth_option.days") {{day_val}}
               .col.col-xs-2(style="padding-left:2px;")
                 h5 일
           .col.col-xs-2(style="padding-left:1px;")

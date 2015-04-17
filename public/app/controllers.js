@@ -91,13 +91,7 @@
       if($scope.user_obj.id !== ''){
         $scope.user_obj.id_created = true;
       }
-      //생년월일 적용
-      var bday = new Date(data.birthday);
-      $scope.user_obj.birthday = {};
-      $scope.user_obj.birthday.year = bday.getFullYear();
-      $scope.user_obj.birthday.month = bday.getMonth()+1; //month 는 0~11
-      $scope.user_obj.birthday.day = bday.getDate();
-
+      
       //카테고리 적용
       if(data.category !== null && data.category_list !== null){
         $scope.user_obj_func.categoryCheck();
@@ -141,11 +135,12 @@
       user_photo_data : '',
       name : '',
       gender : 'male',
-      birthday : {
-        year : 1990,
+      birth : {
+        year : 1980,
         month : 1,
         day : 1
       },
+      birthday : null,
       age : 0,
       phone : [],
       email : '',
@@ -274,21 +269,21 @@
         return data;
       },
       signin_before : function() {
+        //이전 버튼 클릭
         $scope.user_obj.signin_step--;
       },
       temp_id : "",
       temp_passwd : "",
       signin_next : function() {
-        // 마지막 단계까지 끝.
+        // 다음 버튼 클릭
+        // 0 step : id, passwd 저장.
         if($scope.user_obj.signin_step === 0){
           $scope.user_obj_func.temp_id = $scope.user_obj.id;
           $scope.user_obj_func.temp_passwd = $scope.user_obj.passwd;
-          //console.log($scope.login_obj);
         }
         if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
           $scope.user_obj.register_done = true;
         }
-
         var req_data = {
           index : "users",
           type : "user",
@@ -296,26 +291,6 @@
           user_obj : $scope.user_obj
         }
         socket.emit('inserUser',req_data);
-        // /signin 에 POST 로 user_obj 데이터 전달.
-        /*
-        $http.post('/signin',$scope.user_obj).success(function(data){
-          toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
-          append_user_obj(data);
-          if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
-            //$scope.user_obj.is_loggedin = true;
-            if($scope.user_obj_func.temp_id !== "" && $scope.user_obj_func.temp_passwd !== ""){
-              $scope.login_obj.id = $scope.user_obj_func.temp_id;
-              $scope.login_obj.passwd = $scope.user_obj_func.temp_passwd;
-              $scope.login();
-            }
-            $('#signinModal').modal('hide');
-          } else {
-            $scope.user_obj.signin_step++;
-          }
-        }).error(function(error){
-          console.log("error : "+error);
-        });
-        */
       },
       upload_photo : function(){
 //        console.log($scope.user_obj.user_photo_data);
@@ -335,34 +310,37 @@
         $scope.user_obj.user_photo = $scope.user_obj.user_photo_data;
         $('#imgUploadModal').modal('hide');
       },
-      birth_option : function(){
-        var data = {
-          years : null,
-          months : [1,2,3,4,5,6,7,8,9,10,11,12],
-          days : null
-        }
-        data.years = new Array(100);
-        for(var i=0; i < 100; i++){
-          data.years[i] = (new Date()).getFullYear()-i;
-        }
-        //윤달 계산 로직
-        var this_month = Number($scope.user_obj.birthday.month);
-        if(this_month === 2){
-          if( (Number($scope.user_obj.birthday.year) % 4 === 0) &&
-              (Number($scope.user_obj.birthday.year) % 100 !== 0) ||
-              (Number($scope.user_obj.birthday.year) % 400 === 0)
-          ){
-            data.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+      birth_option : {
+        years : null,
+        months : [1,2,3,4,5,6,7,8,9,10,11,12],
+        days : null,
+        onChange : function(){
+          //달 선택시 일 변경. 윤달 로직 적용.
+          var this_month = Number($scope.user_obj.birth.month);
+          if(this_month === 2){
+            if( (Number($scope.user_obj.birth.year) % 4 === 0) &&
+                (Number($scope.user_obj.birth.year) % 100 !== 0) ||
+                (Number($scope.user_obj.birth.year) % 400 === 0)
+            ){
+              $scope.user_obj_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+            } else {
+              $scope.user_obj_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
+            }
+          } else if (this_month === 4 || this_month === 6 || this_month === 9 || this_month === 11){
+            $scope.user_obj_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
           } else {
-            data.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
+            $scope.user_obj_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
           }
-        } else if (this_month === 4 || this_month === 6 || this_month === 9 || this_month === 11){
-          data.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
-        } else {
-          data.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+          //표준 시로 저장.
+          $scope.user_obj.birthday = new Date(Date.UTC(Number($scope.user_obj.birth.year),Number($scope.user_obj.birth.month)-1,Number($scope.user_obj.birth.day)));
+          //console.log($scope.user_obj.birthday);
+        },
+        init : function(){
+          $scope.user_obj_func.birth_option.years = new Array(100);
+          for(var i=0; i < 100; i++){
+            $scope.user_obj_func.birth_option.years[i] = (new Date()).getFullYear()-i;
+          }
         }
-        $scope.user_obj.age = (new Date()).getFullYear() - $scope.user_obj.birthday.year;
-        return data;
       },
       categoryCheck : function(){
         $scope.user_obj.category = [];
@@ -393,12 +371,16 @@
       }
     };
 
+    //생년월일 입력 폼 초기화.
+    $scope.user_obj_func.birth_option.init();
+    $scope.user_obj_func.birth_option.onChange();
+
     //사용자 저장 후 처리.
     socket.on('inserUserRes',function(data){
       toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
       append_user_obj(data);
       if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
-        //$scope.user_obj.is_loggedin = true;
+        //마지막 단계인 경우. login_id, passwd 임시저장 했으면 로그인 진행.
         if($scope.user_obj_func.temp_id !== "" && $scope.user_obj_func.temp_passwd !== ""){
           $scope.login_obj.id = $scope.user_obj_func.temp_id;
           $scope.login_obj.passwd = $scope.user_obj_func.temp_passwd;
@@ -413,7 +395,7 @@
 
     //ID 존재하는지 확인
     $scope.id_check = function(){
-      if($scope.user_obj.id.length > 0){
+      if($scope.user_obj.id.length > 3){
         var id_check_obj = {
           index : "users",
           type : "user",
@@ -450,15 +432,6 @@
       //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함. //factory 하면 됨.
     });
     socket.emit('getMetaData');
-
-    $scope.filterByCategory = function(expected, actual){
-      //console.log("expected : "+expected);
-      //console.log("actual : "+actual);
-      if(actual !== null){
-        //가입 하다가 만 경우 actual == null 나옴.
-        return actual.indexOf(expected) > -1;
-      }
-    };
 
     // 로그인 사용자 객체 초기화.
     var user_init = JSON.stringify($scope.user_obj);   //$scope.user_obj의 초기 상태를 저장 해 놓기 위한 객체.
