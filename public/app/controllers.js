@@ -78,7 +78,6 @@
         day : 1
       },
       birthday : null,
-      age : 0,
       phone : [],
       email : '',
       homepage : '',
@@ -136,97 +135,28 @@
         delete sessionStorage["maum_login_obj"];
         socket.emit('getMetaData'); //보유자격, 활동지역, 전문분야 다시 셋팅해줘야 함.
       },
-      step_0_chk : function() {
-        var data = {
-          passwd_1_class : 'text-danger',
-          passwd_2_class : 'text-danger',
-          passwd_1_form_class : 'has-error',
-          passwd_2_form_class : 'has-error',
-          passwd_1_txt : '',
-          passwd_2_txt : '',
-          id_class : 'text-danger',
-          id_form_class : 'has-error',
-          id_txt : '',
-          id_confirmed : false,
-          passwd_1_confirmed : false,
-          passwd_2_confirmed : false,
-          confirmed : false
-        }
-
-        // 아이디 검증.
-        if($scope.user_obj.id === ''){
-          data.id_class = "";
-          data.id_form_class = "";
-          data.id_txt = ""
-          data.id_confirmed = false;
-        } else {
+      id_validate_text : "",
+      id_validate : function(){
+        if($scope.user_obj.id.length > 3){
           var ck_validation = /^[A-Za-z0-9_]{0,20}$/;
-          if(!ck_validation.test($scope.user_obj.id)){
-            data.id_class = "text-danger";
-            data.id_form_class = "has-error";
-            data.id_txt = "영어, 숫자, '_' 만 입력 가능합니다."
-            data.id_confirmed = false;
-          } else {
-            if($scope.user_obj.id.length < 4){
-              data.id_class = "text-danger";
-              data.id_form_class = "has-error";
-              data.id_txt = "4자리 이상 입력하세요."
-              data.id_confirmed = false;
+          if(ck_validation.test($scope.user_obj.id)){
+            if($scope.user_obj.id_check_val){
+              $scope.user_func.id_validate_text = "이미 존재하는 아이디 입니다.";
+              return false;
             } else {
-              if($scope.user_obj.id_check_val){
-                data.id_class = "text-danger";
-                data.id_form_class = "has-error";
-                data.id_txt = "이미 존재하는 아이디 입니다."
-                data.id_confirmed = false;
-              } else {
-                data.id_class = "text-primary";
-                data.id_form_class = "has-primary";
-                data.id_txt = "사용 가능한 아이디 입니다."
-                data.id_confirmed = true;
-              }
+              $scope.user_func.id_validate_text = "사용 가능한 아이디 입니다.";
+              return true;
             }
-          }
-        }
-        // 비밀번호 검증.
-        if($scope.user_obj.passwd === ''){
-          data.passwd_1_class = "",
-          data.passwd_1_form_class = "",
-          data.passwd_1_txt = "",
-          data.passwd_1_confirmed = false;
-        } else {
-          if($scope.user_obj.passwd.length < 6){
-            data.passwd_1_class = "text-danger",
-            data.passwd_1_form_class = "has-error",
-            data.passwd_1_txt = "비밀번호는 6자리 이상 입력하세요.",
-            data.passwd_confirmed = false;
           } else {
-            data.passwd_1_class = "text-primary",
-            data.passwd_1_form_class = "has-primary",
-            data.passwd_1_txt = "사용 가능한 비밀번호입니다.",
-            data.passwd_1_confirmed = true;
+            $scope.user_func.id_validate_text = "영어, 숫자, '_' 만 입력 가능합니다.";
+            return false;
           }
-        }
-        // 비밀번호 확인 검증.
-        if($scope.user_obj.passwd_re === ''){
-          data.passwd_2_class = "",
-          data.passwd_2_form_class = "",
-          data.passwd_2_txt = "",
-          data.passwd_2_confirmed = false;
         } else {
-          if($scope.user_obj.passwd === $scope.user_obj.passwd_re){
-            data.passwd_2_class = "text-primary",
-            data.passwd_2_form_class = "has-primary",
-            data.passwd_2_txt = "비밀번호가 확인되었습니다.",
-            data.passwd_2_confirmed = true;
-          } else {
-            data.passwd_2_class = "text-danger",
-            data.passwd_2_form_class = "has-error",
-            data.passwd_2_txt = "비밀번호가 동일하지 않습니다.",
-            data.passwd_2_confirmed = false;
+          if($scope.user_obj.id.length > 0){
+            $scope.user_func.id_validate_text = "4자리 이상 입력하세요.";
           }
+          return false;
         }
-        data.confirmed = data.id_confirmed && data.passwd_1_confirmed && data.passwd_2_confirmed;
-        return data;
       },
       id_check : function(){
         //아이디 존재하는지 체크.

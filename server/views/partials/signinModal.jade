@@ -25,7 +25,7 @@
               | &nbsp;이전
           .col.col-sm-6.col-xs-4
           .col.col-sm-2.col-xs-4
-            button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===0" type="button" ng-disabled="!user_func.step_0_chk().confirmed && !user_obj.passwd_enc" ng-click="user_func.signin_next()")
+            button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===0" type="button" ng-disabled="!(user_obj.id.length > 0 && user_func.id_validate() && user_obj.passwd.length > 5 && user_obj.passwd === user_obj.passwd_re) && !user_obj.passwd_enc" ng-click="user_func.signin_next()")
               | 다음 &nbsp;
               i.glyphicon.glyphicon-arrow-right
             button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===1" type="button" ng-disabled="!(user_obj.name && user_obj.phone[0] && user_obj.email)" ng-click="user_func.signin_next()")

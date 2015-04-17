@@ -5,6 +5,7 @@ curl -XPUT http://localhost:9200/users -d '
       "_id" : { "path" : "id" },
       "_timestamp" : { "enabled" : true, "store" : true },
       "properties" : {
+        "register_date" : { "type" : "date" },
         "register_done" : { "type" : "boolean" },
         "signin_step" : { "type" : "integer" },
         "type" : { "type" : "string", "index" : "not_analyzed" },
@@ -22,7 +23,6 @@ curl -XPUT http://localhost:9200/users -d '
           }
         },
         "birthday" : { "type" : "date" },
-        "age" : { "type" : "integer" },
         "phone" : { "type" : "string", "index" : "not_analyzed" },
         "email" : { "type" : "string", "index" : "not_analyzed" },
         "homepage" : { "type" : "string", "index" : "not_analyzed" },

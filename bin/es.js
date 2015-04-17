@@ -244,6 +244,7 @@ exports.insertUser = function (socket, req_data) {
 
   //엘라스틱서치 users/user 에 저장되는 사용자 도큐먼트.
   var es_obj = {
+    register_date : new Date(),
     register_done : user_obj.register_done,
     signin_step : user_obj.signin_step,
     type : user_obj.type,
@@ -254,7 +255,6 @@ exports.insertUser = function (socket, req_data) {
     gender : user_obj.gender,
     birth : user_obj.birth,
     birthday : user_obj.birthday,
-    age : user_obj.age,
     phone : user_obj.phone,
     email : user_obj.email,
     homepage : user_obj.homepage,
