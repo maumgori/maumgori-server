@@ -30,7 +30,7 @@ form(name="user_frm_1")
         input#user_id.form-control(type="text" maxlength=20 ng-model="user_obj.id" ng-disabled="user_obj.id_created" placeholder="아이디 (4~20자)" ng-change="user_func.id_check()")
       .col-sm-6.col-xs-12
         h5(ng-hide="user_obj.id_created")
-          span.text-danger(ng-show="!user_func.id_validate()")
+          span(ng-class="{'text-danger':!user_func.id_validate(),'text-primary':user_func.id_validate()}")
             | {{user_func.id_validate_text}}
     .row(ng-show="user_obj.passwd_enc")
       .col-sm-2.col-xs-5.text-right(style="padding:1px;")
