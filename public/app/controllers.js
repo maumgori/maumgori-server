@@ -137,25 +137,30 @@
       },
       id_validate_text : "",
       id_validate : function(){
-        if($scope.user_obj.id.length > 3){
-          var ck_validation = /^[A-Za-z0-9_]{0,20}$/;
-          if(ck_validation.test($scope.user_obj.id)){
-            if($scope.user_obj.id_check_val){
-              $scope.user_func.id_validate_text = "이미 존재하는 아이디 입니다.";
-              return false;
+        if(!$scope.user_obj.id || $scope.user_obj.id.length === 0 ){
+          $scope.user_func.id_validate_text = "";
+          return false;
+        } else {
+          if($scope.user_obj.id.length > 3){
+            var ck_validation = /^[A-Za-z0-9_]{0,20}$/;
+            if(ck_validation.test($scope.user_obj.id)){
+              if($scope.user_obj.id_check_val){
+                $scope.user_func.id_validate_text = "이미 존재하는 아이디 입니다.";
+                return false;
+              } else {
+                $scope.user_func.id_validate_text = "사용 가능한 아이디 입니다.";
+                return true;
+              }
             } else {
-              $scope.user_func.id_validate_text = "사용 가능한 아이디 입니다.";
-              return true;
+              $scope.user_func.id_validate_text = "영어, 숫자, '_' 만 입력 가능합니다.";
+              return false;
             }
           } else {
-            $scope.user_func.id_validate_text = "영어, 숫자, '_' 만 입력 가능합니다.";
+            if($scope.user_obj.id.length > 0){
+              $scope.user_func.id_validate_text = "4자리 이상 입력하세요.";
+            }
             return false;
           }
-        } else {
-          if($scope.user_obj.id.length > 0){
-            $scope.user_func.id_validate_text = "4자리 이상 입력하세요.";
-          }
-          return false;
         }
       },
       id_check : function(){

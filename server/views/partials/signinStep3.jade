@@ -8,9 +8,9 @@ form(name="profile_bg_frm" method="POST" action="/fileupload/photo")
       .modal-content
         .modal-body
           .row
-            .col.col-sm-9
+            .col-sm-9
               img#profile_bg_img(width="100%")
-            .col.col-sm-3(style="padding-left: 0px")
+            .col-sm-3(style="padding-left: 0px")
               button#bntBgImgSave.btn.btn-block.btn-success(type="button" ng-click="user_func.profileBgImgUpload();")
                 | 배경 저장
               button.btn.btn-block.btn-danger(type="button" onclick="$('#profileBgModal').modal('hide')")
@@ -18,25 +18,25 @@ form(name="profile_bg_frm" method="POST" action="/fileupload/photo")
 form(name="user_frm_3")
   .animate-show(ng-show="user_obj.signin_step===3")
     .row
-      .col.col-sm-2.text-right(style="padding:1px;")
+      .col-sm-2.text-right(style="padding:1px;")
         h5
           label(for="profile_title")
             span.text-danger
               | *
             | &nbsp;한줄 소개
-      .col.col-sm-6(style="padding-right:2px;")
+      .col-sm-6(style="padding-right:2px;")
         input#profile_title.form-control(type="text" maxlength=20 ng-model="user_obj.profile_title" placeholder="한줄 소개 (최대 20자)")
-      .col.col-sm-3
+      .col-sm-3
         label.btn.btn-block.btn-info(for="profile_bg_file")
           | 배경 이미지
     .row
-      .col.col-sm-2.text-right(style="padding:1px;")
+      .col-sm-2.text-right(style="padding:1px;")
         h5
           label(for="profile_text")
             | 상세 소개
-      .col.col-sm-6(style="padding-right:2px;")
+      .col-sm-6(style="padding-right:2px;")
         textarea#profile_text.form-control(rows=3 maxlength=100 ng-model="user_obj.profile_text" placeholder="상세 소개 (최대 100자)")
-      .col.col-sm-4(style="padding-right:2px;")
+      .col-sm-4(style="padding-right:2px;")
         label.control-label
           input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="top")
           | &nbsp;텍스트 배치 - 상단
@@ -48,11 +48,11 @@ form(name="user_frm_3")
           | &nbsp;텍스트 색 반전
     br
     .row
-      .col.col-sm-2.text-right(style="padding:1px;")
+      .col-sm-2.text-right(style="padding:1px;")
         h5
           label(for="profile_text")
             | 앱 미리보기
-      .col.col-sm-10
+      .col-sm-10
         .thumbnail(style="width:360px;padding:20px;background-color:black;border-radius: 40px;")
           div(style="width:320px;height:40px;padding:10px;margin:0px;")
             div(style="width:50px;height:10px;background-color:#444;border-radius: 5px;margin:auto;")
@@ -65,36 +65,36 @@ form(name="user_frm_3")
                   | {{user_obj.profile_text}}
             div(style="background-color:white;padding:15px 5px;margin:0px;")
               .row
-                .col.col-xs-3.text-right(style="padding-right:0px;")
+                .col-xs-3.text-right(style="padding-right:0px;")
                   strong
                     | 이름
-                .col.col-xs-9
+                .col-xs-9
                   | {{user_obj.name}}
               .row
-                .col.col-xs-3.text-right(style="padding-right:0px;")
+                .col-xs-3.text-right(style="padding-right:0px;")
                   strong
                     | 전문자격
-                .col.col-xs-9
+                .col-xs-9
                   | {{user_obj.expert_type}}
               .row
-                .col.col-xs-3.text-right(style="padding-right:0px;")
+                .col-xs-3.text-right(style="padding-right:0px;")
                   strong
                     | 전문분야
-                .col.col-xs-9
+                .col-xs-9
                   span(style="margin-right:6px;padding:2px 4px;font-size:12px;" class="cate-name" ng-repeat="cate in user_obj.category_list" ng-show="cate.checked" ng-style="cate.style")
                     | {{cate.name}}
               .row
-                .col.col-xs-3.text-right(style="padding-right:0px;")
+                .col-xs-3.text-right(style="padding-right:0px;")
                   strong
                     | 학력/경력
-                .col.col-xs-9
+                .col-xs-9
                   span(style="white-space: pre;")
                     | {{user_obj.career}}
               .row
-                .col.col-xs-3.text-right(style="padding-right:0px;")
+                .col-xs-3.text-right(style="padding-right:0px;")
                   strong
                     | 활동 이력
-                .col.col-xs-9
+                .col-xs-9
                   span(style="white-space: pre;")
                     | {{user_obj.activity}}
           div(style="width:320px;height:70px;padding-top:20px;margin:0px;")

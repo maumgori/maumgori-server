@@ -18,13 +18,13 @@
         include signinStep4
       .modal-footer
         .row
-          .col.col-sm-1
-          .col.col-sm-2.col-xs-4
+          .col-sm-1
+          .col-sm-2.col-xs-4
             button.btn.btn-warning.btn-block(ng-hide="user_obj.signin_step===0" type="button" ng-click="user_func.signin_before()")
               i.glyphicon.glyphicon-arrow-left
               | &nbsp;이전
-          .col.col-sm-6.col-xs-4
-          .col.col-sm-2.col-xs-4
+          .col-sm-6.col-xs-4
+          .col-sm-2.col-xs-4
             button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===0" type="button" ng-disabled="!(user_obj.id.length > 0 && user_func.id_validate() && user_obj.passwd.length > 5 && user_obj.passwd === user_obj.passwd_re) && !user_obj.passwd_enc" ng-click="user_func.signin_next()")
               | 다음 &nbsp;
               i.glyphicon.glyphicon-arrow-right
@@ -40,4 +40,4 @@
             button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===4" type="button" ng-disabled="!(user_obj.price.phone_enable || user_obj.price.email_enable || user_obj.price.message_enable || user_obj.price.interview_enable)" ng-click="user_func.signin_next();")
               | 완료 &nbsp;
               i.glyphicon.glyphicon-ok
-          .col.col-sm-1
+          .col-sm-1

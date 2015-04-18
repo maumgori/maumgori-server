@@ -1,8 +1,8 @@
 form(name="user_frm_2")
   .animate-show(ng-show="user_obj.signin_step===2")
     .row
-      .col.col-sm-6
-        .col.col-xs-12
+      .col-sm-6
+        .col-xs-12
         h5
           label
             span.text-danger
@@ -10,37 +10,37 @@ form(name="user_frm_2")
             | &nbsp;전문 분야 -
             span.text-danger
               | &nbsp;최대 3개까지 선택 가능합니다.
-        .col.col-xs-12(ng-repeat="cate in user_obj.category_list track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': cate.checked }")
+        .col-xs-12(ng-repeat="cate in user_obj.category_list track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': cate.checked }")
           label.control-label(ng-class="{'text-muted': user_obj.category.length > 2 && !cate.checked }" style="margin:0px;")
             input(type="checkbox" name="category" style="margin:3px;" ng-model="cate.checked" ng-click="user_func.categoryCheck();" ng-disabled="user_obj.category.length>2 && !cate.checked")
             span.cate-name(ng-style="cate.style")
               | {{cate.name}}
             small(ng-class="{'text-muted': user_obj.category.length>2 && !cate.checked }")
               | &nbsp; - {{cate.comment}}
-      .col.col-sm-6
+      .col-sm-6
         .container-fluid(style="padding:0px;")
-          .col.col-xs-4
+          .col-xs-4
             h5
               label 보유자격
-          .col.col-xs-8(style="padding-left:0px;")
+          .col-xs-8(style="padding-left:0px;")
             select.form-control(ng-model="user_obj.expert_type" style="padding:5px;")
               option(ng-repeat="expert_type in metadata.expert_type") {{expert_type}}
         .container-fluid(style="padding:0px;")
-          .col.col-xs-4
+          .col-xs-4
             h5
               label 활동지역
-          .col.col-xs-8(style="padding-left:0px;")
+          .col-xs-8(style="padding-left:0px;")
             select.form-control(ng-model="user_obj.location" style="padding:5px;")
               option(ng-repeat="location in metadata.location") {{location}}
         br
         .container-fluid(style="padding:0px;")
-          .col.col-xs-12
+          .col-xs-12
             label 학력/경력
-          .col.col-xs-12(style="padding-left:0px;")
+          .col-xs-12(style="padding-left:0px;")
             textarea.form-control(ng-model="user_obj.career" placeholder="OO학교 XX전공 석사, 국제 ICF 공인 코치...")
         br
         .container-fluid(style="padding:0px;")
-          .col.col-xs-12
+          .col-xs-12
             label 활동이력
-          .col.col-xs-12(style="padding-left:0px;")
+          .col-xs-12(style="padding-left:0px;")
             textarea.form-control(ng-model="user_obj.activity" placeholder="각종 대학 강연, KBS1 아침마당 \"행복이란\" 출연...")
