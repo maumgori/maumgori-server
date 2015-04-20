@@ -58,17 +58,21 @@ method :
     price : 20000
     unit : "60분"
     checked : true
+    icon : "icon ion-android-call"
   - name : "이메일"
     price : 10000
     unit : "1회신"
     checked : true
+    icon : "icon ion-android-mail"
   - name : "문자/메시지"
     price : 20000
     unit : "60분"
     checked : true
+    icon : "icon ion-android-textsms"
   - name : "대면"
     price : 50000
     unit : "60분"
     checked : true
+    icon : "icon ion-android-contacts"
 expert_type: ["라이프코치","심리치료사","정신과의사","전문상담사","복지전문가"]
 location: ["전국","서울/인천/경기","대구/부산/경상","세종/대전/충청","광주/전라","춘천/강릉/강원","제주도"]

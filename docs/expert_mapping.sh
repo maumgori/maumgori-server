@@ -67,7 +67,8 @@ curl -XPUT http://localhost:9200/users -d '
             "name" : { "type" : "string", "index" : "no" },
             "price" : { "type" : "integer", "index" : "no" },
             "unit" : { "type" : "string", "index" : "no" },
-            "checked" : { "type" : "boolean", "index" : "no" }
+            "checked" : { "type" : "boolean", "index" : "no" },
+            "icon" : { "type" : "string", "index" : "no" },
           }
         },
         "method" : {
