@@ -99,16 +99,10 @@
       proflie_txt_color : false,
       proflie_txt_location : 'top',
       profile_bg_img : '/images/profile_background.png',
-      price: {
-        phone_enable : true,
-        phone_amount : 20000,
-        email_enable : true,
-        email_amount : 10000,
-        message_enable : true,
-        message_amount : 20000,
-        interview_enable : true,
-        interview_amount : 50000,
-      }
+      method_list : null,
+      method : [],
+      method_price_min : 0,
+      method_price_max : 0
     };
 
     /**
@@ -267,6 +261,21 @@
           }
         }
       },
+      methodCheck : function(){
+        $scope.user_obj.method = [];
+        var method_price_arr = [];
+        for(var i=0; i<$scope.user_obj.method_list.length; i++){
+          if($scope.user_obj.method_list[i].checked){
+            $scope.user_obj.method.push($scope.user_obj.method_list[i].name);
+            method_price_arr.push($scope.user_obj.method_list[i].price);
+            //console.log(method_price_arr+""); // +"" 안하면 기존 출력된 녀석들도 바뀜.
+          }
+        }
+        method_price_arr.sort(function(a, b){return a-b}); //function()... 안 하면 string 기준으로 소팅함.
+        //console.log(method_price_arr);
+        $scope.user_obj.method_price_min = method_price_arr[0];
+        $scope.user_obj.method_price_max = method_price_arr[method_price_arr.length-1];
+      },
       profileBgImgUpload : function(){
         $('#bntBgImgSave').attr('disabeld',true);
         var bgCanvas = $('#profile_bg_img').cropper('getCroppedCanvas');
@@ -331,22 +340,31 @@
     socket.on('metaData', function(data){
       //console.log(data);
       $scope.metadata = data;
-      //보유자격, 활동지역, 전문 분야 셋팅.
+      //보유자격
       if($scope.user_obj.expert_type === null || $scope.user_obj.expert_type === "" ){
         $scope.user_obj.expert_type = $scope.metadata.expert_type[0];
       }
+      //활동지역
       if($scope.user_obj.location === null || $scope.user_obj.location === "" ){
         $scope.user_obj.location = $scope.metadata.location[0];
       }
+      //전문분야
       if($scope.user_obj.category_list === null || $scope.user_obj.category_list === "" || $scope.user_obj.category_list.length === 0){
         $scope.user_obj.category_list = [];
         var cate_temp = data.category;
         for(var i=0; i<cate_temp.length; i++ ){
-          cate_temp[i].checked = false;
           $scope.user_obj.category_list.push(cate_temp[i]);
         }
       }
-      //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함. //factory 하면 됨.
+      //서비스 비용
+      if($scope.user_obj.method_list === null || $scope.user_obj.method_list === "" || $scope.user_obj.method_list.length === 0){
+        $scope.user_obj.method_list = [];
+        var method_temp = data.method;
+        for(var i=0; i<method_temp.length; i++ ){
+          $scope.user_obj.method_list.push(method_temp[i]);
+        }
+        $scope.user_func.methodCheck();
+      }
     });
 
     //로그인

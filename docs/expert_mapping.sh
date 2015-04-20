@@ -61,22 +61,21 @@ curl -XPUT http://localhost:9200/users -d '
         "proflie_txt_location" : { "type" : "string", "index" : "no" },
         "profile_text" : { "type" : "string" },
         "profile_bg_img" : { "type" : "string", "index" : "no" },
-        "price" : {
+        "method_list" : {
           "type" : "object",
           "properties" : {
-            "phone_enable" : { "type" : "boolean" },
-            "phone_amount" : { "type" : "integer" },
-            "email_enable" : { "type" : "boolean" },
-            "email_amount" : { "type" : "integer" },
-            "message_enable" : { "type" : "boolean" },
-            "message_amount" : { "type" : "integer" },
-            "interview_enable" : { "type" : "boolean" },
-            "interview_amount" : { "type" : "integer" },
-            "min_amount" : { "type" : "integer" },
-            "max_amount" : { "type" : "integer" },
-            "enable_list" : { "type" : "string", "index" : "not_analyzed" }
+            "name" : { "type" : "string", "index" : "no" },
+            "price" : { "type" : "integer", "index" : "no" },
+            "unit" : { "type" : "string", "index" : "no" },
+            "checked" : { "type" : "boolean", "index" : "no" }
           }
-        }
+        },
+        "method" : {
+          "type" : "string", "index" : "not_analyzed",
+          "fields" : { "indexed" : { "type" : "string", "analyzer" : "standard" } }
+        },
+        "method_price_min" : { "type" : "integer" },
+        "method_price_max" : { "type" : "integer" }
       }
     }
   }

@@ -213,35 +213,6 @@ exports.insertUser = function (socket, req_data) {
     passwd_val = user_obj.passwd_enc;
   }
 
-  var price_obj = user_obj.price;
-  price_obj.enable_list = [];
-  var price_arr = [];
-  if(price_obj.phone_enable === true){
-    price_arr.push(price_obj.phone_amount);
-    price_obj.enable_list.push("phone");
-  }
-  if(price_obj.email_enable === true){
-    price_arr.push(price_obj.email_amount);
-    price_obj.enable_list.push("email");
-  }
-  if(price_obj.message_enable === true){
-    price_arr.push(price_obj.message_amount);
-    price_obj.enable_list.push("message");
-  }
-  if(price_obj.interview_enable === true){
-    price_arr.push(price_obj.interview_amount);
-    price_obj.enable_list.push("interview");
-  }
-
-  price_arr.sort();
-  if(price_arr.length > 0){
-    price_obj.min_amount = price_arr[0];
-    price_obj.max_amount = price_arr[price_arr.length-1];
-  } else {
-    price_obj.min_amount = 0;
-    price_obj.max_amount = 0;
-  }
-
   //엘라스틱서치 users/user 에 저장되는 사용자 도큐먼트.
   var es_obj = {
     register_date : new Date(),
@@ -276,7 +247,10 @@ exports.insertUser = function (socket, req_data) {
     proflie_txt_color: user_obj.proflie_txt_color,
     proflie_txt_location: user_obj.proflie_txt_location,
     profile_bg_img: user_obj.profile_bg_img,
-    price : price_obj
+    method_list: user_obj.method_list,
+    method: user_obj.method,
+    method_price_min : user_obj.method_price_min,
+    method_price_max : user_obj.method_price_max
   }
 
   var userString = JSON.stringify(es_obj);

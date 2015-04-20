@@ -37,7 +37,7 @@
             button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===3" type="button" ng-disabled="!user_obj.profile_title" ng-click="user_func.signin_next();")
               | 다음 &nbsp;
               i.glyphicon.glyphicon-arrow-right
-            button.btn.btn-success.btn-block(ng-show="user_obj.signin_step===4" type="button" ng-disabled="!(user_obj.price.phone_enable || user_obj.price.email_enable || user_obj.price.message_enable || user_obj.price.interview_enable)" ng-click="user_func.signin_next();")
+            button#btn_signed.btn.btn-success.btn-block(ng-show="user_obj.signin_step===4" type="button" ng-disabled="!(user_obj.method && user_obj.method.length > 0)" ng-click="user_func.signin_next();")
               | 완료 &nbsp;
               i.glyphicon.glyphicon-ok
           .col-sm-1

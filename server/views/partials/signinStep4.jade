@@ -8,71 +8,20 @@ form(name="user_frm_4")
             | &nbsp;(최소 1종류 이상)
         p.text-primary
           | 실제 금액은 계약 시점에 고객과 협의하여 조정 가능합니다.
-    .row
+    .row(ng-repeat="method in user_obj.method_list track by $index")
       .col-sm-3.col-xs-5
         h5
           label
-            input(type="checkbox" ng-model="user_obj.price.phone_enable")
-            | &nbsp;전화
-      .col-sm-2.col-xs-7(ng-class="{'has-error' : !user_obj.price.phone_amount}" style="padding:0px;")
-        input#price_phone.form-control(type="number" ng-model="user_obj.price.phone_amount" min="0" step="1000" ng-disabled="!user_obj.price.phone_enable")
+            input(type="checkbox" ng-model="method.checked" ng-click="user_func.methodCheck();")
+            | &nbsp;{{method.name}}
+      .col-sm-2.col-xs-7(ng-class="{'has-error' : !method.price}" style="padding:0px;")
+        input#price_phone.form-control(type="number" ng-model="method.price" min="0" step="1000" ng-disabled="!method.checked" ng-change="user_func.methodCheck();")
       .col-sm-7.col-xs-12
-        h5(ng-show="user_obj.price.phone_enable && user_obj.price.phone_amount")
+        h5(ng-show="method.checked && method.price")
           span.text-primary
-            | {{user_obj.price.phone_amount|currency:"&#8361; ":0}}
-          | &nbsp;/ 60분
-        h5.text-danger(ng-show="user_obj.price.phone_enable && !user_obj.price.phone_amount")
+            | {{method.price|currency:"&#8361; ":0}}
+          | &nbsp;/ {{method.unit}}
+        h5.text-danger(ng-show="method.checked && !method.price")
           | 올바른 금액을 숫자로 입력하세요
-        h5.text-danger(ng-hide="user_obj.price.phone_enable")
-          | 전화 서비스 불가
-    .row
-      .col-sm-3.col-xs-5
-        h5
-          label
-            input(type="checkbox" ng-model="user_obj.price.email_enable")
-            | &nbsp;이메일
-      .col-sm-2.col-xs-7(ng-class="{'has-error' : !user_obj.price.email_amount}" style="padding:0px;")
-        input#price_phone.form-control(type="number" ng-model="user_obj.price.email_amount" min="0" step="1000" ng-disabled="!user_obj.price.email_enable")
-      .col-sm-7.col-xs-12
-        h5(ng-show="user_obj.price.email_enable && user_obj.price.email_amount")
-          span.text-primary
-            | {{user_obj.price.email_amount|currency:"&#8361; ":0}}
-          | &nbsp;/ 1회신
-        h5.text-danger(ng-show="user_obj.price.email_enable && !user_obj.price.email_amount")
-          | 올바른 금액을 숫자로 입력하세요
-        h5.text-danger(ng-hide="user_obj.price.email_enable")
-          | 이메일 서비스 불가
-    .row
-      .col-sm-3.col-xs-5
-        h5
-          label
-            input(type="checkbox" ng-model="user_obj.price.message_enable")
-            | &nbsp;문자/메시지
-      .col-sm-2.col-xs-7(ng-class="{'has-error' : !user_obj.price.message_amount}" style="padding:0px;")
-        input#price_phone.form-control(type="number" ng-model="user_obj.price.message_amount" min="0" step="1000" ng-disabled="!user_obj.price.message_enable")
-      .col-sm-7.col-xs-12
-        h5(ng-show="user_obj.price.message_enable && user_obj.price.message_amount")
-          span.text-primary
-            | {{user_obj.price.message_amount|currency:"&#8361; ":0}}
-          | &nbsp;/ 60분
-        h5.text-danger(ng-show="user_obj.price.message_enable && !user_obj.price.message_amount")
-          | 올바른 금액을 숫자로 입력하세요
-        h5.text-danger(ng-hide="user_obj.price.message_enable")
-          | 문자/메시지 서비스 불가
-    .row
-      .col-sm-3.col-xs-5
-        h5
-          label
-            input(type="checkbox" ng-model="user_obj.price.interview_enable")
-            | &nbsp;대면
-      .col-sm-2.col-xs-7(ng-class="{'has-error' : !user_obj.price.interview_amount}" style="padding:0px;")
-        input#price_phone.form-control(type="number" ng-model="user_obj.price.interview_amount" min="0" step="1000" ng-disabled="!user_obj.price.interview_enable")
-      .col-sm-7.col-xs-12
-        h5(ng-show="user_obj.price.interview_enable && user_obj.price.interview_amount")
-          span.text-primary
-            | {{user_obj.price.interview_amount|currency:"&#8361; ":0}}
-          | &nbsp;/ 60분
-        h5.text-danger(ng-show="user_obj.price.interview_enable && !user_obj.price.interview_amount")
-          | 올바른 금액을 숫자로 입력하세요
-        h5.text-danger(ng-hide="user_obj.price.interview_enable")
-          | 대면 서비스 불가
+        h5.text-danger(ng-hide="method.checked")
+          | {{method.name}} 서비스 불가
