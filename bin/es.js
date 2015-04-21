@@ -1,9 +1,9 @@
 /**
 엘라스틱서치 사용 모듈.
 */
-
 var YAML = require('yamljs');
 var http = require('http');
+var fs = require('fs');
 
 // 마음고리 홈 디렉토리.
 var $MAUM_HOME = require('path').join(__dirname, '..');
@@ -279,5 +279,19 @@ exports.insertUser = function (socket, req_data) {
   });
   es_req.write(userString);
   es_req.end();
+
+  // /data 경로에 날짜 이름으로 사용자 입력 데이터 저장.
+  var today = new Date(2014,1,1);
+  var tomonth = "0"+(today.getMonth()+1);
+  var todate = "0"+(today.getDate());
+  tomonth = tomonth.substring(tomonth.length-2,tomonth.length);
+  todate = todate.substring(todate.length-2,todate.length);
+  fs.open($MAUM_HOME+'/data/'+today.getFullYear()+'-'+tomonth+'-'+todate+'.json','a', function(err, fd){
+    fs.write( fd, userString+'\n', null, 'utf8', function(){
+      fs.close(fd, function(){
+        //console.log('file closed');
+      });
+    });
+  });
   // 엘라스틱서치 사용자정보 입력 끝.
 };
