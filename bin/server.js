@@ -102,6 +102,10 @@ app.get('/metadata', function(req, res){
 app.get('/partials/:partialFile', function(req, res) {
   res.render('partials/' + req.params.partialFile);
 });
+//네비게이션 바 디렉토리
+app.get('/nav/:navFile', function(req, res) {
+  res.render('nav/' + req.params.navFile);
+});
 
 // index.jade 실행.
 // '/' 대신 '*' 로 해 놓으면 모든 경로에서 로딩.

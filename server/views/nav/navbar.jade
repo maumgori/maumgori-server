@@ -1,0 +1,78 @@
+nav.navbar.navbar-fixed-top.navbar-inverse
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          p.navbar-brand
+            img#mg_exp_t_logo(src='./img/sm_t_logo.png', alt='마음고리')
+            span Expert
+        #navbar.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li.active
+              a(href='./') 메인페이지
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                | 진행관리
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='./?page=new') 신규신청내역
+                li
+                  a(href='./?page=ing') 진행내역
+                li
+                  a(href='./?page=end') 중단/종료내역
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                | 고객관리
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='./?page=customer') 고객조회/관리
+                li
+                  a(href='./?page=message') 메일/메시지발송
+                li
+                  a(href='./?page=review') 리뷰관리
+                li
+                  a(href='./?page=schedule') 스케쥴관리
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                | 정산관리
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='./?page=account') 계좌내역조회
+                li
+                  a(href='./?page=taxbreakdown') 원천징수내역조회
+                li
+                  a(href='./?page=taxreceipt') 세금계산서내역조회
+                li.divider
+                li
+                  a(href='./?page=request_withdraw') 출금신청
+                li
+                  a(href='./?page=check_withdraw') 출금진행조회
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                | 내정보관리
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='./?page=modify_member') 회원정보수정
+                li
+                  a(href='./?page=modify_verification') 검증항목수정신청/조회
+                li.divider
+                li
+                  a(href='./?page=disciplinary') 신고/징계내역조회
+                li
+                  a(href='./?page=1to1qna') 1:1문의
+                li.divider
+                li
+                  a(href='./?page=stat') 통계조회
+                li.divider
+                li
+                  a(href='./?page=logout') 로그아웃
+        //nav-collapse
+      //container
+    //navbar
