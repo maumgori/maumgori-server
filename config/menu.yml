@@ -1,0 +1,40 @@
+expert_menu:
+  - id : "main_page"
+    text : "메인페이지"
+    sub_menues : null
+  - id : "progress"
+    text : "진행관리"
+    sub_menues :
+      - id : "new"
+        text : "신규신청내역"
+        sub_menues : null
+      - id : "ing"
+        text : "진행내역"
+        sub_menues : null
+      - id : "end"
+        text : "중단/종료내역"
+        sub_menues : null
+  - id : "customer"
+    text : "고객관리"
+    sub_menues : null
+  - id : "my_info"
+    text : "내정보관리"
+    sub_menues :
+      - id : "user_info_modify"
+        text : "회원정보수정"
+        sub_menues : null
+      - id : "user_info_modify"
+        text : "검증항목수정신청/조회"
+        sub_menues : null
+      - id : "devider"
+        text : ""
+        sub_menues : null
+      - id : "user_info_modify"
+        text : "회원정보수정"
+        sub_menues : null
+      - id : "user_info_modify"
+        text : "검증항목수정신청/조회"
+        sub_menues : null
+      - id : "devider"
+        text : ""
+        sub_menues : null

@@ -11,7 +11,9 @@ var file = require('./file.js');  //파일 업로드 처리.
 var $MAUM_HOME = require('path').join(__dirname, '..');
 //마음고리 환경설정 정보가 담긴 객체.
 var config_obj = YAML.load($MAUM_HOME+'/config/maum.yml');
-// console.log("%j",config_obj);
+//메뉴 정보 객체.
+var menu_obj = YAML.load($MAUM_HOME+'/config/menu.yml');
+//console.log("%j",menu_obj);
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -65,6 +67,8 @@ io.on('connection', function(socket){
   socket.on('inserUser', function(data){
     es.insertUser(socket,data);
   });
+
+  socket.emit('createMenu',menu_obj);
 
 });
 

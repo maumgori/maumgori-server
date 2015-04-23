@@ -450,4 +450,20 @@
 
   });
 
+  ctrls.controller('menuCtrl', function($scope,socket){
+    socket.on('createMenu',function(data){
+      console.log(data);
+      $scope.menu_obj = data;
+    });
+
+    $scope.menu_val = 'main_page';
+    $scope.menu_link_val = 'main_page';
+    $scope.clickMenu = function(menu_id,menu_link_id){
+      $scope.menu_val = menu_id;
+      $scope.menu_link_val = menu_link_id;
+      //$scope.$apply();
+    }
+
+  });
+
 })();
