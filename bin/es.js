@@ -213,7 +213,7 @@ exports.insertUser = function (socket, req_data) {
     passwd_val = user_obj.passwd_enc;
   }
 
-  //엘라스틱서치 users/user 에 저장되는 사용자 도큐먼트.
+  //엘라스틱서치 /experts/expert 에 저장되는 사용자 도큐먼트.
   var es_obj = {
     register_date : new Date(),
     register_done : user_obj.register_done,
@@ -260,7 +260,7 @@ exports.insertUser = function (socket, req_data) {
   var options = {
     host: config_obj.es.host,
     port: config_obj.es.port,
-    path: '/users/user',
+    path: '/experts/expert',
     method: 'POST',
     headers: headers
   };
@@ -281,7 +281,7 @@ exports.insertUser = function (socket, req_data) {
   es_req.end();
 
   // /data 경로에 날짜 이름으로 사용자 입력 데이터 저장.
-  var today = new Date(2014,1,1);
+  var today = new Date();
   var tomonth = "0"+(today.getMonth()+1);
   var todate = "0"+(today.getDate());
   tomonth = tomonth.substring(tomonth.length-2,tomonth.length);

@@ -43,8 +43,8 @@
       };
       //socket.emit('getExpertList',search_data);
       var req_data = {
-        index : "users",
-        type : "user",
+        index : "experts",
+        type : "expert",
         emit: "expertList",
         query : search_data
       }
@@ -112,8 +112,8 @@
       login : function(){
         //사용자 로그인
         var login_s_obj = {
-          index : "users",
-          type : "user",
+          index : "experts",
+          type : "expert",
           id : $scope.login_obj.id,
           passwd : $scope.login_obj.passwd,
           emit : "login"
@@ -161,8 +161,8 @@
         //아이디 존재하는지 체크.
         if($scope.user_obj.id.length > 3){
           var id_check_obj = {
-            index : "users",
-            type : "user",
+            index : "experts",
+            type : "expert",
             id : $scope.user_obj.id,
             element : "found",
             emit : "idExists"
@@ -196,8 +196,8 @@
           $scope.user_obj.register_done = true;
         }
         var req_data = {
-          index : "users",
-          type : "user",
+          index : "experts",
+          type : "expert",
           emit: "inserUserRes",
           user_obj : $scope.user_obj
         }
@@ -441,8 +441,8 @@
       }
     };
     var req_data = {
-      index : "users",
-      type : "user",
+      index : "experts",
+      type : "expert",
       emit: "expertList",
       query : search_data
     }
