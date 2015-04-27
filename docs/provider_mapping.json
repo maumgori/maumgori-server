@@ -1,6 +1,6 @@
 {
   "mappings" : {
-    "user" : {
+    "expert" : {
       "properties" : {
         "_id" : {
           "path" : "uid"
