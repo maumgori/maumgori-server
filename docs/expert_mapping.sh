@@ -1,7 +1,7 @@
-curl -XPUT http://localhost:9200/users -d '
+curl -XPUT http://localhost:9200/experts -d '
 {
   "mappings" : {
-    "user" : {
+    "expert" : {
       "_id" : { "path" : "id" },
       "_timestamp" : { "enabled" : true, "store" : true },
       "properties" : {
