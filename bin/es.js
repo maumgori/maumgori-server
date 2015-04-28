@@ -219,7 +219,7 @@ exports.insertExpert = function (socket, req_data) {
     register_done : user_obj.register_done,
     signin_step : user_obj.signin_step,
     type : user_obj.type,
-    id : user_obj.id,
+    id : user_obj.id.toLowerCase(),
     passwd : passwd_val,
     user_photo : user_obj.user_photo,
     name : user_obj.name,
@@ -298,7 +298,7 @@ exports.insertExpert = function (socket, req_data) {
 // 엘라스틱서치 전문가 정보 입력 끝.
 
 //앱 사용자 회원가입.
-exports.userSignin = function (socket, req_data) {
+exports.appUserSignin = function (socket, req_data) {
   var req_index = req_data.index; //index
   var req_type = req_data.type; //type
   var req_emit = req_data.emit; //emit 값.
@@ -318,15 +318,18 @@ exports.userSignin = function (socket, req_data) {
   }
 
   //엘라스틱서치 /userss/user 에 저장되는 사용자 도큐먼트.
+  var register_date_temp = user_obj.register_date || new Date();
   var es_obj = {
-    register_date : new Date(),
-    email : user_obj.email,
+    register_date : register_date_temp,
+    id : user_obj.id.toLowerCase(),
     passwd : passwd_val,
     name : user_obj.name,
     nicname : user_obj.nicname,
     birthday : user_obj.birthday,
     gender : user_obj.gender,
-    phone : user_obj.phone
+    email : user_obj.email,
+    phone : user_obj.phone,
+    jjim : user_obj.jjim
   }
 
   var userString = JSON.stringify(es_obj);

@@ -69,8 +69,8 @@ io.on('connection', function(socket){
   });
 
   //앱 사용자 회원가입.
-  socket.on('userSignin', function(data){
-    es.userSignin(socket,data);
+  socket.on('appUserSignin', function(data){
+    es.appUserSignin(socket,data);
   });
 
   socket.emit('createMenu',menu_obj);
