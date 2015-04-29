@@ -1,0 +1,12 @@
+@font-face {
+ font-family: 'Noto Sans CJK Regular';
+ font-style: normal;
+ src:
+ url('../fonts/NSKR300.woff') format('woff');
+}
+
+
+body,.tooltip,.popover{
+  font-family: "본고딕","Noto Sans CJK Regular",
+ "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

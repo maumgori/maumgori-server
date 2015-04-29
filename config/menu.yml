@@ -16,25 +16,67 @@ expert_menu:
         sub_menues : null
   - id : "customer"
     text : "고객관리"
-    sub_menues : null
+    sub_menues :
+      - id : "adm"
+        text : "고객조회/관리"
+        sub_menues : null
+      - id : "msg"
+        text : "메일/메시지발송"
+        sub_menues : null
+      - id : "review"
+        text : "리뷰관리"
+        sub_menues : null
+      - id : "schedule"
+        text : "스케쥴관리"
+        sub_menues : null
+  - id : "calculate"
+    text : "정산관리"
+    sub_menues :
+      - id : "account_adm"
+        text : "계좌내역조회"
+        sub_menues : null
+      - id : "taxbreakdown"
+        text : "원천징수내역조회"
+        sub_menues : null
+      - id : "taxreceipt"
+        text : "세금계산서내역조회"
+        sub_menues : null
+      - id : "devider"
+        text : ""
+        sub_menues : null
+      - id : "request_withdraw"
+        text : "출금신청"
+        sub_menues : null
+      - id : "check_withdraw"
+        text : "출금진행조회"
+        sub_menues : null
   - id : "my_info"
     text : "내정보관리"
     sub_menues :
       - id : "user_info_modify"
         text : "회원정보수정"
         sub_menues : null
-      - id : "user_info_modify"
+      - id : "user_veri_modify"
         text : "검증항목수정신청/조회"
         sub_menues : null
       - id : "devider"
         text : ""
         sub_menues : null
-      - id : "user_info_modify"
-        text : "회원정보수정"
+      - id : "disciplinary"
+        text : "신고/징계내역조회"
         sub_menues : null
-      - id : "user_info_modify"
-        text : "검증항목수정신청/조회"
+      - id : "1to1qna"
+        text : "1:1문의"
         sub_menues : null
       - id : "devider"
         text : ""
+        sub_menues : null
+      - id : "stats"
+        text : "통계조회"
+        sub_menues : null
+      - id : "devider"
+        text : ""
+        sub_menues : null
+      - id : "logout"
+        text : "로그아웃"
         sub_menues : null
