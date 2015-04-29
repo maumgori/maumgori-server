@@ -1,3 +1,5 @@
+
+
 .text-red {
   color: #f00;
 }
@@ -28,4 +30,133 @@ img.has-primary {
 .text-stroke-black {
   color: #fff;
   text-shadow: -1px -1px 1px #111, 1px -1px 1px #111, -1px 1px 1px #111, 1px 1px 1px #111;
+}
+
+/* 공통 스타일 */
+/* 상단 메뉴 offset */
+body{padding-top:70px;}
+
+/* 페이지 헤더 */
+.mg_page-header{padding-bottom:5px;margin:0;}
+.mg_page-header h1{margin-top:0;font-size:1.8em;}
+.mg_page-header small{padding-left:10px;}
+
+@media(max-width:992px){
+  .mg_page-header small{display:none;}
+  .breadcrumb{display:none;}
+}
+
+
+/* 네비게이션 바 스타일 */
+.navbar-inverse{
+background:#002349;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: #fff;
+  background-color: #002330;
+}
+
+.navbar-brand {
+  float: left;
+  height: 50px;
+  padding: 8px 8px;
+  margin:0;
+  font-size: 18px;
+  line-height: 20px;
+  color:#fff;
+  display: block;
+}
+.navbar-brand span{color:#fff;vertical-align:middle;}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+}
+
+
+/* 기간검색 */
+.period_set{padding-bottom:10px;}
+
+@media(max-width:992px){
+  .period_set{margin-left:auto;margin-right:auto;}
+  .period_set input{width:75px;float:left;}
+  .period_set .period_div{display:block;float:left;padding:0 5px;}
+  .period_set .period_btn{margin:0 5px;}
+}
+
+/* 페이지네이션 */
+.mg_pagination{text-align:center;}
+.mg_pagination ul{border:0;text-align:center;}
+.mg_pagination li a, .mg_pagination li span{border:0;}
+.mg_pagination li:first-child > a, .mg_pagination li:first-child > span{border:0;}
+.mg_pagination .active a, .mg_pagination .active span{background:#eee;color:#002330;}
+
+/* 도움말 숫자리스트 */
+.page_advice_ol{margin-top:30px;}
+
+@media(max-width:992px){
+  .page_advice_ol{padding-left:20px;}
+}
+
+/* 버튼 스타일 */
+.btn{border-radius:30px;}
+.search_sel_btn{border-radius:0;}
+
+/* 푸터 스타일 */
+.footer_menu{margin:0;padding:0;}
+.footer_menu li{display:inline-block;margin:0 10px 0 0;padding:0 0;list-style:none;}
+
+/* 로고 이미지 */
+#mg_exp_t_logo{
+	display:inline;
+	vertical-align:middle;
+	padding-right:5px;
+}
+
+/* 간단 프로필 */
+.expert_summary{
+  padding:10px;
+  border:1px solid #f1f1f1;
+}
+.expert_summary h2{
+  font-size:1.4em;
+  margin:0;padding:0;
+}
+.expert_stat ul{margin:0;}
+
+.side_shortcut{
+  margin:0;
+  padding:0;
+  border-top:1px solid #f1f1f1;
+}
+@media(min-width:993px){
+  .side_shortcut li{
+    width:50%;
+    height:50px;
+    text-align:center;
+    margin:0;padding:0;
+    float:left;
+    list-style:none;
+  }
+}
+
+.expert_summary .expert_img{display:inline-block;vertical-align:middle;margin-right:10px;}
+.expert_summary .expert_name{display:inline-block;vertical-align:middle;}
+.expert_summary .expert_name p{margin:0;padding:0;}
+
+.btn-smry-toggle{display:none;width:100%;}
+@media (max-width:992px){
+  .summary_toggle{display:none;}
+  .btn-smry-toggle{width:80px;display:block;z-index:199;right:10px;position:absolute;padding:5px;margin-bottom:5px;background:#fff;border-radius:30px;border:1px solid #eee;font-size:0.85em;}
+}
+
+.expert_stat{background:#f1f1f1;}
+.expert_stat ul{padding-top:10px;padding-bottom:10px;}
+
+@media (max-width: 992px) {
+  .expert_stat ul{padding:10px;}
+  .expert_stat ul li{display:inline-block;padding-left:10px;padding-right:10px;}
+  .side_shortcut{text-align:center;}
+  .side_shortcut li{display:inline-block;list-style:none;padding:10px;}
 }

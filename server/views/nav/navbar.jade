@@ -3,7 +3,7 @@ nav.navbar.navbar-fixed-top.navbar-inverse(ng-controller="menuCtrl")
     include navHeader
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
-        li.active
+        li.active(style="font-size:0.5em;")
           a
             | < {{menu_val}}/{{menu_link_val}} >
         li(ng-repeat="menu_1 in menu_obj.expert_menu" ng-class="{'dropdown' : menu_1.sub_menues, 'active' : menu_val===menu_1.id }")
