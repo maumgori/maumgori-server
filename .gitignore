@@ -2,4 +2,5 @@
 node_modules
 public/vendor
 public/images/profile/*.png
-data/*.json
+data/experts/*.json
+data/users/*.json

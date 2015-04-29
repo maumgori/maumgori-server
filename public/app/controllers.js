@@ -198,10 +198,10 @@
         var req_data = {
           index : "experts",
           type : "expert",
-          emit: "inserUserRes",
+          emit: "insertExpertRes",
           user_obj : $scope.user_obj
         }
-        socket.emit('inserUser',req_data);
+        socket.emit('insertExpert',req_data);
       },
       upload_photo : function(){
 //        console.log($scope.user_obj.user_photo_data);
@@ -298,7 +298,7 @@
     };
 
     //사용자 저장 후 처리.
-    socket.on('inserUserRes',function(data){
+    socket.on('insertExpertRes',function(data){
       toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
       append_user_obj(data);
       if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){

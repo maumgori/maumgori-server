@@ -190,18 +190,18 @@ exports.login = function(socket, req_data){
 }
 
 /**
-  사용자 정보 입력하는 함수.
+  전문가 정보 입력하는 함수.
   user_obj : 사용자 정보가 들어있는 객체.
   user_obj.id 는 필수. REST 주소는 무조건 소문자로 변환해서 저장.
 */
-exports.insertUser = function (socket, req_data) {
+exports.insertExpert = function (socket, req_data) {
   var req_index = req_data.index; //index
   var req_type = req_data.type; //type
   var req_emit = req_data.emit; //emit 값.
   var user_obj = req_data.user_obj;
 
   var passwd_val = '';
-  //처음 저장이면 패스워드 sha256 암호화. 아닌 경우 그냥 저장. // 잠시 보류
+  //처음 저장이면 패스워드 sha256 암호화. 아닌 경우 그냥 저장.
   if(user_obj.passwd_enc === ''){
     if(user_obj.passwd !== ''){
       var hash = require('crypto').createHash('sha256');
@@ -219,7 +219,7 @@ exports.insertUser = function (socket, req_data) {
     register_done : user_obj.register_done,
     signin_step : user_obj.signin_step,
     type : user_obj.type,
-    id : user_obj.id,
+    id : user_obj.id.toLowerCase(),
     passwd : passwd_val,
     user_photo : user_obj.user_photo,
     name : user_obj.name,
@@ -286,12 +286,92 @@ exports.insertUser = function (socket, req_data) {
   var todate = "0"+(today.getDate());
   tomonth = tomonth.substring(tomonth.length-2,tomonth.length);
   todate = todate.substring(todate.length-2,todate.length);
-  fs.open($MAUM_HOME+'/data/'+today.getFullYear()+'-'+tomonth+'-'+todate+'.json','a', function(err, fd){
+  fs.open($MAUM_HOME+'/data/experts/expert_'+today.getFullYear()+tomonth+todate+'.json','a', function(err, fd){
     fs.write( fd, userString+'\n', null, 'utf8', function(){
       fs.close(fd, function(){
         //console.log('file closed');
       });
     });
   });
-  // 엘라스틱서치 사용자정보 입력 끝.
+
 };
+// 엘라스틱서치 전문가 정보 입력 끝.
+
+//앱 사용자 회원가입.
+exports.appUserSignin = function (socket, req_data) {
+  var req_index = req_data.index; //index
+  var req_type = req_data.type; //type
+  var req_emit = req_data.emit; //emit 값.
+  var user_obj = req_data.user_obj;
+
+  var passwd_val = '';
+  //처음 저장이면 패스워드 sha256 암호화. 아닌 경우 그냥 저장.
+  if(user_obj.passwd_enc === ''){
+    if(user_obj.passwd !== ''){
+      var hash = require('crypto').createHash('sha256');
+      passwd_val = hash.update(user_obj.passwd).digest('hex');
+    } else {
+      // 오류 리턴
+    }
+  } else {
+    passwd_val = user_obj.passwd_enc;
+  }
+
+  //엘라스틱서치 /userss/user 에 저장되는 사용자 도큐먼트.
+  var register_date_temp = user_obj.register_date || new Date();
+  var es_obj = {
+    register_date : register_date_temp,
+    id : user_obj.id.toLowerCase(),
+    passwd : passwd_val,
+    name : user_obj.name,
+    nicname : user_obj.nicname,
+    birthday : user_obj.birthday,
+    gender : user_obj.gender,
+    email : user_obj.email,
+    phone : user_obj.phone,
+    jjim : user_obj.jjim
+  }
+
+  var userString = JSON.stringify(es_obj);
+  var headers = {
+    'Content-Type': 'application/json'
+  };
+  var options = {
+    host: config_obj.es.host,
+    port: config_obj.es.port,
+    path: '/users/user',
+    method: 'POST',
+    headers: headers
+  };
+  var es_req = http.request(options, function(es_res) {
+    es_res.setEncoding('utf-8');
+    var responseString = '';
+    es_res.on('data', function(res_data) {
+      var resultObject = JSON.parse(res_data);
+//      console.log("%j",resultObject);
+      if(resultObject){
+        socket.emit(req_emit,es_obj);
+      } else {
+        socket.emit('error',error);
+      }
+    });
+  });
+  es_req.write(userString);
+  es_req.end();
+
+  // /data 경로에 날짜 이름으로 사용자 입력 데이터 저장.
+  var today = new Date();
+  var tomonth = "0"+(today.getMonth()+1);
+  var todate = "0"+(today.getDate());
+  tomonth = tomonth.substring(tomonth.length-2,tomonth.length);
+  todate = todate.substring(todate.length-2,todate.length);
+  fs.open($MAUM_HOME+'/data/users/user_'+today.getFullYear()+tomonth+todate+'.json','a', function(err, fd){
+    fs.write( fd, userString+'\n', null, 'utf8', function(){
+      fs.close(fd, function(){
+        //console.log('file closed');
+      });
+    });
+  });
+
+};
+//앱 사용자 회원가입 끝
