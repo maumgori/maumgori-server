@@ -63,9 +63,14 @@ io.on('connection', function(socket){
     socket.emit(req_emit,ret_obj);
   });
 
-  //사용자 저장.
-  socket.on('inserUser', function(data){
-    es.insertUser(socket,data);
+  //전문가 저장.
+  socket.on('insertExpert', function(data){
+    es.insertExpert(socket,data);
+  });
+
+  //앱 사용자 회원가입.
+  socket.on('appUserSignin', function(data){
+    es.appUserSignin(socket,data);
   });
 
   socket.emit('createMenu',menu_obj);
