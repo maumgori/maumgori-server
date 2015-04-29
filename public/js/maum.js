@@ -37,3 +37,11 @@ var profileBgImgCrop = function(input) {
     $('#profileBgModal').modal('show');
   }
 };
+
+// webfont embed
+WebFont.load({
+  custom: {
+   families: ['Noto Sans CJK Regular'],
+   urls: ['./css/font.css']
+  }
+});
