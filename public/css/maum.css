@@ -74,6 +74,7 @@ background:#002349;
 
 /* 로고 이미지 */
 #mg_exp_t_logo{
+  width:150px;
 	display:inline;
 	vertical-align:middle;
 	padding-right:5px;
