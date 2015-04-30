@@ -9,13 +9,11 @@ form(name="user_photo_frm" method="POST" action="/fileupload/photo")
           .row
             .col-sm-9
               .cropArea
-                img-crop(image="myImage" result-image="user_obj.user_photo_data" area-min-size=40 result-image-size=480)
+                img-crop(image="myImage" result-image="user_obj.user_photo_data" area-min-size=40 result-image-size=240 result-image-format="image/jpeg" result-image-quality=0.8)
             .col-sm-3(style="padding-left: 0px")
               .thumbnail
                 img.img-circle(ng-src="{{user_obj.user_photo_data}}" width="100%")
               button.btn.btn-block.btn-success(type="button" ng-click="user_func.upload_photo();")
-                | 이미지 저장
-              //button.btn.btn-block.btn-success(type="button" ng-click="user_func.user_photo_append();")
                 | 이미지 저장
               button.btn.btn-block.btn-danger(type="button" onclick="$('#imgUploadModal').modal('hide')")
                 | 취소
