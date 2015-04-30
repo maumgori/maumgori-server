@@ -1,5 +1,18 @@
 // 로그인 폼
+<<<<<<< Updated upstream
 .row
+=======
+.panel.panel-default(ng-hide="user_obj.is_loggedin")
+  .panel-body
+    div
+      p
+        input.form-control(type="text" placeholder="아이디" ng-model="login_obj.id")
+        input.form-control(type="password" placeholder="패스워드" ng-model="login_obj.passwd")
+      p
+        button.btn.btn-success.btn-block(type="submit" ng-disabled="!(login_obj.id.length > 3 && login_obj.passwd)" ng-click="user_func.login()") 로그인
+        button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal") 회원가입
+.row(ng-show="user_obj.is_loggedin")
+>>>>>>> Stashed changes
   .container-fluid
     .expert_summary
       a.expert_img(href="#")
@@ -15,9 +28,9 @@
           span.glyphicon.glyphicon-envelope(aria-hidden="true")
             |쪽지함(1)
       .expert_logon_btn.container-fluid
-        .col.col-md-6
+        .col.col-md-6.col-xs-6
           button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal") 정보수정
-        .col.col-md-6
+        .col.col-md-6.col-xs-6
           button.btn.btn-warning.btn-block(type="button" ng-click="user_func.logout()") 로그아웃
     .expert_stat
       ul
