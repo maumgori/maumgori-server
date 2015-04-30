@@ -15,7 +15,8 @@ curl -XPUT http://localhost:9200/users -d '
         "gender" : { "type" : "string", "index" : "not_analyzed" },
         "birthday" : { "type" : "date" },
         "phone" : { "type" : "string", "index" : "no" },
-        "jjim" : { "type" : "string", "index" : "not_analyzed" }
+        "jjim" : { "type" : "string", "index" : "not_analyzed" },
+        "messages" : { "type" : "string", "index" : "not_analyzed" }
       }
     }
   }
