@@ -63,6 +63,11 @@ io.on('connection', function(socket){
     socket.emit(req_emit,ret_obj);
   });
 
+  //도큐먼트 저장 - 공통
+  socket.on('insertDocument', function(data){
+    es.insertDocument(socket,data);
+  });
+
   //전문가 저장.
   socket.on('insertExpert', function(data){
     es.insertExpert(socket,data);

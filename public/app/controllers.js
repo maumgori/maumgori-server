@@ -389,7 +389,7 @@
       }
     });
 
-    //세션 체크해서 로그인 되어 있으면 로그인.
+    //세션 체크해서 로그인.
     if(sessionStorage["maum_login_obj"]){
       //console.log(sessionStorage["maum_login_obj"]);
       var login_session = JSON.parse(sessionStorage["maum_login_obj"]);
