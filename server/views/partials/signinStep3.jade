@@ -1,5 +1,6 @@
-//input#profile_bg_file(type="file" name="profile_bg_img" accept="image/*" style="display:none;" onchange="readBgImg(this);")
 input#profile_bg_file(type="file" name="profile_bg_img" accept="image/*" style="display:none;" onchange="profileBgImgCrop(this);")
+canvas#tmp_canvas(style="display:none;")
+img#tmp_image(style="display:none;")
 form(name="profile_bg_frm" method="POST" action="/fileupload/photo")
   input(type="hidden" name="user_id" ng-value="user_obj.id")
   input#profile_bg_crop(type="hidden" name="profileBgCrop")
