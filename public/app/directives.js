@@ -9,6 +9,14 @@
     }
   });
 
+  directives.directive('signinModal', function(){
+    return {
+      restrict: 'E',
+      templateUrl: 'partials/signinModal',
+      controller: 'loginFormCtrl'
+    }
+  });
+
   directives.directive('main', function(){
     return {
       restrict: 'E',

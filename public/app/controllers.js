@@ -293,7 +293,7 @@
             id : $scope.user_obj.id+'_bg'
           };
           $http.post('/fileupload/photo',photoData).success(function(data){
-            console.log("result : "+data);
+            //console.log("result : "+data);
             d = new Date();
             $scope.user_obj.profile_bg_img = data+"?"+d.getTime();
             $("#profile_bg_img_div").load();
