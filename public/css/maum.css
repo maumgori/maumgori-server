@@ -91,6 +91,9 @@ background:#002349;
 }
 .expert_stat ul{margin:0;}
 
+.expert_logon_btn{padding-top:10px;padding-left:0;padding-right:0;}
+.expert_logon_btn > .col{padding-left:2px;padding-right:2px;}
+
 .side_shortcut{
   margin:0;
   padding:0;
