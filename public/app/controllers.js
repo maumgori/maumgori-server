@@ -3,7 +3,7 @@
   var ctrls = angular.module('controllers',['ngImgCrop','services']);
 
   //로그인/회원가입 컨트롤러.
-  ctrls.controller('loginFormCtrl', function($scope,$http,socket){
+  ctrls.controller('maumCtrl', function($scope,$http,socket){
     var user_init = "";
 
     //로그인 id, pw 객체
@@ -430,34 +430,6 @@
 
   });
 
-  ctrls.controller('mainCtrl', function($scope,$http,socket) {
-
-    socket.on('expertList', function(data){
-      $scope.expertList = [];
-      for(var i=0; i < data.hits.length; i++){
-        //console.log(data.hits[i]._source);
-        $scope.expertList.push(data.hits[i]._source);
-      }
-      //console.log($scope.expertList);
-      //$scope.$apply();  //그냥은 반영 되는데 웹소켓은 바로 반영 안되서 $apply 해줘야함.
-    });
-
-    var search_data = {
-      filter : {
-        term : {
-          register_done : true
-        }
-      }
-    };
-    var req_data = {
-      index : "experts",
-      type : "expert",
-      emit: "expertList",
-      query : search_data
-    }
-    socket.emit('getHits',req_data);
-
-  });
 
   ctrls.controller('menuCtrl', function($scope,socket){
     socket.on('createMenu',function(data){

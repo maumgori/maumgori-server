@@ -1,13 +1,12 @@
 doctype html
 html
   include ../includes/head
-  body(ng-app='app' ng-controller='loginFormCtrl')
+  body(ng-app='app' ng-controller='maumCtrl')
     //회원 가입, 수정 모달.
-    signin-modal
+    include partials/signinModal
     //로그인 안 했을때
     div(ng-hide='user_obj.is_loggedin')
-      .container(style='width:300px;')
-        login-form
+      include partials/init
     //로그인 했을 때
     div(ng-show='user_obj.is_loggedin')
       include nav/navbar
@@ -16,7 +15,7 @@ html
         .row
           // 왼쪽 메뉴 영역
           .col.col-md-3
-            login-form
+            include partials/loginForm
           // 중앙 메인 영역
           .col.col-md-9
-            main
+            include partials/main
