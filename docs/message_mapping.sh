@@ -1,3 +1,4 @@
+curl -XDELETE http://localhost:9200/messages
 curl -XPUT http://localhost:9200/messages -d '
 {
   "mappings" : {
