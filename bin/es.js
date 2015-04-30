@@ -329,7 +329,8 @@ exports.appUserSignin = function (socket, req_data) {
     gender : user_obj.gender,
     email : user_obj.email,
     phone : user_obj.phone,
-    jjim : user_obj.jjim
+    jjim : user_obj.jjim,
+    messages : user_obj.messages
   }
 
   var userString = JSON.stringify(es_obj);
@@ -375,3 +376,59 @@ exports.appUserSignin = function (socket, req_data) {
 
 };
 //앱 사용자 회원가입 끝
+
+/**
+엘라스틱서치 Document 저장 - 아무 로직 없는 공통.
+index : 인덱스명
+type : 타입명
+emit : emit 할 소켓 이벤트.
+doc_data : 저장할 도큐먼트
+*/
+exports.insertDocument = function (socket, req_data) {
+  var req_index = req_data.index; //index
+  var req_type = req_data.type; //type
+  var req_emit = req_data.emit; //emit 값.
+  var doc_data = req_data.doc_data;
+
+  var userString = JSON.stringify(doc_data);
+  var headers = {
+    'Content-Type': 'application/json'
+  };
+  var options = {
+    host: config_obj.es.host,
+    port: config_obj.es.port,
+    path: req_index+'/'+req_type,
+    method: 'POST',
+    headers: headers
+  };
+  var es_req = http.request(options, function(es_res) {
+    es_res.setEncoding('utf-8');
+    var responseString = '';
+    es_res.on('data', function(res_data) {
+      var resultObject = JSON.parse(res_data);
+//      console.log("%j",resultObject);
+      if(resultObject){
+        socket.emit(req_emit,res_data);
+      } else {
+        socket.emit('error',error);
+      }
+    });
+  });
+  es_req.write(userString);
+  es_req.end();
+
+  // /data 경로에 날짜 이름으로 입력 데이터 저장.
+  var today = new Date();
+  var tomonth = "0"+(today.getMonth()+1);
+  var todate = "0"+(today.getDate());
+  tomonth = tomonth.substring(tomonth.length-2,tomonth.length);
+  todate = todate.substring(todate.length-2,todate.length);
+  fs.open($MAUM_HOME+'/data/etc/etc_'+today.getFullYear()+tomonth+todate+'.json','a', function(err, fd){
+    fs.write( fd, userString+'\n', null, 'utf8', function(){
+      fs.close(fd, function(){
+        //console.log('file closed');
+      });
+    });
+  });
+
+};
