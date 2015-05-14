@@ -18,9 +18,22 @@ img.has-primary {
 }
 /* 카테고리 컬러 감싸고 그림자 효과 주기 */
 .cate-name {
-  padding: 0px 4px;
-  border-radius: 4px;
-  box-shadow: 1px 1px 2px #888;
+  padding: 5px;
+  margin-right:5px;
+  vertical-align:middle;
+  border-radius: 3px;
+}
+.app-text-preview{
+  position:relative;padding:12px;
+}
+.app-text-preview span{
+  position: absolute;
+  overflow: visible;
+  width: 100%;
+  margin-left: -12px;
+  padding: 12px;
+  white-space: normal;
+  word-break: break-word;
 }
 .text-stroke-white {
   text-shadow: -1px -1px 1px #eee, 1px -1px 1px #eee, -1px 1px 1px #eee, 1px 1px 1px #eee;
@@ -29,3 +42,7 @@ img.has-primary {
   color: #fff;
   text-shadow: -1px -1px 1px #111, 1px -1px 1px #111, -1px 1px 1px #111, 1px 1px 1px #111;
 }
+.profile_preview_table_wrap{width:320px;clear:both;background:#fff;padding:15px;}
+.profile_preview_table_wrap table{border-collapse: collapse;}
+.profile_preview_table_wrap table th{padding:3px;}
+.profile_preview_table_wrap table td{padding:3px;}  

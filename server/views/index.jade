@@ -5,17 +5,19 @@ html
     //회원 가입, 수정 모달.
     include partials/signinModal
     //로그인 안 했을때
-    div(ng-hide='user_obj.is_loggedin')
+    .login_before(ng-hide='user_obj.is_loggedin')
       include partials/init
     //로그인 했을 때
-    div(ng-show='user_obj.is_loggedin')
+    .login_main(ng-show='user_obj.is_loggedin')
       include nav/navbar
       .container
         // 페이지 타이틀 영역
         .row
           // 왼쪽 메뉴 영역
           .col.col-md-3
-            include partials/loginForm
+            .row
+              include partials/loginForm
           // 중앙 메인 영역
           .col.col-md-9
-            include partials/main
+            .row
+              include partials/main

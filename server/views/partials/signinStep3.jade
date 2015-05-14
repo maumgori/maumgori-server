@@ -59,44 +59,45 @@ form(name="user_frm_3")
             div(style="width:50px;height:10px;background-color:#444;border-radius: 5px;margin:auto;")
           div(style="width:320px;padding:0px;margin:0px;")
             #profile_bg_img_div(style="position:relative;width:320px;height:160px;background-size:320px;background-image:url({{user_obj.profile_bg_img}});margin:0px;padding:0px;")
-              div(style="position:absolute; {{user_obj.proflie_txt_location}}:0; padding:12px;" ng-class="{'text-stroke-white':!user_obj.proflie_txt_color,'text-stroke-black':user_obj.proflie_txt_color}")
+              div(style="{{user_obj.proflie_txt_location}}:0;" ng-class="{'text-stroke-white':!user_obj.proflie_txt_color,'text-stroke-black':user_obj.proflie_txt_color}" class="app-text-preview")
                 h4
                   | {{user_obj.profile_title}}
                 span(style="white-space: pre;")
                   | {{user_obj.profile_text}}
-            div(style="background-color:white;padding:15px 5px;margin:0px;")
-              .row
-                .col-xs-3.text-right(style="padding-right:0px;")
-                  strong
-                    | 이름
-                .col-xs-9
-                  | {{user_obj.name}}
-              .row
-                .col-xs-3.text-right(style="padding-right:0px;")
-                  strong
-                    | 전문자격
-                .col-xs-9
-                  | {{user_obj.expert_type}}
-              .row
-                .col-xs-3.text-right(style="padding-right:0px;")
-                  strong
-                    | 전문분야
-                .col-xs-9
-                  span(style="margin-right:6px;padding:2px 4px;font-size:12px;" class="cate-name" ng-repeat="cate in user_obj.category_list" ng-show="cate.checked" ng-style="cate.style")
-                    | {{cate.name}}
-              .row
-                .col-xs-3.text-right(style="padding-right:0px;")
-                  strong
-                    | 학력/경력
-                .col-xs-9
-                  span(style="white-space: pre;")
-                    | {{user_obj.career}}
-              .row
-                .col-xs-3.text-right(style="padding-right:0px;")
-                  strong
-                    | 활동 이력
-                .col-xs-9
-                  span(style="white-space: pre;")
-                    | {{user_obj.activity}}
+            .profile_preview_table_wrap
+              table
+                tbody
+                  tr
+                    th.text-right
+                      strong
+                        | 이름
+                    td
+                      | {{user_obj.name}}
+                    tr
+                      th.text-right
+                        strong
+                          | 전문자격
+                      td
+                        | {{user_obj.expert_type}}
+                    tr
+                      th.text-right
+                        strong
+                          | 전문분야
+                      td
+                        span(class="cate-name" ng-repeat="cate in user_obj.category_list" ng-show="cate.checked" ng-style="cate.style")
+                          | {{cate.name}}
+                    tr
+                      th.text-right
+                        strong
+                          | 학력/경력
+                      td
+                        | {{user_obj.career}}
+                    tr
+                      th.text-right
+                        strong
+                          | 활동 이력
+                      td
+                        span(style="white-space: pre;")
+                          | {{user_obj.activity}}
           div(style="width:320px;height:70px;padding-top:20px;margin:0px;")
             div(style="width:50px;height:50px;background-color:#444;border-radius: 50%;margin:auto;")
