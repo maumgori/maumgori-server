@@ -7,17 +7,18 @@ html
     //로그인 안 했을때
     .login_before(ng-hide='user_obj.is_loggedin')
       include partials/init
+      //이거 왜 안될까.. 연구해볼것. div(ui-view="init")
     //로그인 했을 때
     .login_main(ng-show='user_obj.is_loggedin')
-      include nav/navbar
+      div(ui-view="nav")
       .container
         // 페이지 타이틀 영역
         .row
           // 왼쪽 메뉴 영역
           .col.col-md-3
             .row
-              include partials/loginForm
+              div(ui-view="login")
           // 중앙 메인 영역
           .col.col-md-9
             .row
-              include partials/main
+              div(ui-view="page")

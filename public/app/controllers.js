@@ -3,7 +3,7 @@
   var ctrls = angular.module('controllers',['ngImgCrop','services']);
 
   //로그인/회원가입 컨트롤러.
-  ctrls.controller('maumCtrl', function($scope,$http,socket){
+  ctrls.controller('maumCtrl', function($scope,$http,socket,$state){
     var user_init = "";
 
     //로그인 id, pw 객체
@@ -128,6 +128,7 @@
         $scope.user_obj.location = $scope.metadata.location[0];
         delete sessionStorage["maum_login_obj"];
         socket.emit('getMetaData'); //보유자격, 활동지역, 전문분야 다시 셋팅해줘야 함.
+        $state.go('login'); //로그인 후 첫 화면
       },
       id_validate_text : "",
       id_validate : function(){
@@ -380,7 +381,7 @@
     socket.on('login', function(data){
       //console.log(data);
       if(!data.idExist){
-        toastr.error('존재하지 않는 아이디입니다.', '로그인 실패')
+        toastr.error('존재하지 않는 아이디입니다.', '로그인 실패');
       } else {
         if(!data.correctPasswd){
           toastr.error('패스워드가 일치하지 않습니다.', '로그인 실패');
@@ -394,10 +395,10 @@
           //console.log($scope.login_obj);
           //login_obj 세션에 저장.
           sessionStorage["maum_login_obj"] = JSON.stringify($scope.login_obj);
+          $state.go('main_page'); //로그인 후 첫 화면
         }
       }
     });
-
     //세션 체크해서 로그인.
     if(sessionStorage["maum_login_obj"]){
       //console.log(sessionStorage["maum_login_obj"]);
@@ -431,19 +432,26 @@
   });
 
 
-  ctrls.controller('menuCtrl', function($scope,socket){
-    socket.on('createMenu',function(data){
-      //console.log(data);
-      $scope.menu_obj = data;
-    });
-
-    $scope.menu_val = 'main_page';
-    $scope.menu_link_val = 'main_page';
-    $scope.clickMenu = function(menu_id,menu_link_id){
-      $scope.menu_val = menu_id;
-      $scope.menu_link_val = menu_link_id;
-      //$scope.$apply();
+  ctrls.controller('menuCtrl', function($scope,socket,$state){
+    $scope.menu_val = '';
+    $scope.goto = function(menu_1,menu_2){
+      if(menu_2){
+        $state.go(menu_1+"/"+menu_2,menu_1);
+      } else {
+        $state.go(menu_1,menu_1);
+      }
     }
+    
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+      /*
+      console.log(event);
+      console.log(toState);
+      console.log(toParams);
+      console.log(fromState);
+      console.log(fromParams);
+      */
+      $scope.menu_val = toState.name.split('/')[0];
+    });
 
   });
 

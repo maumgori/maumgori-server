@@ -78,7 +78,8 @@ io.on('connection', function(socket){
     es.appUserSignin(socket,data);
   });
 
-  socket.emit('createMenu',menu_obj);
+  //app.js 에 메뉴 status 생성.
+  socket.emit('renderMenu',menu_obj);
 
 });
 
@@ -118,7 +119,15 @@ app.get('/partials/:partialFile', function(req, res) {
 });
 //네비게이션 바 디렉토리
 app.get('/nav/:navFile', function(req, res) {
-  res.render('nav/' + req.params.navFile);
+  res.render('nav/' + req.params.navFile, menu_obj);
+});
+//메뉴 디렉토리
+app.get('/pages/:page1', function(req, res) {
+  res.render('pages/' + req.params.page1);
+});
+//메뉴 디렉토리
+app.get('/pages/:page1/:page2', function(req, res) {
+  res.render('pages/' + req.params.page1 + '/' + req.params.page2);
 });
 
 // index.jade 실행.

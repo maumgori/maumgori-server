@@ -3,14 +3,18 @@ nav.navbar.navbar-fixed-top.navbar-inverse(ng-controller="menuCtrl")
     include navHeader
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
-        li.active(style="font-size:0.5em;")
-          a
-            | < {{menu_val}}/{{menu_link_val}} >
-        li(ng-repeat="menu_1 in menu_obj.expert_menu" ng-class="{'dropdown' : menu_1.sub_menues, 'active' : menu_val===menu_1.id }")
-          a(ng-click="clickMenu(menu_1.id,menu_link_val)" href="#", ng-class="{'dropdown-toggle' : menu_1.sub_menues}", data-toggle='dropdown', role='button', aria-expanded='false')
-            | {{menu_1.text}}
-            span.caret(ng-show="menu_1.sub_menues")
-          ul.dropdown-menu(role='menu' ng-show="menu_1.sub_menues")
-            li(ng-repeat="menu_2 in menu_1.sub_menues" ng-class="{'divider':menu_2.id==='devider'}")
-              a(href="#" ng-click="clickMenu(menu_1.id,menu_2.id)")
-                | {{menu_2.text}}
+        each menu_1 in expert_menu
+          if menu_1.sub_menues !== null
+            li.dropdown(ng-class="{'active' : menu_val==='#{menu_1.id}' }")
+              a.dropdown-toggle(data-toggle='dropdown', role='button', aria-expanded='false')
+                =menu_1.text
+              ul.dropdown-menu(role='menu')
+                each menu_2 in menu_1.sub_menues
+                  li(ng-class="{'divider':'#{menu_2.id}'==='devider'}")
+                    if menu_2.id !== 'devider'
+                      a(ng-click="goto('#{menu_1.id}','#{menu_2.id}')")
+                        =menu_2.text
+          else
+            li(ng-class="{'active' : menu_val==='#{menu_1.id}' }")
+              a(ng-click="goto('#{menu_1.id}')")
+                =menu_1.text
