@@ -12,9 +12,9 @@ nav.navbar.navbar-fixed-top.navbar-inverse(ng-controller="menuCtrl")
                 each menu_2 in menu_1.sub_menues
                   li(ng-class="{'divider':'#{menu_2.id}'==='devider'}")
                     if menu_2.id !== 'devider'
-                      a(ng-click="goto('#{menu_1.id}','#{menu_2.id}')")
+                      a(ui-sref="#{menu_1.id}/#{menu_2.id}")
                         =menu_2.text
           else
             li(ng-class="{'active' : menu_val==='#{menu_1.id}' }")
-              a(ng-click="goto('#{menu_1.id}')")
+              a(ui-sref="#{menu_1.id}")
                 =menu_1.text
