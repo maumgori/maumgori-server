@@ -1,33 +1,32 @@
 // 로그인 폼
-.container-fluid
-  .expert_summary
-    a.expert_img(href="#")
-      img.img-circle(ng-src="{{user_obj.user_photo}}" width="100")
-    .expert_name
-      h2
-        |홍길동
-        small
-          |님
-      p
-        |라이프코치
-      p
-        span.glyphicon.glyphicon-envelope(aria-hidden="true")
-          |쪽지함(1)
-    .expert_logon_btn.container-fluid
-      .col.col-md-6.col-xs-6
-        button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal") 정보수정
-      .col.col-md-6.col-xs-6
-        button.btn.btn-warning.btn-block(type="button" ng-click="user_func.logout()") 로그아웃
-  .expert_stat
-    ul
-      li 누적 고객수 : 0명
-      li 찜한 고객수 : 0명
-      li 오늘 방문자 : 0명
-      li 잔여 정산금 : 100,000원
-  ul.side_shortcut
-    li 바로가기1
-    li 바로가기2
-    li 바로가기3
-    li 바로가기4
-    li 바로가기5
-    li 바로가기6
+.expert_summary
+  a.expert_img(href="#")
+    img.img-circle(ng-src="{{user_obj.user_photo}}" width="100")
+  .expert_name
+    h2
+      |홍길동
+      small
+        |님
+    p
+      |라이프코치
+    p
+      span.glyphicon.glyphicon-envelope(aria-hidden="true")
+        |쪽지함(1)
+  .expert_logon_btn.container-fluid
+    .col.col-md-6.col-xs-6
+      button.btn.btn-primary.btn-block(type="button" data-toggle="modal" data-target="#signinModal") 정보수정
+    .col.col-md-6.col-xs-6
+      button.btn.btn-warning.btn-block(type="button" ng-click="user_func.logout()") 로그아웃
+.expert_stat
+  ul
+    li 누적 고객수 : 0명
+    li 찜한 고객수 : 0명
+    li 오늘 방문자 : 0명
+    li 잔여 정산금 : 100,000원
+ul.side_shortcut
+  li 바로가기1
+  li 바로가기2
+  li 바로가기3
+  li 바로가기4
+  li 바로가기5
+  li 바로가기6
