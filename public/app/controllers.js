@@ -430,8 +430,7 @@
     user_init = JSON.stringify($scope.user_obj);  // 로그인 사용자 객체 초기 상태 저장.
 
   });
-
-
+  
   ctrls.controller('menuCtrl', function($scope,socket,$state){
     $scope.menu_val = '';
     $scope.goto = function(menu_1,menu_2){
@@ -441,15 +440,13 @@
         $state.go(menu_1,menu_1);
       }
     }
-    
+
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-      /*
-      console.log(event);
-      console.log(toState);
-      console.log(toParams);
-      console.log(fromState);
-      console.log(fromParams);
-      */
+      // console.log(event);
+      // console.log(toState);
+      // console.log(toParams);
+      // console.log(fromState);
+      // console.log(fromParams);
       $scope.menu_val = toState.name.split('/')[0];
     });
 
