@@ -1,0 +1,130 @@
+.mg_page-header
+  h1
+    | 1:1문의
+    small
+      | 마음고리 이용에 관한 1:1문의사항을 처리 할 수 있습니다.
+
+.row
+  .container-fluid
+    ol.breadcrumb
+      li
+        a(ui-sref="main_page")
+          | Home
+      li
+        | 내정보관리
+      li.active
+        | 1:1문의
+.row
+  .container-fluid
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th.center_cell
+              | 구분
+            th.center_cell
+              | 제목
+            th.center_cell
+              | 날짜
+            th.center_cell
+              | 답변여부
+        tbody
+          tr
+            td.center_cell
+              | 정산관련
+            td.center_cell
+              | 정산관련문의
+            td.center_cell
+              | 2015/03/05
+            td.center_cell
+              | 답변대기
+
+          tr
+            td.center_cell
+              | 정산관련
+            td.center_cell
+              | 정산관련문의
+            td.center_cell
+              | 2015/03/05
+            td.center_cell
+              | 답변완료
+
+          tr
+            td.center_cell
+              | 정산관련
+            td.center_cell
+              | 정산관련문의
+            td.center_cell
+              | 2015/03/05
+            td.center_cell
+              | 답변완료
+
+          tr
+            td.center_cell
+              | 정산관련
+            td.center_cell
+              | 정산관련문의
+            td.center_cell
+              | 2015/03/05
+            td.center_cell
+              | 답변완료
+
+          tr
+            td.center_cell
+              | 정산관련
+            td.center_cell
+              | 정산관련문의
+            td.center_cell
+              | 2015/03/05
+            td.center_cell
+              | 답변완료
+
+
+  nav.mg_pagination
+    ul.pagination.pagination-sm
+      li.disabled
+        a(ui-sref="#" aria-label="Previous")
+          span(aria-hidden="true")
+            | &laquo;
+      li.active
+        a(ui-sref="#")
+          | 1
+      li
+        a(ui-sref="#")
+          | 2
+      li
+        a(ui-sref="#")
+          | 3
+      li
+        a(ui-sref="#")
+          | 4
+      li
+        a(ui-sref="#")
+          | 5
+      li
+        a(ui-sref="#")
+          | 6
+      li
+        a(ui-sref="#")
+          | 7
+      li
+        a(ui-sref="#")
+          | 8
+      li
+        a(ui-sref="#")
+          | 9
+      li
+        a(ui-sref="#" aria-label="Next")
+          span(aria-hidden="true")
+            | &raquo;
+  .bottom_btn_wrap
+    .col-md-12.right_btn
+      a.btn.btn-default.btn-sm(ui-sref="#" role="button")
+        | 문의남기기
+.row
+  .container-fluid
+    ol.page_advice_ol
+      li
+        | 답변에는 최대 1주일 가량 소요될 수 있습니다.
+      li
+        | 개인정보등 민감성 정보가 필요할 경우 별도의 연락을 드릴 수도 있습니다.

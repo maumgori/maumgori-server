@@ -33,7 +33,7 @@ expert_menu:
     text : "정산관리"
     sub_menues :
       - id : "account_adm"
-        text : "계좌내역조회"
+        text : "내계좌조회"
         sub_menues : null
       - id : "taxbreakdown"
         text : "원천징수내역조회"
@@ -63,7 +63,7 @@ expert_menu:
         text : ""
         sub_menues : null
       - id : "disciplinary"
-        text : "신고/징계내역조회"
+        text : "신고 및 징계내역조회"
         sub_menues : null
       - id : "1to1qna"
         text : "1:1문의"

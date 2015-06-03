@@ -1,0 +1,183 @@
+.mg_page-header
+  h1
+    | 내 계좌조회
+    small
+      | 회원님의 계좌상세내역을 조회합니다.
+
+.row
+  .container-fluid
+    ol.breadcrumb
+      li
+        a(ui-sref="main_page")
+          | Home
+      li
+        | 정산관리
+      li.active
+        | 내 계좌조회
+.row
+  .container-fluid
+    p.account_summary
+      | 현재 홍길동님의 계좌잔액은 &nbsp;
+      span.lead
+        | 117,460원
+      | &nbsp;입니다.
+.row
+  .container-fluid
+    form.form-inline
+      .form-group.period_set
+        input.form-control.input-sm(type="text" placeholder="20150101" size="8" maxlength="8")
+        span.period_div
+        | &nbsp;~&nbsp;
+        input.form-control.input-sm(type="text" placeholder="20150231" size="8" maxlength="8")
+        | &nbsp;
+        button.btn.btn-default.input-sm.period_btn(type="submit")
+          span.glyphicon.glyphicon-search(aria-hidden="true")
+.row
+  .container-fluid
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th.center_cell
+              | 거래번호 / 일시
+            th.center_cell
+              | 구분
+            th.center_cell
+              | 금액
+            th.center_cell
+              | 잔액
+            th.center_cell
+              | 비고
+        tbody
+          tr
+            td.center_cell
+              | ajvd304968104
+              br
+              | 2015/03/05 10:30:33
+            td.center_cell
+              | 출금
+            td.center_cell
+              | -540
+            td.center_cell
+              | 117,460
+            td.center_cell
+              | 세금원천징수
+
+          tr
+            td.center_cell
+              | ajvd304968104
+              br
+              | 2015/03/05 10:30:33
+            td.center_cell
+              | 출금
+            td.center_cell
+              | -540
+            td.center_cell
+              | 117,460
+            td.center_cell
+              | 세금원천징수
+
+          tr
+            td.center_cell
+              | ajvd304968104
+              br
+              | 2015/03/05 10:30:33
+            td.center_cell
+              | 출금
+            td.center_cell
+              | -540
+            td.center_cell
+              | 117,460
+            td.center_cell
+              | 세금원천징수
+
+          tr
+            td.center_cell
+              | ajvd304968104
+              br
+              | 2015/03/05 10:30:33
+            td.center_cell
+              | 출금
+            td.center_cell
+              | -540
+            td.center_cell
+              | 117,460
+            td.center_cell
+              | 세금원천징수
+
+          tr
+            td.center_cell
+              | ajvd304968104
+              br
+              | 2015/03/05 10:30:33
+            td.center_cell
+              | 출금
+            td.center_cell
+              | -540
+            td.center_cell
+              | 117,460
+            td.center_cell
+              | 세금원천징수
+
+          tr
+            td.center_cell
+              | ajvd304968104
+              br
+              | 2015/03/05 10:30:33
+            td.center_cell
+              | 출금
+            td.center_cell
+              | -540
+            td.center_cell
+              | 117,460
+            td.center_cell
+              | 세금원천징수
+
+  nav.mg_pagination
+    ul.pagination.pagination-sm
+      li.disabled
+        a(ui-sref="#" aria-label="Previous")
+          span(aria-hidden="true")
+            | &laquo;
+      li.active
+        a(ui-sref="#")
+          | 1
+      li
+        a(ui-sref="#")
+          | 2
+      li
+        a(ui-sref="#")
+          | 3
+      li
+        a(ui-sref="#")
+          | 4
+      li
+        a(ui-sref="#")
+          | 5
+      li
+        a(ui-sref="#")
+          | 6
+      li
+        a(ui-sref="#")
+          | 7
+      li
+        a(ui-sref="#")
+          | 8
+      li
+        a(ui-sref="#")
+          | 9
+      li
+        a(ui-sref="#" aria-label="Next")
+          span(aria-hidden="true")
+            | &raquo;
+  .bottom_btn_wrap
+    .col-md-12.right_btn
+      a.btn.btn-default.btn-sm(ui-sref="#" role="button")
+        | 거래내역출력
+.row
+  .container-fluid
+    ol.page_advice_ol
+      li
+        | 현재 계좌에 남아있는 잔액은 출금이 가능한 금액입니다.
+      li
+        | 원천징수 되는 세금은 서비스료에서 이용수수료를 차감한 금액의 3.3%에 해당하는 금액입니다.

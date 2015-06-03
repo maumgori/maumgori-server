@@ -1,0 +1,57 @@
+.mg_page-header
+  h1
+    | 출금신청
+    small
+      | 적립금에 대한 출금을 신청 할 수 있습니다.
+
+.row
+  .container-fluid
+    ol.breadcrumb
+      li
+        a(ui-sref="main_page")
+          | Home
+      li
+        | 정산관리
+      li.active
+        | 출금신청
+.row.withdraw_wrap
+  .container-fluid
+    form.form-horizontal
+      .form-group.rq_withdraw_wrap.wrap_border_top
+        .col-sm-2.withdraw_ttext
+          | 출금신청가능여부
+        .col-sm-10
+          | 출금신청이 가능합니다.
+      .form-group.rq_withdraw_wrap
+        .col-sm-2.withdraw_ttext
+          | 출금가능금액
+        .col-sm-10
+          | 184,000원
+      .form-group.rq_withdraw_wrap
+        .col-sm-2.withdraw_ttext
+          | 입금예정계좌
+        .col-sm-10
+          | 국민은행 193888-82-848482 홍길동
+      .form-group.rq_withdraw_wrap
+        label.col-sm-2.control-label(for="withdraw_amount")
+          | 출금신청금액
+        .col-sm-10
+          input#withdraw_amount.form-control.input-sm(type="number" placeholder="출금금액입력/원")
+      .form-group.rq_withdraw_wrap.wrap_border_bottom
+        .col-sm-12
+          button.btn.btn-default.btn-sm(type="submit")
+            | 출금신청
+
+.row
+  .container-fluid
+    ol.page_advice_ol
+      li
+        | 출금은 5,000원 부터, 1,000원 단위로 신청가능합니다.
+      li
+        | 출금을 신청하시면 실제로 출금은 일주일 정도 소요됩니다.
+      li
+        | 출금시에 이체수수료 500원을 제외하고 입금됩니다. (10,000원 출금신청하시면 9,500원 입금)
+      li
+        | 출금은 본인계좌로만 가능합니다.
+      li
+        | 출금이 진행중일 경우 추가로 출금을 신청 할 수 없습니다.

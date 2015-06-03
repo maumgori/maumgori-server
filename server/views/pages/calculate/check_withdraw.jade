@@ -1,0 +1,138 @@
+.mg_page-header
+  h1
+    | 출금진행조회
+    small
+      | 출금신청내역과 진행상황을 조회 할 수 있습니다.
+
+.row
+  .container-fluid
+    ol.breadcrumb
+      li
+        a(ui-sref="main_page")
+          | Home
+      li
+        | 정산관리
+      li.active
+        | 출금진행조회
+.row
+  .container-fluid
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th.center_cell
+              | 출금 신청일
+            th.center_cell
+              | 출금 신청금액
+            th.center_cell
+              | 최종 출금(예정)금액
+            th.center_cell
+              | 출금 계좌
+            th.center_cell
+              | 출금 완료일
+        tbody
+          tr
+            td.center_cell
+              | 2015/01/02
+            td.center_cell
+              | 10,000원
+            td.center_cell
+              | 9,500원
+            td.center_cell
+              | 국민 / 123456-01-333333 / 홍길동
+            td.center_cell
+              | 출금 진행 중
+
+          tr
+            td.center_cell
+              | 2015/01/02
+            td.center_cell
+              | 10,000원
+            td.center_cell
+              | 9,500원
+            td.center_cell
+              | 국민 / 123456-01-333333 / 홍길동
+            td.center_cell
+              | 2015/03/05
+
+          tr
+            td.center_cell
+              | 2015/01/02
+            td.center_cell
+              | 10,000원
+            td.center_cell
+              | 9,500원
+            td.center_cell
+              | 국민 / 123456-01-333333 / 홍길동
+            td.center_cell
+              | 2015/03/05
+
+          tr
+            td.center_cell
+              | 2015/01/02
+            td.center_cell
+              | 10,000원
+            td.center_cell
+              | 9,500원
+            td.center_cell
+              | 국민 / 123456-01-333333 / 홍길동
+            td.center_cell
+              | 2015/03/05
+
+          tr
+            td.center_cell
+              | 2015/01/02
+            td.center_cell
+              | 10,000원
+            td.center_cell
+              | 9,500원
+            td.center_cell
+              | 국민 / 123456-01-333333 / 홍길동
+            td.center_cell
+              | 2015/03/05
+nav.mg_pagination
+  ul.pagination.pagination-sm
+    li.disabled
+      a(ui-sref="#" aria-label="Previous")
+        span(aria-hidden="true")
+          | &laquo;
+    li.active
+      a(ui-sref="#")
+        | 1
+    li
+      a(ui-sref="#")
+        | 2
+    li
+      a(ui-sref="#")
+        | 3
+    li
+      a(ui-sref="#")
+        | 4
+    li
+      a(ui-sref="#")
+        | 5
+    li
+      a(ui-sref="#")
+        | 6
+    li
+      a(ui-sref="#")
+        | 7
+    li
+      a(ui-sref="#")
+        | 8
+    li
+      a(ui-sref="#")
+        | 9
+    li
+      a(ui-sref="#" aria-label="Next")
+        span(aria-hidden="true")
+          | &raquo;
+.row
+  .container-fluid
+    ol.page_advice_ol
+      li
+        | 출금에는 최대 1주일 가량 소요됩니다.
+      li
+        | 출금이 진행중일 경우 추가로 출금 신청을 할 수 없습니다.
+      li
+        | 출금시 이체수수료 500원을 제외한 금액이 입금됩니다.
