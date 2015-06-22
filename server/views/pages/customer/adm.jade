@@ -14,7 +14,27 @@
         | 고객관리
       li.active
         | 고객조회 및 관리
-
+.row
+  .container-fluid
+    form.form-inline
+      .form-group.list_search_set
+        select.form-control.input-sm
+          option
+            | 아이디
+          option
+            | 이름
+          option
+            | 전화번호
+          option
+            | 이메일
+          option
+            | 진행횟수
+        | &nbsp;
+        input.form-control.input-sm.cst_srch_input(type="text" placeholder="" size="8" maxlength="8")
+        | &nbsp;
+        button.btn.btn-default.input-sm.search_btn(type="submit")
+          span.glyphicon.glyphicon-search(aria-hidden="true")
+          | &nbsp;검색
 .row
   .container-fluid
     .table-responsive

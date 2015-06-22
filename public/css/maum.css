@@ -46,6 +46,9 @@ body{padding-top:70px;}
   .breadcrumb{display:none;}
 }
 
+/* 서비스 관련 안내 */
+.service_advice_title{font-size:1em;padding-left:10px;font-weight:bold;}
+
 
 /* 네비게이션 바 스타일 */
 .navbar-inverse{
@@ -74,14 +77,20 @@ background:#002349;
   color: #fff;
 }
 
-/* 기간검색 */
-.period_set{padding-bottom:10px;}
+/* 검색 */
+.list_search_set{padding-bottom:10px;}
+
+.list_search_set input{margin-right:5px;}
+.list_search_set select{margin-right:5px;}
+.list_search_set .search_div{margin:0 5px;display:inline-block;}
+.list_search_set .cst_srch_input{width:120px;}
 
 @media(max-width:992px){
-  .period_set{margin-left:auto;margin-right:auto;}
-  .period_set input{width:75px;float:left;}
-  .period_set .period_div{display:block;float:left;padding:0 5px;}
-  .period_set .period_btn{margin:0 5px;}
+  .list_search_set{margin-left:auto;margin-right:auto;}
+  .list_search_set input{width:75px;float:left;margin-right:5px;}
+  .list_search_set select{border-radius:0;width:100px;float:left;margin-right:5px;-webkit-border-radius:0;}
+  .list_search_set .search_div{display:block;float:left;padding:0 5px;margin-right:5px;}
+  .list_search_set .search_btn{margin:0 5px 0 0;}
 }
 
 /* 페이지네이션 */

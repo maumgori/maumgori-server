@@ -1,0 +1,45 @@
+Start maumgori-server on port 3000...
+Error: Failed to lookup view "pages/my_info/user_info_modify" in views directory "/Users/fuplo/web project/maumgori-server/server/views"
+    at EventEmitter.app.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/application.js:555:17)
+    at ServerResponse.res.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/response.js:938:7)
+    at /Users/fuplo/web project/maumgori-server/bin/server.js:130:7
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at next (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:110:13)
+    at Route.dispatch (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:91:3)
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at /Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:267:22
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:340:14)
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:356:14)
+Error: Failed to lookup view "pages/my_info/user_veri_modify" in views directory "/Users/fuplo/web project/maumgori-server/server/views"
+    at EventEmitter.app.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/application.js:555:17)
+    at ServerResponse.res.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/response.js:938:7)
+    at /Users/fuplo/web project/maumgori-server/bin/server.js:130:7
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at next (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:110:13)
+    at Route.dispatch (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:91:3)
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at /Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:267:22
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:340:14)
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:356:14)
+Error: Failed to lookup view "pages/calculate/taxbreakdown" in views directory "/Users/fuplo/web project/maumgori-server/server/views"
+    at EventEmitter.app.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/application.js:555:17)
+    at ServerResponse.res.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/response.js:938:7)
+    at /Users/fuplo/web project/maumgori-server/bin/server.js:130:7
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at next (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:110:13)
+    at Route.dispatch (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:91:3)
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at /Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:267:22
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:340:14)
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:356:14)
+Error: Failed to lookup view "pages/my_info/user_info_modify" in views directory "/Users/fuplo/web project/maumgori-server/server/views"
+    at EventEmitter.app.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/application.js:555:17)
+    at ServerResponse.res.render (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/response.js:938:7)
+    at /Users/fuplo/web project/maumgori-server/bin/server.js:130:7
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at next (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:110:13)
+    at Route.dispatch (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/route.js:91:3)
+    at Layer.handle [as handle_request] (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/layer.js:82:5)
+    at /Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:267:22
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:340:14)
+    at param (/Users/fuplo/web project/maumgori-server/node_modules/express/lib/router/index.js:356:14)
