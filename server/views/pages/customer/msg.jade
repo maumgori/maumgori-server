@@ -1,0 +1,68 @@
+.mg_page-header
+  h1
+    | 메일 및 메시지발송
+    small
+      | 고객에게 메일 또는 문자메시지를 발송합니다.
+
+.row
+  .container-fluid
+    ol.breadcrumb
+      li
+        a(ui-sref="main_page")
+          | Home
+      li
+        | 고객관리
+      li.active
+        | 메일 및 메시지발송
+
+
+.row
+  .container-fluid
+    ul.nav.nav-tabs.msg_nav_tabs
+      li.active(role="presentation")
+        a(href="#")
+          | 메일 발송
+      li(role="presentation")
+        a(href="#")
+          | 문자메시지 발송
+      li(role="presentation")
+        a(href="#")
+          | 발송내역확인
+
+    form.msg_send_form.msg_mail_form
+      .form-group
+        label(for="msg_rsb_sel")
+          | 수신자 선택
+        input#msg_rsb_sel.btn.btn-default.btn-xs(type="button" value="선택하기")
+        p.msg_sel_num
+          | 0명의 수신자 선택됨
+      .form-group
+        label(for="msg_title_input")
+          | 메시지 제목
+        input#msg_title_input.form-control(type="text" placeholder="여기에 발송하실 메시지의 제목을 입력하세요.")
+      .form-group
+        label(for="msg_textarea")
+          | 메시지 내용
+        textarea#msg_textarea.form-control(rows="3" placeholder="여기에 발송하실 메시지를 입력하세요.")
+      .form-group
+        label(for="msg_attach_file")
+          | 첨부파일 (첨부파일당 3MB까지 첨부 할 수 있습니다.)
+        input#msg_attach_file(type="file")
+        input#msg_attach_file2(type="file")
+      .bottom_btn_wrap.center_cell
+        button.btn.btn-default(type="submit")
+          | 발송
+
+.row
+  .container-fluid
+    ol.page_advice_ol
+      li
+        | 메일의 첨부파일은 각각 3MB (총 6MB)까지 첨부가능합니다.
+      li
+        | 문자메시지 발송은 건당 단문 30원, 장문 100원의 이용료가 발생합니다.
+      li
+        | 문자메시지는 80Kbytes(한글기준 40자)가 넘어가면 자동으로 장문메시지로 변경되어 발송되고, 장문메시지 이용료가 부과됩니다.
+      li
+        | 내 계좌에 잔액이 없을경우 발송되지 않으므로, 미리 잔액을 채우시기 바랍니다.
+      li
+        | 광고성 메일 또는 문자메시지를 발송하면, 약관 및 관련 법령에 의거 처벌 받을 수 있습니다.
