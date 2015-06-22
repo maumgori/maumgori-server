@@ -1,4 +1,4 @@
-curl -XDELETE http://localhost:9200/users
+#curl -XDELETE http://localhost:9200/users
 curl -XPUT http://localhost:9200/users -d '
 {
   "mappings" : {

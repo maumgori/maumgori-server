@@ -130,6 +130,12 @@ app.get('/pages/:page1/:page2', function(req, res) {
   res.render('pages/' + req.params.page1 + '/' + req.params.page2);
 });
 
+app.get('/signin', function(req, res){
+  res.render('signin');
+});
+app.get('/main', function(req, res){
+  res.render('main');
+});
 // index.jade 실행.
 // '/' 대신 '*' 로 해 놓으면 모든 경로에서 로딩.
 app.get('/', function(req, res) {
