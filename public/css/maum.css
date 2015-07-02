@@ -1,3 +1,43 @@
+/* 회원가입페이지 */
+.signin_title_wrap{margin:0;padding:0;}
+.signin_wrap{margin-top:70px;}
+.signin_page_title_wrap{padding-bottom:50px;}
+.signin_page_title{text-align:center;font-size:2em;}
+
+.signin_wrap h1 small{margin-left:10px;}
+.signin_wrap .signin_textarea{margin-top:30px;padding:0 30px;}
+.signin_wrap .signin_textarea label{font-size:2em;}
+.signin_wrap .agree_checkbox{text-align:right;margin-top:20px;padding-right:10px;}
+.signin_wrap .agree_checkbox label{margin-right:25px;}
+.signin_wrap .cert_btn{text-align:center;margin:30px 0;}
+
+.signin_wrap .form_divide{margin-top:20px;}
+
+.signin_wrap .signin_formgroup{margin-bottom:0;}
+.signin_wrap .signin_formgroup .last_cell{border-bottom:3px solid #e8e8e8;}
+.signin_wrap .signin_formgroup .signin_formcell{border-top:3px solid #e8e8e8;border-right:3px solid #e8e8e8;border-left:3px solid #e8e8e8;padding:5px 0;}
+.signin_wrap .signin_formgroup .signin_formcell .helptext{display:inline-block;padding:5px 0 0 12px;}
+.signin_wrap .signin_formgroup .signin_formcell .helptext .glyphicon{margin-right:5px;}
+.signin_wrap .signin_formgroup .signin_formcell .text_red{color:#ff0000;}
+.signin_wrap .signin_formgroup .signin_formcell .text_green{color:#009900;}
+.signin_wrap .signin_formgroup input{border:0;}
+.signin_wrap .signin_formgroup .signin_formcell .inline_input{display:inline;width:100px;}
+.signin_wrap .signin_formgroup .signin_formcell .center_input{text-align:center;}
+.signin_wrap .signin_formgroup .signin_formcell .radio-inline{padding:6px 12px;margin-left:20px;}
+
+.signin_wrap .signin_formgroup .submit_wrap{margin-top:20px;margin-bottom:40px;}
+.signin_wrap .signin_formgroup .save_wrap{margin-top:20px;margin-bottom:20px;}
+.signin_wrap .signin_formgroup .signin_tempsave_btn{background:#aaa;width:100%;border:0;padding:10px 0;margin:0;color:#ffffff;}
+.signin_wrap .signin_formgroup .signin_submit_btn{background:#002349;width:100%;border:0;padding:10px 0;margin:0;color:#ffffff;}
+.signin_wrap .signin_formgroup .signin_logout_btn{background:#e10000;width:100%;border:0;padding:10px 0;margin:0;color:#ffffff;}
+#signin_userid{ime-mode:disabled;}
+
+.signin_complete_check{text-align:center;}
+.signin_complete_check .check_circle_wrap{width:100px;height:100px;background:#00a700;margin:0 auto;padding-top:50px;border-radius: 100px;}
+.signin_complete_check span{font-size:4em;color:#ffffff;display:block;top:-25px;}
+.signin_complete_check .signin_complete_msg{padding-top:20px;padding-bottom:50px;}
+
+
 /* login page */
 .mg_login_wrap{width:552px;}
 .login_page_title{padding:10px;}

@@ -19,23 +19,4 @@ html
         .col.col-md-9
           .row
             .container-fluid(ui-view="page")
-      hr
-      footer
-        ul.footer_menu
-          li
-            a(ui-sref="#")
-              | 회사소개
-          li
-            a(ui-sref="#")
-              | 이용약관
-          li
-            a(ui-sref="#")
-              | 개인정보보호방침
-          li
-            a(ui-sref="#")
-              | 헬프데스크
-        address
-          p
-            | 경기도 성남시 분당구 판교로 264 The Planet (우)463-400 사업자등록번호:104-86-36968 헬프데스크:1599-5115
-          strong
-            | Copyright by 마음고리. All rights reserved.
+      include ./footer

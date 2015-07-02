@@ -1,0 +1,53 @@
+doctype html
+html
+  include ../includes/head
+  body.signin_title_wrap
+  nav.navbar.navbar-fixed-top.navbar-inverse
+    .container
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        p.navbar-brand
+          img#mg_exp_t_logo(src='./images/sm_t_logo.png', alt='마음고리')
+          span expert
+
+  .container.signin_wrap
+    .row
+      .container-fluid.signin_page_title_wrap
+        h1.signin_page_title
+          | 추가정보입력
+
+    .row
+      .container-fluid
+        .col-sm-10.col-sm-offset-1
+          ul
+            li
+              | 전문가회원님의 상세 프로필을 입력합니다.
+            li
+              | 입력하시는 정보는 마음고리에서 관련기관 검증을 통해 자격의 확인과 고객이 보는 전문가회원님의 프로필 페이지에 출력되는 용도로 사용됩니다.
+            li
+              | 모든 자료는 정확하고 최대한 자세하게 입력하셔야 하며, 정보 입력이 완료되면 회원승인이 완료될 때 까지 추가 및 수정이 불가능합니다.
+            li
+              | 회원승인이 반려될 경우 추가로 정보 또는 올바른 정보의 입력을 요청 할 수 있으며, 요청을 거부하실 경우 전문가 지원 시스템을 이용 하실 수 없습니다.
+            li
+              | 입력하신 정보는 기본적으로 프로필 페이지 공개되므로 입력시 유의하시기 바랍니다.
+
+    .row
+      .container-fluid.form_divide
+        .form-group.signin_formgroup
+          .col-sm-4.col-sm-offset-4.save_wrap
+            button.signin_tempsave_btn.btn(type="button")
+              | 임시저장
+          .col-sm-4.col-sm-offset-4
+            button.signin_submit_btn.btn(type="button")
+              | 입력완료
+          .col-sm-4.col-sm-offset-4.submit_wrap
+            button.signin_logout_btn.btn(type="button")
+              | 로그아웃
+
+
+
+    include ./footer

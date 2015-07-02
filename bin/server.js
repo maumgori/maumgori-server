@@ -78,6 +78,7 @@ io.on('connection', function(socket){
     es.appUserSignin(socket,data);
   });
 
+
   //app.js 에 메뉴 status 생성.
   socket.emit('renderMenu',menu_obj);
 
@@ -133,6 +134,23 @@ app.get('/pages/:page1/:page2', function(req, res) {
 app.get('/signin', function(req, res){
   res.render('signin');
 });
+
+app.get('/signinform',function(req,res){
+  res.render('signinform');
+});
+
+app.get('/signincomplete',function(req,res){
+  res.render('signincomplete');
+});
+
+app.get('/signining',function(req,res){
+  res.render('signining');
+});
+
+app.get('/signinadd',function(req,res){
+  res.render('signinadd');
+});
+
 app.get('/main', function(req, res){
   res.render('main');
 });

@@ -1,6 +1,51 @@
 doctype html
 html
   include ../includes/head
-  body
-    h1
-      | 회원 가입 화면
+  body.signin_title_wrap
+  nav.navbar.navbar-fixed-top.navbar-inverse
+    .container
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        p.navbar-brand
+          img#mg_exp_t_logo(src='./images/sm_t_logo.png', alt='마음고리')
+          span 전문가 회원가입
+
+  .container.signin_wrap
+    .row
+      .container-fluid
+        h1.signin_page_title
+          | 약관동의 및 실명확인
+
+    .row
+      .container-fluid
+        .form-group.signin_textarea
+          label(for="signin_agreement")
+            | 회원약관
+          textarea#signin_agreement.form-control(rows="8")
+            include ../includes/agreement
+
+        .form-group.signin_textarea
+          label(for="signin_privacypolicy")
+            | 개인정보 보호정책
+          textarea#signin_privacypolicy.form-control(rows="8")
+            | 개인정보 보호정책
+
+        .checkbox.agree_checkbox
+          label
+            input(type="checkbox")
+            | 회원약관에 동의합니다.
+          label
+            input(type="checkbox")
+            | 개인정보 보호정책에 동의합니다.
+
+    .row
+      .container-fluid.signin_formgroup.form_divide
+        .col-sm-4.col-sm-offset-4.submit_wrap
+          button.signin_submit_btn.btn(type="button")
+            | 동의확인 및 실명인증
+
+    include ./footer
