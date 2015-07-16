@@ -5,14 +5,9 @@ html
   nav.navbar.navbar-fixed-top.navbar-inverse
     .container
       .navbar-header
-        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
         p.navbar-brand
           img#mg_exp_t_logo(src='./images/sm_t_logo.png', alt='마음고리')
-          span expert
+          span Expert
 
   .container.signin_wrap
     .row
@@ -31,20 +26,213 @@ html
             li
               | 모든 자료는 정확하고 최대한 자세하게 입력하셔야 하며, 정보 입력이 완료되면 회원승인이 완료될 때 까지 추가 및 수정이 불가능합니다.
             li
-              | 회원승인이 반려될 경우 추가로 정보 또는 올바른 정보의 입력을 요청 할 수 있으며, 요청을 거부하실 경우 전문가 지원 시스템을 이용 하실 수 없습니다.
+              | 회원승인이 반려되거나 검증에 필요할 경우 추가로 정보 또는 올바른 정보의 입력을 요청 할 수 있으며, 요청을 거부하실 경우 전문가 지원 시스템을 이용 하실 수 없습니다.
             li
-              | 입력하신 정보는 기본적으로 프로필 페이지 공개되므로 입력시 유의하시기 바랍니다.
+              | 입력하신 정보는 기본적으로 전문가회원님의 프로필 페이지에 공개되므로 입력시 유의하시기 바랍니다.
+
+    form.form-horizontal
+      .row
+        .container-fluid.form_divide
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            h4
+              | 프로필 사진
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.center_cell
+              .photo_preview.blank_photo
+                | 사진이 없습니다.
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell.center_cell.btn_cell
+              button.signin_uploadphoto_btn.btn(type="button")
+                span.glyphicon.glyphicon-open
+                | &nbsp;&nbsp;사진 올리기
+              ul.text-left
+                li
+                  | 최소 가로 200픽셀, 세로 200픽셀 이상의 파일을 업로드 해주세요.
+                li
+                  | png, jpg 확장자를 가진 파일만 업로드 가능합니다.
+
+      .row
+        .container-fluid.form_divide
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            h4
+              | SNS & 메신저 정보
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_website')
+                  span.glyphicon.glyphicon-home.img-rounded.glyphicon_img
+                  span.sr-only
+                    | 웹사이트 주소
+              .col-sm-10.none_padding
+                input#signin_website.form-control.col-sm-3(type='text' placeholder="웹사이트 주소")
+
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_kakao')
+                  img.img-rounded.icon_img(src="../images/icon/kakao.png" alt="카카오톡 아이디")
+              .col-sm-10.none_padding
+                input#signin_kakao.form-control.col-sm-3(type='text' placeholder="카카오톡 아이디")
+
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_line')
+                  img.img-rounded.icon_img(src="../images/icon/line.jpeg" alt="라인 아이디")
+              .col-sm-10.none_padding
+                input#signin_line.form-control.col-sm-3(type='text' placeholder="라인 아이디")
+
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_facebook')
+                  img.img-rounded.icon_img(src="../images/icon/facebook.jpeg" alt="페이스북 주소")
+              .col-sm-10.none_padding
+                input#signin_facebook.form-control.col-sm-3(type='text' placeholder="페이스북 주소" title="페이스북 주소")
+
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_twitter')
+                  img.img-rounded.icon_img(src="../images/icon/twitter.png" alt="트위터 주소")
+              .col-sm-10.none_padding
+                input#signin_twitter.form-control.col-sm-3(type='text' placeholder="트위터 주소")
+
+
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_google')
+                  img.img-rounded.icon_img(src="../images/icon/googleplus.png" alt="구글 아이디")
+              .col-sm-10.none_padding
+                input#signin_googleplus.form-control.col-sm-3(type='text' placeholder="구글 아이디")
+
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_linkedin')
+                  img.img-rounded.icon_img(src="../images/icon/linkedin.png" alt="링크드인 주소")
+              .col-sm-10.none_padding
+                input#signin_linkedin.form-control.col-sm-3(type='text' placeholder="링크드인 주소")
+
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
+              .col-sm-2.center_input.hidden-xs
+                label(for='signin_instagram')
+                  img.img-rounded.icon_img(src="../images/icon/instagram.jpeg" alt="인스타그램 아이디")
+              .col-sm-10.none_padding
+                input#signin_instagram.form-control.col-sm-3(type='text' placeholder="인스타그램 아이디")
+
+
+      .row
+        .container-fluid.form_divide
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            h4
+              | 관련자격
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label.text_label(for='signin_license')
+                  보유자격
+              .col-sm-10.none_padding
+                select#signin_license.form-control
+                  option
+                    | 선택하세요
+                  option
+                    | 라이프코치
+                  option
+                    | 심리치료사
+                  option
+                    | 정신과의사
+                  option
+                    | 전문상담사
+                  option
+                    | 복지전문가
+
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label.text_label(for='signin_region')
+                  | 지역선택
+              .col-sm-10.none_padding
+                select#signin_region.form-control
+                  option
+                    | 선택하세요
+                  option
+                    | 전국
+                  option
+                    | 서울/경기/인천
+                  option
+                    | 대구/부산/경상
+                  option
+                    | 세종/대전/충청
+                  option
+                    | 광주/전라
+                  option
+                    | 춘천/강릉/강원
+                  option
+                    | 제주도
+
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label.text_label(for='signin_career')
+                  | 학력/경력
+              .col-sm-10.none_padding
+                textarea#signin_career.form-control(row="3" placeholder="예) OO학교 XX전공 석사, 국제 ICF공인 코치")
+
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+              .col-sm-2.center_input.hidden-xs
+                label.text_label(for='signin_history')
+                  | 활동이력
+              .col-sm-10.none_padding
+                textarea#signin_history.form-control(row="3" placeholder="예) 각종 대학 강연, KBS1 아침마당 '행복이란' 출연")
+
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
+              .col-sm-2.center_input.hidden-xs
+                label.text_label(for='signin_specialism')
+                  | 전문분야
+                  br
+                  | (최대 3개)
+              .col-sm-10.none_padding
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_" id="signin_" value="male")
+                  | 꿈과 진로  - 적성발견, 꿈찾기, 직업상담
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sel" id="signin_" value="female")
+                  | 연애  - 이성과의 만남, 교제
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sel" id="signin_" value="female")
+                  | 인간관계  - 사회성 훈련, 성격개조
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sel" id="signin_" value="female")
+                  | 힐링  - 마음 회복
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sex" id="signin_" value="female")
+                  | 치유  - 왕따, 고아 등 환경에 의한 상처 회복
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sex" id="signin_" value="female")
+                  | 자아성찰  - 자아 성찰
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sex" id="signin_" value="female")
+                  | 가정  - 결혼, 부부생활, 육아
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sex" id="signin_" value="female")
+                  | 훈련  - 새로운 도전과 발전
+                label.checkbox-inline
+                  input(type="checkbox" name="signin_sex" id="signin_" value="female")
+                  | 경청  - 고해성사, 대화
+
+
+
 
     .row
       .container-fluid.form_divide
         .form-group.signin_formgroup
-          .col-sm-4.col-sm-offset-4.save_wrap
+          .col-sm-4.save_wrap
             button.signin_tempsave_btn.btn(type="button")
               | 임시저장
-          .col-sm-4.col-sm-offset-4
+          .col-sm-4
             button.signin_submit_btn.btn(type="button")
               | 입력완료
-          .col-sm-4.col-sm-offset-4.submit_wrap
+          .col-sm-4.submit_wrap
             button.signin_logout_btn.btn(type="button")
               | 로그아웃
 

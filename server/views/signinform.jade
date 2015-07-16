@@ -5,11 +5,6 @@ html
   nav.navbar.navbar-fixed-top.navbar-inverse
     .container
       .navbar-header
-        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
         p.navbar-brand
           img#mg_exp_t_logo(src='./images/sm_t_logo.png', alt='마음고리')
           span 전문가 회원가입
@@ -24,7 +19,7 @@ html
       .row
         .container-fluid
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
               label.sr-only(for='signin_userid')
                 | 아이디
               input#signin_userid.form-control.col-sm-3(type='text',maxlength="20" placeholder="아이디")
@@ -34,7 +29,7 @@ html
                 | 아이디는 최소 6자 최대 20자까지 사용가능합니다.
 
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
               label.sr-only(for='signin_userid')
                 | 비밀번호
               input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호")
@@ -44,7 +39,7 @@ html
                 | 사용가능한 비밀번호입니다.
 
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell.last_cell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
               label.sr-only(for='signin_userid')
                 | 비밀번호 확인
               input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호 확인")
@@ -56,7 +51,7 @@ html
       .row
         .container-fluid.form_divide
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
               label.sr-only(for='signin_username')
                 | 이름
               input#signin_username.form-control.col-sm-3(type='text' maxlength="20" placeholder="이름")
@@ -64,7 +59,7 @@ html
                 | 반드시 실명으로 입력하여 주십시오.
 
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
               label.radio-inline
                 input(type="radio" name="signin_sex" id="signin_sex_male" value="male")
                 | 남자
@@ -73,7 +68,7 @@ html
                 | 여자
 
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
               label.sr-only(for='signin_mobile')
                 | 휴대전화번호
               input#signin_mobile.form-control(type="text" size="12" maxlength="12" placeholder="휴대전화 예)010-1234-1234")
@@ -83,7 +78,7 @@ html
                 | 긴급한 연락을 위해 정확하게 입력하여 주십시오.
 
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
               label.sr-only(for='signin_phone')
                 | 긴급연락처
               input#signin_phone.form-control(type="text" size="12" maxlength="12" placeholder="긴급연락처 예)010-1234-1234")
@@ -91,7 +86,7 @@ html
                 | 긴급한 연락을 위해 정확하게 입력하여 주십시오.
 
           .form-group.signin_formgroup
-            .col-sm-4.col-sm-offset-4.signin_formcell.last_cell
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
               label.sr-only(for='signin_email')
                 | 이메일
               input#signin_email.form-control(type="text" placeholder="이메일")
@@ -103,7 +98,7 @@ html
         .row
           .container-fluid.form_divide
             .form-group.signin_formgroup
-              .col-sm-4.col-sm-offset-4.submit_wrap
+              .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.submit_wrap
                 button.signin_submit_btn.btn(type="submit")
                   | 가입하기
     include ./footer
