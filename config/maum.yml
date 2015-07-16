@@ -4,5 +4,5 @@
 host: "maumgori.com"
 api_key: "APIKEYSTRING"
 es:
-  host: "localhost"
+  host: "52.69.185.8"
   port: 9200

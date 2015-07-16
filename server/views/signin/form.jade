@@ -1,0 +1,92 @@
+.container.signin_wrap
+  .row
+    .container-fluid.signin_page_title_wrap
+      h1.signin_page_title
+        | 회원가입 정보입력
+
+  form.form-horizontal
+    .row
+      .container-fluid
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            label.sr-only(for='signin_userid')
+              | 아이디
+            input#signin_userid.form-control.col-sm-3(type='text',maxlength="20" placeholder="아이디")
+          //
+            p.helptext.text_red
+              span.glyphicon.glyphicon-remove(aria-hidden="true")
+              | 아이디는 최소 6자 최대 20자까지 사용가능합니다.
+
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            label.sr-only(for='signin_userid')
+              | 비밀번호
+            input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호")
+          //
+            p.helptext.text_green
+              span.glyphicon.glyphicon-ok(aria-hidden="true")
+              | 사용가능한 비밀번호입니다.
+
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
+            label.sr-only(for='signin_userid')
+              | 비밀번호 확인
+            input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호 확인")
+          //
+            p.helptext.text_red
+              span.glyphicon.glyphicon-remove(aria-hidden="true")
+              | 비밀번호가 동일하지 않습니다.
+
+    .row
+      .container-fluid.form_divide
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            label.sr-only(for='signin_username')
+              | 이름
+            input#signin_username.form-control.col-sm-3(type='text' maxlength="20" placeholder="이름")
+            p.helptext
+              | 반드시 실명으로 입력하여 주십시오.
+
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            label.radio-inline
+              input(type="radio" name="signin_sex" id="signin_sex_male" value="male")
+              | 남자
+            label.radio-inline
+              input(type="radio" name="signin_sex" id="signin_sex_female" value="female")
+              | 여자
+
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            label.sr-only(for='signin_mobile')
+              | 휴대전화번호
+            input#signin_mobile.form-control(type="text" size="12" maxlength="12" placeholder="휴대전화 예)010-1234-1234")
+          //
+            p.helptext.text_green
+              span.glyphicon.glyphicon-ok(aria-hidden="true")
+              | 긴급한 연락을 위해 정확하게 입력하여 주십시오.
+
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+            label.sr-only(for='signin_phone')
+              | 긴급연락처
+            input#signin_phone.form-control(type="text" size="12" maxlength="12" placeholder="긴급연락처 예)010-1234-1234")
+            p.helptext
+              | 긴급한 연락을 위해 정확하게 입력하여 주십시오.
+
+        .form-group.signin_formgroup
+          .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
+            label.sr-only(for='signin_email')
+              | 이메일
+            input#signin_email.form-control(type="text" placeholder="이메일")
+            p.helptext.text_red
+              span.glyphicon.glyphicon-remove(aria-hidden="true")
+              | 올바른 이메일을 입력하여 주십시오.
+
+
+      .row
+        .container-fluid.form_divide
+          .form-group.signin_formgroup
+            .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.submit_wrap
+              button.signin_submit_btn.btn(type="submit")
+                | 가입하기

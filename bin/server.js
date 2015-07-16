@@ -131,24 +131,12 @@ app.get('/pages/:page1/:page2', function(req, res) {
   res.render('pages/' + req.params.page1 + '/' + req.params.page2);
 });
 
-app.get('/signin', function(req, res){
+app.get('/signin/:signinFiles', function(req, res) {
+  res.render('signin/' + req.params.signinFiles);
+});
+
+app.get('/signin', function(req, res) {
   res.render('signin');
-});
-
-app.get('/signinform',function(req,res){
-  res.render('signinform');
-});
-
-app.get('/signincomplete',function(req,res){
-  res.render('signincomplete');
-});
-
-app.get('/signining',function(req,res){
-  res.render('signining');
-});
-
-app.get('/signinadd',function(req,res){
-  res.render('signinadd');
 });
 
 app.get('/main', function(req, res){
