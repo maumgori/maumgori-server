@@ -2,6 +2,66 @@
 
   var ctrls = angular.module('controllers',['ngImgCrop','services']);
 
+  ctrls.controller('signinCtrl', function($scope){
+    $scope.signin_obj = {
+      is_loggedin : false,
+      register_done : false,
+      signin_step : 0,
+      id : '',
+      id_created : false,
+      id_check_val : false,
+      type : 'expert',
+      passwd : '',
+      passwd_re : '',
+      passwd_enc : '',
+      passwd_pre : '',
+      signin_step_text : ["약관동의 및 실명확인","회원가입 정보입력","회원가입완료","추가정보입력","추가정보입력완료"],
+      user_photo : '/images/blank-user.jpg',
+      user_photo_data : '',
+      name : '',
+      gender : 'male',
+      birth : {
+        year : 1980,
+        month : 1,
+        day : 1
+      },
+      birthday : null,
+      phone : [],
+      email : '',
+      homepage : '',
+      kakao : '',
+      naver_line : '',
+      facebook : '',
+      twitter : '',
+      googleplus : '',
+      linkedin : '',
+      instagram : '',
+      category_list : null,
+      category: null,
+      expert_type : '',
+      location : '',
+      career : '',
+      activity: '',
+      profile_title : '',
+      profile_text : '',
+      proflie_txt_color : false,
+      proflie_txt_location : 'top',
+      profile_bg_img : '/images/profile_background.png',
+      method_list : null,
+      method : [],
+      method_price_min : 0,
+      method_price_max : 0
+    }
+
+    $scope.signin_func = {
+      go_next : function(){
+        $scope.signin_obj.signin_step++;
+      }
+    }
+
+  });
+
+  /*
   //로그인/회원가입 컨트롤러.
   ctrls.controller('maumCtrl', function($scope,$http,socket,$state){
     var user_init = "";
@@ -52,9 +112,7 @@
 
     }
 
-    /**
-    user_obj : 가입/로그인 사용자 정보 담는 객체. 로그인 후에 계속 사용.
-    */
+    //user_obj : 가입/로그인 사용자 정보 담는 객체. 로그인 후에 계속 사용.
     $scope.user_obj = {
       is_loggedin : false,
       register_done : false,
@@ -105,9 +163,7 @@
       method_price_max : 0
     };
 
-    /**
-    user_func : user_obj 객체를 컨트롤하는 함수를 모아놓은 객체.
-    */
+    //user_func : user_obj 객체를 컨트롤하는 함수를 모아놓은 객체.
     $scope.user_func = {
       login : function(){
         //사용자 로그인
@@ -449,7 +505,7 @@
       // console.log(fromParams);
       $scope.menu_val = toState.name.split('/')[0];
     });
-
   });
+  */
 
 })();
