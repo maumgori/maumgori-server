@@ -99,6 +99,7 @@ form.form-horizontal
           .col-sm-10.none_padding
             input#signin_linkedin.form-control.col-sm-3(type='text' placeholder="링크드인 주소")
 
+<<<<<<< Updated upstream
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
           .col-sm-2.center_input.hidden-xs
@@ -106,6 +107,45 @@ form.form-horizontal
               img.img-rounded.icon_img(src="../images/icon/instagram.jpeg" alt="인스타그램 아이디")
           .col-sm-10.none_padding
             input#signin_instagram.form-control.col-sm-3(type='text' placeholder="인스타그램 아이디")
+=======
+  .row
+    .container-fluid.form_divide
+      .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+        h4
+          | 서비스 요금
+      .form-group.signin_formgroup
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+          .col-sm-4.center_input.hidden-xs
+            label.checkbox-inline
+              input(type="checkbox" name="signin_phone_fee" id="signin_phone_fee" value="phone_fee")
+              | 전화
+          .col-sm-8.none_padding
+              input#signin_phone_fee.form-control.col-sm-3(type='text' placeholder="전화 서비스 요금입력 / 60분 기준")
+
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+          .col-sm-4.center_input.hidden-xs
+            label.checkbox-inline
+              input(type="checkbox" name="signin_email_fee" id="signin_email_fee" value="email_fee")
+              | 이메일
+          .col-sm-8.none_padding
+              input#signin_email_fee.form-control.col-sm-3(type='text' placeholder="이메일 서비스 요금입력 / 1회 회신 기준")
+
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+          .col-sm-4.center_input.hidden-xs
+            label.checkbox-inline
+              input(type="checkbox" name="signin_msg_fee" id="signin_msg_fee" value="msg_fee")
+              | 문자/메시지
+          .col-sm-8.none_padding
+              input#signin_msg_fee.form-control.col-sm-3(type='text' placeholder="문자/메시지 서비스 요금입력 / 60분 기준")
+
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
+          .col-sm-4.center_input.hidden-xs
+            label.checkbox-inline
+              input(type="checkbox" name="signin_face_fee" id="signin_face_fee" value="face_fee")
+              | 대면
+          .col-sm-8.none_padding
+              input#signin_face_fee.form-control.col-sm-3(type='text' placeholder="대면 서비스 요금입력 / 60분 기준")
+>>>>>>> Stashed changes
 
 
   .row
