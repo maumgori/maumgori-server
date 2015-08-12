@@ -25,6 +25,7 @@
 .signin_wrap .signin_formgroup input{border:0;}
 .signin_wrap .signin_formgroup .signin_formcell .inline_input{display:inline;width:100px;}
 .signin_wrap .signin_formgroup .signin_formcell .center_input{text-align:center;}
+.signin_wrap .signin_formgroup .signin_formcell .left_input{text-align:center;}
 .signin_wrap .signin_formgroup .signin_formcell .center_input label{margin:0;vertical-align:middle;}
 .signin_wrap .signin_formgroup .signin_formcell .radio-inline{padding:6px 12px;margin-left:20px;}
 .signin_wrap .signin_formgroup .signin_formcell .checkbox-inline{padding:6px 12px;margin-left:20px;}
