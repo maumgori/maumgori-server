@@ -13,7 +13,7 @@
 
 .signin_wrap .form_divide{margin-top:20px;}
 
-.signin_wrap .signin_formgroup{margin-bottom:0;padding-left:15px;padding-right:0;}
+.signin_wrap .signin_formgroup{margin-bottom:0;padding-left:15px;padding-right:15px;}
 .signin_wrap .signin_formgroup .last_cell{border-bottom:3px solid #e8e8e8;margin-bottom:40px;}
 .signin_wrap .signin_formgroup .signin_formcell{border-top:3px solid #e8e8e8;border-right:3px solid #e8e8e8;border-left:3px solid #e8e8e8;padding:5px 0;}
 .signin_wrap .signin_formgroup .btn_cell{border-top:0px;padding-top:20px;padding-bottom:10px;}
