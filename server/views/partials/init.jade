@@ -15,7 +15,7 @@
           input.id_checkbox(type="checkbox")
           | &nbsp;아이디 저장
       .login_btn_wrap
-        button.btn.btn-block.mg_btn_login(type="submit" ng-disabled="!(login_obj.id.length > 3 && login_obj.passwd)" ng-click="user_func.login()") 로그인
+        button.btn.btn-block.mg_btn_login(type="submit" ng-disabled="!(login_obj.id.length > 3 && login_obj.passwd)" ng-click="login()") 로그인
         button.btn.btn-block.mg_btn_find(type="button") 아이디/비밀번호 찾기
         //button.btn.btn-block.mg_btn_join(type="button" data-toggle="modal" data-target="#signinModal") 전문가 회원가입
         a.btn.btn-block.mg_btn_join(href="/signin") 전문가 회원가입

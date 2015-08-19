@@ -15,14 +15,6 @@ curl -XPUT http://localhost:9200/experts -d '
         "user_photo" : { "type" : "string", "index" : "no" },
         "name" : { "type" : "string", "index" : "not_analyzed" },
         "gender" : { "type" : "string", "index" : "not_analyzed" },
-        "birth" : {
-          "type" : "object",
-          "properties" : {
-            "year" : { "type" : "string", "index" : "no" },
-            "month" : { "type" : "string", "index" : "no" },
-            "day" : { "type" : "string", "index" : "no" }
-          }
-        },
         "birthday" : { "type" : "date" },
         "phone" : { "type" : "string", "index" : "no" },
         "email" : { "type" : "string", "index" : "no" },

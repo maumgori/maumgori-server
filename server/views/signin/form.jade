@@ -10,82 +10,75 @@ form.form-horizontal
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           label.sr-only(for='signin_userid')
             | 아이디
-          input#signin_userid.form-control.col-sm-3(type='text',maxlength="20" placeholder="아이디")
-        //
-          p.helptext.text_red
+          input#signin_userid.form-control.col-sm-3(type='text',maxlength="20" placeholder="아이디 (4~20자)" ng-model="user_obj.id" ng-change="signin_func.id_check()")
+          p.helptext.text_red(ng-hide="signin_params.id_check_val || !user_obj.id")
             span.glyphicon.glyphicon-remove(aria-hidden="true")
-            | 아이디는 최소 6자 최대 20자까지 사용가능합니다.
-
+            | {{signin_params.id_validate_text}}
+          p.helptext.text_green(ng-show="signin_params.id_check_val")
+            span.glyphicon.glyphicon-ok(aria-hidden="true")
+            | 사용 가능한 아이디 입니다.
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           label.sr-only(for='signin_userid')
             | 비밀번호
-          input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호")
-        //
-          p.helptext.text_green
+          input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호" ng-model="user_obj.passwd" ng-change="signin_func.passwd_check()")
+          p.helptext.text_red(ng-hide="signin_params.passwd_check_val || !user_obj.passwd")
+            span.glyphicon.glyphicon-remove(aria-hidden="true")
+            | 6자리 이상 입력하세요
+          p.helptext.text_green(ng-show="signin_params.passwd_check_val")
             span.glyphicon.glyphicon-ok(aria-hidden="true")
-            | 사용가능한 비밀번호입니다.
-
+            | 사용 가능한 비밀번호 입니다.
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
           label.sr-only(for='signin_userid')
             | 비밀번호 확인
-          input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호 확인")
-        //
-          p.helptext.text_red
+          input#signin_userid.form-control(type='password' maxlength="20" placeholder="비밀번호 확인" ng-model="signin_params.passwd_re" ng-change="signin_func.passwd_check()" )
+          p.helptext.text_red(ng-hide="signin_params.passwd_re_check_val || !signin_params.passwd_re")
             span.glyphicon.glyphicon-remove(aria-hidden="true")
             | 비밀번호가 동일하지 않습니다.
-
+          p.helptext.text_green(ng-show="signin_params.passwd_re_check_val && user_obj.passwd")
+            span.glyphicon.glyphicon-ok(aria-hidden="true")
+            | 비밀번호가 동일합니다.
   .row
     .container-fluid.form_divide
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           label.sr-only(for='signin_username')
             | 이름
-          input#signin_username.form-control.col-sm-3(type='text' maxlength="20" placeholder="이름")
+          input#signin_username.form-control.col-sm-3(type='text' maxlength="20" placeholder="이름" ng-model="user_obj.name" )
           p.helptext
             | 반드시 실명으로 입력하여 주십시오.
-
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           label.radio-inline
-            input(type="radio" name="signin_sex" id="signin_sex_male" value="male")
+            input(type="radio" name="signin_gender" id="signin_gender_male" value="male" ng-model="user_obj.gender" )
             | 남자
           label.radio-inline
-            input(type="radio" name="signin_sex" id="signin_sex_female" value="female")
+            input(type="radio" name="signin_gender" id="signin_gender_female" value="female" ng-model="user_obj.gender" )
             | 여자
-
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           label.sr-only(for='signin_mobile')
             | 휴대전화번호
-          input#signin_mobile.form-control(type="text" size="12" maxlength="12" placeholder="휴대전화 예)010-1234-1234")
-        //
-          p.helptext.text_green
-            span.glyphicon.glyphicon-ok(aria-hidden="true")
-            | 긴급한 연락을 위해 정확하게 입력하여 주십시오.
-
+          input#signin_mobile.form-control(type="text" size="20" maxlength="20" placeholder="휴대전화 예)010-1234-1234" ng-model="user_obj.phone[0]" )
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           label.sr-only(for='signin_phone')
             | 긴급연락처
-          input#signin_phone.form-control(type="text" size="12" maxlength="12" placeholder="긴급연락처 예)010-1234-1234")
+          input#signin_phone.form-control(type="text" size="20" maxlength="20" placeholder="긴급연락처 예)010-1234-1234" ng-model="user_obj.phone[1]" )
           p.helptext
             | 긴급한 연락을 위해 정확하게 입력하여 주십시오.
-
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
           label.sr-only(for='signin_email')
             | 이메일
-          input#signin_email.form-control(type="text" placeholder="이메일")
-          p.helptext.text_red
+          input#signin_email.form-control(type="email" placeholder="이메일" ng-model="user_obj.email" )
+          p.helptext.text_red(ng-show="!user_obj.email && user_obj.email!=''")
             span.glyphicon.glyphicon-remove(aria-hidden="true")
-            | 올바른 이메일을 입력하여 주십시오.
-
-
+            | 잘못된 메일 형식입니다.
     .row
       .container-fluid.form_divide
         .form-group.signin_formgroup
           .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.submit_wrap
-            button.signin_submit_btn.btn(type="button" ng-click="signin_func.go_next()")
+            button.signin_submit_btn.btn(type="button" ng-click="signin_func.form_save()" ng-disabled="!(signin_params.id_check_val && signin_params.passwd_check_val && signin_params.passwd_re_check_val && user_obj.name.length && user_obj.phone[0].length && user_obj.phone[1].length && user_obj.email)")
               | 가입하기

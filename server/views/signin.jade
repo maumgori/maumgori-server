@@ -9,7 +9,9 @@ html
             img#mg_exp_t_logo(src='/images/sm_t_logo.png', alt='마음고리')
             span 전문가 회원가입
     .container.signin_wrap(ng-app='app' ng-controller='signinCtrl')
-      div(ng-show="signin_obj.signin_step===0")
+      button.btn.btn-sm(ng-click="print_obj()")
+        | 로그
+      div(ng-show="user_obj.signin_step===0")
         .row
           .container-fluid
             h1.signin_page_title
@@ -41,12 +43,12 @@ html
             .col-sm-4.col-sm-offset-4.submit_wrap
               button.signin_submit_btn.btn(type="button" ng-disabled="!(agree && priv)" ng-click="signin_func.go_next()")
                 | 동의확인 및 실명인증
-      div(ng-show="signin_obj.signin_step===1")
+      div(ng-show="user_obj.signin_step===1")
         include ./signin/form
-      div(ng-show="signin_obj.signin_step===2")
+      div(ng-show="user_obj.signin_step===2")
         include ./signin/complete
-      div(ng-show="signin_obj.signin_step===3")
+      div(ng-show="user_obj.signin_step===3")
         include ./signin/add
-      div(ng-show="signin_obj.signin_step===4")
+      div(ng-show="user_obj.signin_step===4")
         include ./signin/ing
       include ./footer

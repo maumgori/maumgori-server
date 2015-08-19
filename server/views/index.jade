@@ -2,12 +2,9 @@ doctype html
 html
   include ../includes/head
   body(ng-app='app' ng-controller='maumCtrl')
-    //회원 가입, 수정 모달.
-    include partials/signinModal
     //로그인 안 했을때
     .login_before(ng-hide='user_obj.is_loggedin')
       include partials/init
-      //이거 왜 안될까.. 연구해볼것. div(ui-view="init")
     //로그인 했을 때
     .login_main(ng-show='user_obj.is_loggedin')
       div(ui-view="nav")
