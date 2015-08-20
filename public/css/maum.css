@@ -32,10 +32,10 @@
 .signin_wrap .signin_formgroup .signin_formcell .none_padding{}
 .signin_wrap .signin_formgroup .signin_formcell .glyphicon_img{display:block;background:#f4f4f4;width:35px;height:35px;padding-top:10px;vertical-align:middle;text-align:center;}
 .signin_wrap .signin_formgroup .signin_formcell .icon_img{width:35px;height:35px;}
-.signin_wrap .signin_formgroup .signin_formcell .photo_preview{width:200px;height:200px;border-radius:150px;margin:20px auto 0 auto;}
-.signin_wrap .signin_formgroup .signin_formcell .blank_photo{background:#f4f4f4;padding-top:95px;}
+.signin_wrap .signin_formgroup .signin_formcell .photo_preview{width:200px;height:200px;margin:20px auto 0 auto;overflow:hidden;}
+.signin_wrap .signin_formgroup .signin_formcell .photo_preview img{border-radius:150px;width:200px;}
 .signin_wrap .signin_formgroup .signin_formcell .text_label{padding:6px 0 0 0;}
-
+.signin_wrap .signin_formgroup .signin_formcell .select_bg{display:block;padding:0 1px 1px 0;}
 .signin_wrap .signin_formgroup .signin_tempsave_btn{background:#aaa;width:100%;border:0;padding:10px 0;margin:0;color:#ffffff;}
 .signin_wrap .signin_formgroup .signin_submit_btn{background:#002349;width:100%;border:0;padding:10px 0;margin:0;color:#ffffff;}
 .signin_wrap .signin_formgroup .signin_logout_btn{background:#e10000;width:100%;border:0;padding:10px 0;margin:0;color:#ffffff;}

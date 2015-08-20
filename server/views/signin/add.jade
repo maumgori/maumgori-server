@@ -24,8 +24,8 @@ form.form-horizontal
           | 프로필 사진
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.center_cell
-          .photo_preview.blank_photo
-            | 사진이 없습니다.
+          .photo_preview
+            img(src="images/blank-user.jpg")
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell.center_cell.btn_cell
           button.signin_uploadphoto_btn.btn(type="button")
             span.glyphicon.glyphicon-open
@@ -111,57 +111,32 @@ form.form-horizontal
     .container-fluid.form_divide
       .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
         h4
-          | 서비스 요금
+          | 서비스 요금 (&#8361;/원)
       .form-group.signin_formgroup
-        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-          .col-sm-4.hidden-xs
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell(ng-repeat="method in user_obj.method_list track by $index")
+          .col-sm-6
             label.checkbox-inline
-              input(type="checkbox" name="signin_phone_fee" id="signin_phone_fee" value="phone_fee")
-              | 전화
-          .col-sm-8.none_padding
-              input#signin_phone_fee.form-control.col-sm-3(type='number' placeholder="전화 서비스 요금입력 (원)/ 60분 기준")
-        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-          .col-sm-4.hidden-xs
-            label.checkbox-inline
-              input(type="checkbox" name="signin_email_fee" id="signin_email_fee" value="email_fee")
-              | 이메일
-          .col-sm-8.none_padding
-              input#signin_email_fee.form-control.col-sm-3(type='number' placeholder="이메일 서비스 요금입력 (원)/ 1회 회신 기준")
-
-        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-          .col-sm-4.hidden-xs
-            label.checkbox-inline
-              input(type="checkbox" name="signin_msg_fee" id="signin_msg_fee" value="msg_fee")
-              | 문자/메시지
-          .col-sm-8.none_padding
-              input#signin_msg_fee.form-control.col-sm-3(type='number' placeholder="문자/메시지 서비스 요금입력 (원)/ 60분 기준")
-
-        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
-          .col-sm-4.hidden-xs
-            label.checkbox-inline
-              input(type="checkbox" name="signin_face_fee" id="signin_face_fee" value="face_fee")
-              | 대면
-          .col-sm-8.none_padding
-              input#signin_face_fee.form-control.col-sm-3(type='number' placeholder="대면 서비스 요금입력 (원)/ 60분 기준")
+              input(type="checkbox" ng-model="method.checked" ng-click="signin_func.methodCheck();" id="signin_{{method.id}}_fee")
+              | {{method.name}}
+              span.text-primary
+                |  / {{method.unit}} 기준
+          .col-sm-6.none_padding
+            input.form-control.col-sm-3(type="number" ng-model="method.price" min="0" step="1000" ng-disabled="!method.checked" ng-change="signin_func.methodCheck();" id="signin_{{method.id}}_fee_input")
+            p.text-danger.helptext(ng-show="method.checked && !method.price")
+              | 숫자로 올바르게 입력하세요.
+            p.text-danger.helptext(ng-hide="method.checked")
+              | {{method.name}} 서비스 선택안함
   .row
     .container-fluid
-      .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell(ng-repeat="method in user_obj.method_list track by $index")
+      .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
         .col-sm-3.col-xs-5
           h5
             label
-              input(type="checkbox" ng-model="method.checked" ng-click="signin_func.methodCheck();")
-              | &nbsp;{{method.name}}
+
         .col-sm-2.col-xs-7(ng-class="{'has-error' : !method.price}" style="padding:0px;")
-          input#price_phone.form-control(type="number" ng-model="method.price" min="0" step="1000" ng-disabled="!method.checked" ng-change="signin_func.methodCheck();")
+
         .col-sm-7.col-xs-12
-          h5(ng-show="method.checked && method.price")
-            span.text-primary
-              | {{method.price|currency:"&#8361; ":0}}
-            | &nbsp;/ {{method.unit}}
-          h5.text-danger(ng-show="method.checked && !method.price")
-            | 올바른 금액을 숫자로 입력하세요
-          h5.text-danger(ng-hide="method.checked")
-            | {{method.name}} 서비스 불가
+
 
   .row
     .container-fluid.form_divide
@@ -170,75 +145,48 @@ form.form-horizontal
           | 관련자격
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-          .col-sm-2.center_input.hidden-xs
+          .col-sm-3
             label.text_label(for='signin_license')
               | 보유자격
-          .col-sm-10.none_padding
+          .col-sm-9.none_padding
             select#signin_license.form-control(ng-model="user_obj.expert_type" style="padding:5px;")
               option(ng-repeat="expert_type in metadata.expert_type") {{expert_type}}
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-          .col-sm-2.center_input.hidden-xs
+          .col-sm-3
             label.text_label(for='signin_region')
               | 지역선택
-          .col-sm-10.none_padding
+          .col-sm-9.none_padding
             select#signin_region.form-control(ng-model="user_obj.location" style="padding:5px;")
               option(ng-repeat="location in metadata.location") {{location}}
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-          .col-sm-2.center_input.hidden-xs
+          .col-sm-3
             label.text_label(for='signin_career')
               | 학력/경력
-          .col-sm-10.none_padding
+          .col-sm-9.none_padding
             textarea#signin_career.form-control(row="3" placeholder="예) OO학교 XX전공 석사, 국제 ICF공인 코치")
 
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-          .col-sm-2.center_input.hidden-xs
+          .col-sm-3
             label.text_label(for='signin_history')
               | 활동이력
-          .col-sm-10.none_padding
+          .col-sm-9.none_padding
             textarea#signin_history.form-control(row="3" placeholder="예) 각종 대학 강연, KBS1 아침마당 '행복이란' 출연")
 
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
-          .col-sm-2.center_input.hidden-xs
+          .col-sm-3
             label.text_label(for='signin_specialism')
               | 전문분야
               br
               | (최대 3개)
-          .col-sm-10.none_padding
-            label.checkbox-inline
-              input(type="checkbox" name="signin_" id="signin_" value="male")
-              | 꿈과 진로  - 적성발견, 꿈찾기, 직업상담
-            label.checkbox-inline
-              input(type="checkbox" name="signin_sel" id="signin_" value="female")
-              | 연애  - 이성과의 만남, 교제
-            label.checkbox-inline
-              input(type="checkbox" name="signin_sel" id="signin_" value="female")
-              | 인간관계  - 사회성 훈련, 성격개조
-            label.checkbox-inline
-              input(type="checkbox" name="signin_sel" id="signin_" value="female")
-              | 힐링  - 마음 회복
-            label.checkbox-inline
-              input(type="checkbox" name="signin_gender" id="signin_" value="female")
-              | 치유  - 왕따, 고아 등 환경에 의한 상처 회복
-            label.checkbox-inline
-              input(type="checkbox" name="signin_gender" id="signin_" value="female")
-              | 자아성찰  - 자아 성찰
-            label.checkbox-inline
-              input(type="checkbox" name="signin_gender" id="signin_" value="female")
-              | 가정  - 결혼, 부부생활, 육아
-            label.checkbox-inline
-              input(type="checkbox" name="signin_gender" id="signin_" value="female")
-              | 훈련  - 새로운 도전과 발전
-            label.checkbox-inline
-              input(type="checkbox" name="signin_gender" id="signin_" value="female")
-              | 경청  - 고해성사, 대화
-
-            .col-xs-12(ng-repeat="cate in user_obj.category_list track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': cate.checked }")
-              label.control-label(ng-class="{'text-muted': user_obj.category.length > 2 && !cate.checked }" style="margin:0px;")
-                input(type="checkbox" name="category" style="margin:3px;" ng-model="cate.checked" ng-click="signin_func.categoryCheck();" ng-disabled="user_obj.category.length>2 && !cate.checked")
-                span.cate-name(ng-style="cate.style")
+          .col-sm-9.none_padding
+            span.select_bg(ng-repeat="cate in user_obj.category_list track by $index" ng-class="{'bg-info': cate.checked }")
+              label.checkbox-inline.control-label(ng-class="{'text-muted': user_obj.category.length > 2 && !cate.checked }")
+                input(type="checkbox" name="category" ng-model="cate.checked" ng-click="signin_func.categoryCheck();" ng-disabled="user_obj.category.length>2 && !cate.checked")
+                span.cate-name(ng-style="cate.style" style="border-radius:0;width:80px;display:inline-block;text-align:center;")
                   | {{cate.name}}
                 small(ng-class="{'text-muted': user_obj.category.length>2 && !cate.checked }")
-                  | &nbsp; - {{cate.comment}}
+                  | - {{cate.comment}}
+
 .row
   .container-fluid.form_divide
     .form-group.signin_formgroup
