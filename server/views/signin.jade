@@ -11,6 +11,8 @@ html
     .container.signin_wrap(ng-app='app' ng-controller='signinCtrl')
       button.btn.btn-sm(ng-click="print_obj()")
         | 로그
+      button.btn.btn-sm(ng-click="obj_rollback()")
+        | 롤백
       div(ng-show="user_obj.signin_step===0")
         .row
           .container-fluid

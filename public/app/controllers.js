@@ -8,8 +8,8 @@
       passwd : ''
     }
 
-    console.log("id : "+sessionStorage["maum_login_id"]);
-    console.log("passwd : "+sessionStorage["maum_login_passwd"]);
+    //console.log("id : "+sessionStorage["maum_login_id"]);
+    //console.log("passwd : "+sessionStorage["maum_login_passwd"]);
 
     //세션 존재하면 자동 로그인.
     delete sessionStorage["maum_login_signin_obj"];
@@ -260,7 +260,18 @@
     //user_obj 출력.
     $scope.print_obj = function(){
       console.log($scope.user_obj);
-    }
+    };
+    //롤백
+    $scope.obj_rollback = function(){
+      $scope.user_obj.signin_step--;
+      var req_data = {
+        index : "experts",
+        type : "expert",
+        emit: "insertExpertAddRes",
+        user_obj : $scope.user_obj
+      }
+      socket.emit('insertExpert',req_data);
+    };
 
     socket.on('idExists', function(data){
       //console.log(data);
