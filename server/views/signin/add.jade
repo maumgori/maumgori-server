@@ -48,7 +48,7 @@ form.form-horizontal
               span.sr-only
                 | 웹사이트 주소
           .col-sm-10.none_padding
-            input#signin_website.form-control.col-sm-3(type='text' placeholder="웹사이트 주소")
+            input#signin_website.form-control.col-sm-3(type='text' placeholder="웹사이트 주소" ng-model="user_obj.homepage")
 
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
@@ -56,7 +56,7 @@ form.form-horizontal
             label(for='signin_kakao')
               img.img-rounded.icon_img(src="../images/icon/kakao.png" alt="카카오톡 아이디")
           .col-sm-10.none_padding
-            input#signin_kakao.form-control.col-sm-3(type='text' placeholder="카카오톡 아이디")
+            input#signin_kakao.form-control.col-sm-3(type='text' placeholder="카카오톡 아이디" ng-model="user_obj.kakao")
 
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
@@ -64,7 +64,7 @@ form.form-horizontal
             label(for='signin_line')
               img.img-rounded.icon_img(src="../images/icon/line.jpeg" alt="라인 아이디")
           .col-sm-10.none_padding
-            input#signin_line.form-control.col-sm-3(type='text' placeholder="라인 아이디")
+            input#signin_line.form-control.col-sm-3(type='text' placeholder="라인 아이디" ng-model="user_obj.naver_line")
 
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
@@ -72,7 +72,7 @@ form.form-horizontal
             label(for='signin_facebook')
               img.img-rounded.icon_img(src="../images/icon/facebook.jpeg" alt="페이스북 주소")
           .col-sm-10.none_padding
-            input#signin_facebook.form-control.col-sm-3(type='text' placeholder="페이스북 주소" title="페이스북 주소")
+            input#signin_facebook.form-control.col-sm-3(type='text' placeholder="페이스북 주소" title="페이스북 주소" ng-model="user_obj.facebook")
 
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
@@ -80,7 +80,7 @@ form.form-horizontal
             label(for='signin_twitter')
               img.img-rounded.icon_img(src="../images/icon/twitter.png" alt="트위터 주소")
           .col-sm-10.none_padding
-            input#signin_twitter.form-control.col-sm-3(type='text' placeholder="트위터 주소")
+            input#signin_twitter.form-control.col-sm-3(type='text' placeholder="트위터 주소" ng-model="user_obj.twitter")
 
 
       .form-group.signin_formgroup
@@ -89,7 +89,7 @@ form.form-horizontal
             label(for='signin_google')
               img.img-rounded.icon_img(src="../images/icon/googleplus.png" alt="구글 아이디")
           .col-sm-10.none_padding
-            input#signin_googleplus.form-control.col-sm-3(type='text' placeholder="구글 아이디")
+            input#signin_googleplus.form-control.col-sm-3(type='text' placeholder="구글 아이디" ng-model="user_obj.googleplus")
 
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
@@ -97,7 +97,7 @@ form.form-horizontal
             label(for='signin_linkedin')
               img.img-rounded.icon_img(src="../images/icon/linkedin.png" alt="링크드인 주소")
           .col-sm-10.none_padding
-            input#signin_linkedin.form-control.col-sm-3(type='text' placeholder="링크드인 주소")
+            input#signin_linkedin.form-control.col-sm-3(type='text' placeholder="링크드인 주소" ng-model="user_obj.linkedin")
 
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
@@ -105,7 +105,7 @@ form.form-horizontal
             label(for='signin_instagram')
               img.img-rounded.icon_img(src="../images/icon/instagram.jpeg" alt="인스타그램 아이디")
           .col-sm-10.none_padding
-            input#signin_instagram.form-control.col-sm-3(type='text' placeholder="인스타그램 아이디")
+            input#signin_instagram.form-control.col-sm-3(type='text' placeholder="인스타그램 아이디" ng-model="user_obj.instagram")
 
   .row
     .container-fluid.form_divide
@@ -119,15 +119,14 @@ form.form-horizontal
               input(type="checkbox" name="signin_phone_fee" id="signin_phone_fee" value="phone_fee")
               | 전화
           .col-sm-8.none_padding
-              input#signin_phone_fee.form-control.col-sm-3(type='text' placeholder="전화 서비스 요금입력 / 60분 기준")
-
+              input#signin_phone_fee.form-control.col-sm-3(type='number' placeholder="전화 서비스 요금입력 (원)/ 60분 기준")
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           .col-sm-4.hidden-xs
             label.checkbox-inline
               input(type="checkbox" name="signin_email_fee" id="signin_email_fee" value="email_fee")
               | 이메일
           .col-sm-8.none_padding
-              input#signin_email_fee.form-control.col-sm-3(type='text' placeholder="이메일 서비스 요금입력 / 1회 회신 기준")
+              input#signin_email_fee.form-control.col-sm-3(type='number' placeholder="이메일 서비스 요금입력 (원)/ 1회 회신 기준")
 
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           .col-sm-4.hidden-xs
@@ -135,7 +134,7 @@ form.form-horizontal
               input(type="checkbox" name="signin_msg_fee" id="signin_msg_fee" value="msg_fee")
               | 문자/메시지
           .col-sm-8.none_padding
-              input#signin_msg_fee.form-control.col-sm-3(type='text' placeholder="문자/메시지 서비스 요금입력 / 60분 기준")
+              input#signin_msg_fee.form-control.col-sm-3(type='number' placeholder="문자/메시지 서비스 요금입력 (원)/ 60분 기준")
 
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
           .col-sm-4.hidden-xs
@@ -143,8 +142,26 @@ form.form-horizontal
               input(type="checkbox" name="signin_face_fee" id="signin_face_fee" value="face_fee")
               | 대면
           .col-sm-8.none_padding
-              input#signin_face_fee.form-control.col-sm-3(type='text' placeholder="대면 서비스 요금입력 / 60분 기준")
-
+              input#signin_face_fee.form-control.col-sm-3(type='number' placeholder="대면 서비스 요금입력 (원)/ 60분 기준")
+  .row
+    .container-fluid
+      .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell(ng-repeat="method in user_obj.method_list track by $index")
+        .col-sm-3.col-xs-5
+          h5
+            label
+              input(type="checkbox" ng-model="method.checked" ng-click="signin_func.methodCheck();")
+              | &nbsp;{{method.name}}
+        .col-sm-2.col-xs-7(ng-class="{'has-error' : !method.price}" style="padding:0px;")
+          input#price_phone.form-control(type="number" ng-model="method.price" min="0" step="1000" ng-disabled="!method.checked" ng-change="signin_func.methodCheck();")
+        .col-sm-7.col-xs-12
+          h5(ng-show="method.checked && method.price")
+            span.text-primary
+              | {{method.price|currency:"&#8361; ":0}}
+            | &nbsp;/ {{method.unit}}
+          h5.text-danger(ng-show="method.checked && !method.price")
+            | 올바른 금액을 숫자로 입력하세요
+          h5.text-danger(ng-hide="method.checked")
+            | {{method.name}} 서비스 불가
 
   .row
     .container-fluid.form_divide
@@ -157,43 +174,15 @@ form.form-horizontal
             label.text_label(for='signin_license')
               | 보유자격
           .col-sm-10.none_padding
-            select#signin_license.form-control
-              option
-                | 선택하세요
-              option
-                | 라이프코치
-              option
-                | 심리치료사
-              option
-                | 정신과의사
-              option
-                | 전문상담사
-              option
-                | 복지전문가
-
+            select#signin_license.form-control(ng-model="user_obj.expert_type" style="padding:5px;")
+              option(ng-repeat="expert_type in metadata.expert_type") {{expert_type}}
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           .col-sm-2.center_input.hidden-xs
             label.text_label(for='signin_region')
               | 지역선택
           .col-sm-10.none_padding
-            select#signin_region.form-control
-              option
-                | 선택하세요
-              option
-                | 전국
-              option
-                | 서울/경기/인천
-              option
-                | 대구/부산/경상
-              option
-                | 세종/대전/충청
-              option
-                | 광주/전라
-              option
-                | 춘천/강릉/강원
-              option
-                | 제주도
-
+            select#signin_region.form-control(ng-model="user_obj.location" style="padding:5px;")
+              option(ng-repeat="location in metadata.location") {{location}}
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           .col-sm-2.center_input.hidden-xs
             label.text_label(for='signin_career')
@@ -242,6 +231,14 @@ form.form-horizontal
             label.checkbox-inline
               input(type="checkbox" name="signin_gender" id="signin_" value="female")
               | 경청  - 고해성사, 대화
+
+            .col-xs-12(ng-repeat="cate in user_obj.category_list track by $index" style="padding:1px 0px; margin:1px 0px;" ng-class="{'bg-info': cate.checked }")
+              label.control-label(ng-class="{'text-muted': user_obj.category.length > 2 && !cate.checked }" style="margin:0px;")
+                input(type="checkbox" name="category" style="margin:3px;" ng-model="cate.checked" ng-click="signin_func.categoryCheck();" ng-disabled="user_obj.category.length>2 && !cate.checked")
+                span.cate-name(ng-style="cate.style")
+                  | {{cate.name}}
+                small(ng-class="{'text-muted': user_obj.category.length>2 && !cate.checked }")
+                  | &nbsp; - {{cate.comment}}
 .row
   .container-fluid.form_divide
     .form-group.signin_formgroup

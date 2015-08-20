@@ -12,6 +12,7 @@
     console.log("passwd : "+sessionStorage["maum_login_passwd"]);
 
     //세션 존재하면 자동 로그인.
+    delete sessionStorage["maum_login_signin_obj"];
     if(sessionStorage["maum_login_id"] && sessionStorage["maum_login_passwd"]){
       $scope.login_obj.id=sessionStorage["maum_login_id"];
       $scope.login_obj.passwd=sessionStorage["maum_login_passwd"];
@@ -85,6 +86,7 @@
 
   ctrls.controller('signinCtrl', function($scope,socket){
 
+    //회원 정보 객체.
     $scope.user_obj = {
       signin_step : 0,
       type : 'expert',
@@ -129,9 +131,9 @@
       //세션값들 삭제.
       delete sessionStorage["maum_login_id"];
       delete sessionStorage["maum_login_passwd"];
-      delete sessionStorage["maum_login_signin_obj"];
     }
 
+    //회원가입 시 검증 플래그들 모음 객체.
     $scope.signin_params = {
       is_loggedin : false,
       register_done : false,
@@ -144,6 +146,7 @@
       user_photo_data : '',
     }
 
+    //회원가입 함수 모음 객체.
     $scope.signin_func = {
       go_next : function(){
         $('html,body').scrollTop(0);
@@ -206,143 +209,6 @@
           sessionStorage["maum_login_passwd"] = $scope.user_obj.passwd;
         }
         location.replace("/");
-      }
-      /*
-      login : function(){
-        //사용자 로그인
-        var login_s_obj = {
-          index : "experts",
-          type : "expert",
-          id : $scope.login_obj.id,
-          passwd : $scope.login_obj.passwd,
-          emit : "login"
-        }
-        socket.emit('login',login_s_obj);
-      },
-      logout : function(){
-        $scope.login_obj.id='';
-        $scope.login_obj.passwd='';
-        $scope.user_obj = JSON.parse(user_init);  //JSON.stringify 하면 함수는 복사 안됨.
-        $scope.user_obj.expert_type = $scope.metadata.expert_type[0];
-        $scope.user_obj.location = $scope.metadata.location[0];
-        delete sessionStorage["maum_login_obj"];
-        socket.emit('getMetaData'); //보유자격, 활동지역, 전문분야 다시 셋팅해줘야 함.
-        $state.go('login'); //로그인 후 첫 화면
-      },
-      id_validate_text : "",
-      id_validate : function(){
-        if(!$scope.user_obj.id || $scope.user_obj.id.length === 0 ){
-          $scope.user_func.id_validate_text = "";
-          return false;
-        } else {
-          if($scope.user_obj.id.length > 3){
-            var ck_validation = /^[A-Za-z0-9_]{0,20}$/;
-            if(ck_validation.test($scope.user_obj.id)){
-              if($scope.user_obj.id_check_val){
-                $scope.user_func.id_validate_text = "이미 존재하는 아이디 입니다.";
-                return false;
-              } else {
-                $scope.user_func.id_validate_text = "사용 가능한 아이디 입니다.";
-                return true;
-              }
-            } else {
-              $scope.user_func.id_validate_text = "영어, 숫자, '_' 만 입력 가능합니다.";
-              return false;
-            }
-          } else {
-            if($scope.user_obj.id.length > 0){
-              $scope.user_func.id_validate_text = "4자리 이상 입력하세요.";
-            }
-            return false;
-          }
-        }
-      },
-      checkPasswd : function(passwd){
-        //패스워드 암호화 후 체크.
-        //console.log(passwd);
-        var check_passwd_obj = {
-          passwd : passwd,
-          emit : "passwdPreCorrect"
-        }
-        socket.emit('encPasswd',check_passwd_obj);
-      },
-      signin_before : function() {
-        //이전 버튼 클릭
-        $scope.user_obj.signin_step--;
-      },
-      temp_id : "",
-      temp_passwd : "",
-      signin_next : function() {
-        // 다음 버튼 클릭
-        // 0 step : id, passwd 저장.
-        if($scope.user_obj.signin_step === 0){
-          $scope.user_func.temp_id = $scope.user_obj.id;
-          $scope.user_func.temp_passwd = $scope.user_obj.passwd;
-        }
-        if($scope.user_obj.signin_step === ($scope.user_obj.signin_step_text.length-1)){
-          $scope.user_obj.register_done = true;
-        }
-        var req_data = {
-          index : "experts",
-          type : "expert",
-          emit: "insertExpertRes",
-          user_obj : $scope.user_obj
-        }
-        socket.emit('insertExpert',req_data);
-      },
-      upload_photo : function(){
-        //console.log($scope.user_obj.user_photo_data);
-        var photoData = {
-          photo : $scope.user_obj.user_photo_data,
-          id : $scope.user_obj.id
-        };
-        $http.post('/fileupload/photo',photoData).success(function(data){
-          //console.log("result : "+data);
-          $scope.user_obj.user_photo = data;
-          $('#imgUploadModal').modal('hide');
-        }).error(function(error){
-          console.log("error : "+error);
-        });
-      },
-      birth_option : {
-        years : null,
-        months : [1,2,3,4,5,6,7,8,9,10,11,12],
-        days : null,
-        onChange : function(){
-          //달 선택시 일 변경. 윤달 로직 적용.
-          var this_month = Number($scope.user_obj.birth.month);
-          if(this_month === 2){
-            if( (Number($scope.user_obj.birth.year) % 4 === 0) &&
-                (Number($scope.user_obj.birth.year) % 100 !== 0) ||
-                (Number($scope.user_obj.birth.year) % 400 === 0)
-            ){
-              $scope.user_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
-            } else {
-              $scope.user_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
-            }
-          } else if (this_month === 4 || this_month === 6 || this_month === 9 || this_month === 11){
-            $scope.user_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
-          } else {
-            $scope.user_func.birth_option.days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
-          }
-          //표준 시로 저장.
-          $scope.user_obj.birthday = new Date(Date.UTC(Number($scope.user_obj.birth.year),Number($scope.user_obj.birth.month)-1,Number($scope.user_obj.birth.day)));
-          //console.log($scope.user_obj.birthday);
-        },
-        init : function(){
-          $scope.user_func.birth_option.years = new Array(100);
-          for(var i=0; i < 100; i++){
-            $scope.user_func.birth_option.years[i] = (new Date()).getFullYear()-i;
-          }
-        }
-      },
-      categoryCheck : function(){
-        $scope.user_obj.category = [];
-        for(var i=0; i<$scope.user_obj.category_list.length; i++){
-          if($scope.user_obj.category_list[i].checked){
-            $scope.user_obj.category.push($scope.user_obj.category_list[i].name);
-          }
-        }
       },
       methodCheck : function(){
         $scope.user_obj.method = [];
@@ -359,39 +225,7 @@
         $scope.user_obj.method_price_min = method_price_arr[0];
         $scope.user_obj.method_price_max = method_price_arr[method_price_arr.length-1];
       },
-      profileBgImgUpload : function(){
-        $('#bntBgImgSave').attr('disabeld',true);
-        var bgCanvas = $('#profile_bg_img').cropper('getCroppedCanvas');
-        //console.log(bgCanvas.toDataURL());
 
-        //이미지 640x320 으로 리사이즈
-        var finalImageResize  = "";
-        var tmp_canvas = document.getElementById('tmp_canvas');
-        tmp_canvas.width= 640;
-        tmp_canvas.height = 320;
-        var context2 = tmp_canvas.getContext("2d");
-        var tmp_image = document.getElementById("tmp_image");
-        tmp_image.src = bgCanvas.toDataURL();
-        tmp_image.onload = function() {
-          context2.drawImage(tmp_image, 0, 0, 640, 320);
-          finalImageResize = tmp_canvas.toDataURL("image/jpeg", 0.8);
-          var photoData = {
-            photo : finalImageResize,
-            id : $scope.user_obj.id+'_bg'
-          };
-          $http.post('/fileupload/photo',photoData).success(function(data){
-            //console.log("result : "+data);
-            d = new Date();
-            $scope.user_obj.profile_bg_img = data+"?"+d.getTime();
-            $("#profile_bg_img_div").load();
-            $('#profileBgModal').modal('hide');
-            $('#profile_bg_img').cropper('destroy');
-          }).error(function(error){
-            console.log("error : "+error);
-          });
-        };
-      }
-      */
     };
 
     //user_obj 출력.
@@ -416,6 +250,38 @@
       toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
       $scope.signin_func.go_next();
       //console.log(data);
+    });
+
+    //메타데이터 셋팅.
+    socket.emit('getMetaData');
+    socket.on('metaData', function(data){
+      console.log(data);
+      $scope.metadata = data;
+      //보유자격
+      if($scope.user_obj.expert_type === null || $scope.user_obj.expert_type === "" ){
+        $scope.user_obj.expert_type = $scope.metadata.expert_type[0];
+      }
+      //활동지역
+      if($scope.user_obj.location === null || $scope.user_obj.location === "" ){
+        $scope.user_obj.location = $scope.metadata.location[0];
+      }
+      //전문분야
+      if($scope.user_obj.category_list === null || $scope.user_obj.category_list === "" || $scope.user_obj.category_list.length === 0){
+        $scope.user_obj.category_list = [];
+        var cate_temp = data.category;
+        for(var i=0; i<cate_temp.length; i++ ){
+          $scope.user_obj.category_list.push(cate_temp[i]);
+        }
+      }
+      //서비스 비용
+      if($scope.user_obj.method_list === null || $scope.user_obj.method_list === "" || $scope.user_obj.method_list.length === 0){
+        $scope.user_obj.method_list = [];
+        var method_temp = data.method;
+        for(var i=0; i<method_temp.length; i++ ){
+          $scope.user_obj.method_list.push(method_temp[i]);
+        }
+        $scope.signin_func.methodCheck();
+      }
     });
 
   });
