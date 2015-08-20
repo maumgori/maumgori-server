@@ -152,14 +152,14 @@ form.form-horizontal
             label.text_label(for='signin_career')
               | 학력/경력
           .col-sm-9.none_padding
-            textarea#signin_career.form-control(row="3" placeholder="예) OO학교 XX전공 석사, 국제 ICF공인 코치")
+            textarea#signin_career.form-control(row="3" placeholder="예) OO학교 XX전공 석사, 국제 ICF공인 코치" ng-model="user_obj.career")
 
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
           .col-sm-3
             label.text_label(for='signin_history')
               | 활동이력
           .col-sm-9.none_padding
-            textarea#signin_history.form-control(row="3" placeholder="예) 각종 대학 강연, KBS1 아침마당 '행복이란' 출연")
+            textarea#signin_history.form-control(row="3" placeholder="예) 각종 대학 강연, KBS1 아침마당 '행복이란' 출연" ng-model="user_obj.activity")
 
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
           .col-sm-3
@@ -183,7 +183,7 @@ form.form-horizontal
         button.signin_tempsave_btn.btn(type="button" ng-click="signin_func.add_save_temp()")
           | 임시저장
       .col-sm-4
-        button.signin_submit_btn.btn(type="button" ng-click="signin_func.add_save()")
+        button.signin_submit_btn.btn(type="button" ng-click="signin_func.add_save()" ng-disabled="!(user_obj.method.length > 0 && user_obj.career && user_obj.activity && user_obj.category.length > 0 )")
           | 입력완료
       .col-sm-4.submit_wrap
         button.signin_logout_btn.btn(type="button" ng-click="signin_func.add_logout()")

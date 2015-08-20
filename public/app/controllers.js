@@ -55,12 +55,28 @@
           sessionStorage["maum_login_id"] = $scope.login_obj.id;
           sessionStorage["maum_login_passwd"] = $scope.login_obj.passwd;
 
+          console.log(data.user_obj.signin_step);
+
+          if(data.user_obj.signin_step > 4){
+            sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
+            location.replace("/main");
+          } else {
+            if(data.user_obj.signin_step < 3 ){
+              data.user_obj.signin_step = 3;
+            }
+            sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
+            location.replace("/signin");
+          }
+          /*
           if(data.user_obj.signin_step > 3){
           } else {
             data.user_obj.signin_step = 3;
           }
+          if(data.user_obj.signin_step < 4){}
           sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
           location.replace("/signin");
+          */
+
           //append_user_obj(data.user_obj);
           /*
           $scope.user_obj.is_loggedin = true;
@@ -264,6 +280,17 @@
     //롤백
     $scope.obj_rollback = function(){
       $scope.user_obj.signin_step--;
+      var req_data = {
+        index : "experts",
+        type : "expert",
+        emit: "insertExpertAddRes",
+        user_obj : $scope.user_obj
+      }
+      socket.emit('insertExpert',req_data);
+    };
+    //승인
+    $scope.obj_approve = function(){
+      $scope.user_obj.signin_step++;
       var req_data = {
         index : "experts",
         type : "expert",

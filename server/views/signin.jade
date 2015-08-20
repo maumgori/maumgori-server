@@ -13,6 +13,8 @@ html
         | 로그
       button.btn.btn-sm(ng-click="obj_rollback()")
         | 롤백
+      button.btn.btn-sm(ng-click="obj_approve()" ng-show="user_obj.signin_step===4")
+        | 승인
       div(ng-show="user_obj.signin_step===0")
         .row
           .container-fluid
