@@ -56,12 +56,11 @@
           sessionStorage["maum_login_passwd"] = $scope.login_obj.passwd;
 
           if(data.user_obj.signin_step > 3){
-
           } else {
             data.user_obj.signin_step = 3;
-            sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
-            location.replace("/signin");
           }
+          sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
+          location.replace("/signin");
           //append_user_obj(data.user_obj);
           /*
           $scope.user_obj.is_loggedin = true;
@@ -127,7 +126,7 @@
     //회원가입 완료 되지 않았으면 추가정보 입력 화면으로 이동.
     if(sessionStorage["maum_login_signin_obj"]){
       $scope.user_obj = JSON.parse(sessionStorage["maum_login_signin_obj"]);
-      $scope.user_obj.passwd_re = $scope.user_obj.passwd;
+      $scope.user_obj.passwd_enc = $scope.user_obj.passwd;
       //세션값들 삭제.
       delete sessionStorage["maum_login_id"];
       delete sessionStorage["maum_login_passwd"];
@@ -225,7 +224,37 @@
         $scope.user_obj.method_price_min = method_price_arr[0];
         $scope.user_obj.method_price_max = method_price_arr[method_price_arr.length-1];
       },
-
+      categoryCheck : function(){
+        $scope.user_obj.category = [];
+        for(var i=0; i<$scope.user_obj.category_list.length; i++){
+          if($scope.user_obj.category_list[i].checked){
+            $scope.user_obj.category.push($scope.user_obj.category_list[i].name);
+          }
+        }
+      },
+      add_save_temp : function(){
+        var req_data = {
+          index : "experts",
+          type : "expert",
+          emit: "insertExpertAddRes",
+          user_obj : $scope.user_obj
+        }
+        socket.emit('insertExpert',req_data);
+      },
+      add_save : function(){
+        if(confirm("추가 정보 입력을 완료하시겠습니까? 승인이 완료 될 때 까지 정보를 수정할 수 없습니다.")){
+          $scope.user_obj.signin_step++;
+          $scope.signin_func.add_save_temp();
+        }
+      },
+      add_logout : function(){
+        if(confirm("로그아웃 하시겠습니까? 작성중인 내용은 지워집니다.")){
+          location.replace("/");
+        }
+      },
+      add_complete_logout : function(){
+        location.replace("/");
+      }
     };
 
     //user_obj 출력.
@@ -252,10 +281,16 @@
       //console.log(data);
     });
 
+    socket.on('insertExpertAddRes',function(data){
+      toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
+      sessionStorage["maum_login_signin_obj"] = JSON.stringify($scope.user_obj);
+      //console.log(data);
+    });
+
     //메타데이터 셋팅.
     socket.emit('getMetaData');
     socket.on('metaData', function(data){
-      console.log(data);
+      //console.log(data);
       $scope.metadata = data;
       //보유자격
       if($scope.user_obj.expert_type === null || $scope.user_obj.expert_type === "" ){

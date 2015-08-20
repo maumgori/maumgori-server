@@ -113,7 +113,7 @@ form.form-horizontal
         h4
           | 서비스 요금 (&#8361;/원)
       .form-group.signin_formgroup
-        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell(ng-repeat="method in user_obj.method_list track by $index")
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell(ng-repeat="method in user_obj.method_list track by $index" ng-class="{'last_cell':$last}")
           .col-sm-6
             label.checkbox-inline
               input(type="checkbox" ng-model="method.checked" ng-click="signin_func.methodCheck();" id="signin_{{method.id}}_fee")
@@ -126,17 +126,6 @@ form.form-horizontal
               | 숫자로 올바르게 입력하세요.
             p.text-danger.helptext(ng-hide="method.checked")
               | {{method.name}} 서비스 선택안함
-  .row
-    .container-fluid
-      .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
-        .col-sm-3.col-xs-5
-          h5
-            label
-
-        .col-sm-2.col-xs-7(ng-class="{'has-error' : !method.price}" style="padding:0px;")
-
-        .col-sm-7.col-xs-12
-
 
   .row
     .container-fluid.form_divide
@@ -191,11 +180,11 @@ form.form-horizontal
   .container-fluid.form_divide
     .form-group.signin_formgroup
       .col-sm-4.save_wrap
-        button.signin_tempsave_btn.btn(type="button")
+        button.signin_tempsave_btn.btn(type="button" ng-click="signin_func.add_save_temp()")
           | 임시저장
       .col-sm-4
-        button.signin_submit_btn.btn(type="button")
+        button.signin_submit_btn.btn(type="button" ng-click="signin_func.add_save()")
           | 입력완료
       .col-sm-4.submit_wrap
-        button.signin_logout_btn.btn(type="button")
+        button.signin_logout_btn.btn(type="button" ng-click="signin_func.add_logout()")
           | 로그아웃
