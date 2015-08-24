@@ -119,9 +119,8 @@ app.get('/partials/:partialFile', function(req, res) {
 });
 
 //네비게이션 바 디렉토리
-console.log(menu_obj);
 app.get('/nav/:navFile', function(req, res) {
-  res.render('nav/' + req.params.navFile);
+  res.render('nav/' + req.params.navFile, menu_obj);
 });
 
 //메뉴 디렉토리
@@ -136,20 +135,19 @@ app.get('/pages/:page1/:page2', function(req, res) {
 app.get('/signin/:signinFiles', function(req, res) {
   res.render('signin/' + req.params.signinFiles);
 });
-
+/*
 app.get('/signin', function(req, res) {
   res.render('signin');
 });
 
 app.get('/main', function(req, res){
-  res.render('main', menu_obj); //메뉴가 아니라 여기서 보내줘야 메뉴에서 제대로 나옴.
+  res.render('main'); //메뉴가 아니라 여기서 보내줘야 메뉴에서 제대로 나옴.
 });
+*/
 // index.jade 실행.
 // '/' 대신 '*' 로 해 놓으면 모든 경로에서 로딩.
 app.get('/', function(req, res) {
-  res.render('index', {
-    // index.jade 에 보낼 object data 설정.
-  });
+  res.render('index');
 });
 
 var port = 3000;

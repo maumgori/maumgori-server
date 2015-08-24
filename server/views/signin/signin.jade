@@ -1,0 +1,53 @@
+nav.navbar.navbar-fixed-top.navbar-inverse
+  .container
+    .navbar-header
+      p.navbar-brand
+        img#mg_exp_t_logo(src='/images/sm_t_logo.png', alt='마음고리')
+        span 전문가 회원가입
+.container.signin_wrap(ng-controller='signinCtrl')
+  button.btn.btn-sm(ng-click="print_obj()")
+    | 로그
+  button.btn.btn-sm(ng-click="obj_rollback()")
+    | 롤백
+  button.btn.btn-sm(ng-click="obj_approve()" ng-show="user_obj.signin_step===4")
+    | 승인
+  div(ng-show="user_obj.signin_step===0")
+    .row
+      .container-fluid
+        h1.signin_page_title
+          | 약관동의 및 실명확인
+    .row
+      .container-fluid
+        .form-group.signin_textarea
+          label(for="signin_agreement")
+            | 회원약관
+          textarea#signin_agreement.form-control(rows="8")
+            include agreement
+
+        .form-group.signin_textarea
+          label(for="signin_privacypolicy")
+            | 개인정보 보호정책
+          textarea#signin_privacypolicy.form-control(rows="8")
+            include privacy
+
+        .checkbox.agree_checkbox
+          label
+            input(type="checkbox" ng-model="agree")
+            | 회원약관에 동의합니다.
+          label
+            input(type="checkbox" ng-model="priv")
+            | 개인정보 보호정책에 동의합니다.
+    .row
+      .container-fluid.signin_formgroup.form_divide
+        .col-sm-4.col-sm-offset-4.submit_wrap
+          button.signin_submit_btn.btn(type="button" ng-disabled="!(agree && priv)" ng-click="signin_func.go_next()")
+            | 동의확인 및 실명인증
+  div(ng-show="user_obj.signin_step===1")
+    include form
+  div(ng-show="user_obj.signin_step===2")
+    include complete
+  div(ng-show="user_obj.signin_step===3")
+    include add
+  div(ng-show="user_obj.signin_step===4")
+    include ing
+  include ../footer

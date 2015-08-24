@@ -21,7 +21,7 @@
                     templateUrl: "nav/navbar",
                     controller: "menuCtrl"
                   },
-                  "login" : { templateUrl: "partials/loginForm" },
+                  "profile" : { templateUrl: "partials/profile" },
                   "page" : { templateUrl: "pages/"+menu_lv_1[i].id+"/"+menu_lv_2[j].id }
                 }
               });
@@ -36,24 +36,33 @@
                 templateUrl: "nav/navbar",
                 controller: "menuCtrl"
               },
-              "login" : { templateUrl: "partials/loginForm" },
+              "profile" : { templateUrl: "partials/profile" },
               "page" : { templateUrl: "pages/"+menu_lv_1[i].id }
             }
           });
         }
       }
 
-      $stateProvider.state("login", {
-        url: "/login",
-        views : {
-          "init" : { templateUrl: "partials/init" }
-        }
-      });
+    });
+
+    $stateProvider.state("login", {
+      url: "/login",
+      views : {
+        "init" : { templateUrl: "partials/init" }
+      }
+    });
+
+    $stateProvider.state("signin", {
+      url: "/signin",
+      views : {
+        "init" : { templateUrl: "signin/signin" }
+      }
     });
 
     $urlRouterProvider.otherwise("login");
 
+
   });
-  
+
 
 })();

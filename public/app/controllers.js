@@ -8,7 +8,7 @@
   });
 
   //처음 화면 컨트롤러.
-  ctrls.controller('indexCtrl', function($scope,socket){
+  ctrls.controller('indexCtrl', function($scope,$state,socket){
     $scope.login_obj = {
       id : '',
       passwd : ''
@@ -75,13 +75,15 @@
 
           if(data.user_obj.signin_step > 4){
             sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
-            location.replace("/main");
+            //location.replace("/main");
+            $state.go('main_page');
           } else {
             if(data.user_obj.signin_step < 3 ){
               data.user_obj.signin_step = 3;
             }
             sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
-            location.replace("/signin");
+            //location.replace("/signin");
+            $state.go('signin');
           }
           /*
           if(data.user_obj.signin_step > 3){
@@ -861,7 +863,7 @@
         $state.go(menu_1,menu_1);
       }
     }
-    
+
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
       // console.log(event);
       // console.log(toState);

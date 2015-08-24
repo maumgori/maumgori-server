@@ -1,6 +1,6 @@
-.container.mg_login_wrap
+.container.mg_login_wrap(ng-controller='indexCtrl')
   .login_page_title
-    img#mg_exp_t_logo(src='./images/sm_b_logo.png', alt='마음고리')
+    img#mg_exp_t_logo(src='images/sm_b_logo.png', alt='마음고리')
     span.mg_login_title
       | Expert
     p
@@ -12,13 +12,12 @@
         input.form-control.ps_input(type="password" placeholder="패스워드" ng-model="login_obj.passwd")
       .login_id_wrap
         label
-          input.id_checkbox(type="checkbox")
+          input.id_checkbox(type="checkbox" ng-model="local_id_cookie")
           | &nbsp;아이디 저장
       .login_btn_wrap
         button.btn.btn-block.mg_btn_login(type="submit" ng-disabled="!(login_obj.id.length > 3 && login_obj.passwd)" ng-click="login()") 로그인
         button.btn.btn-block.mg_btn_find(type="button") 아이디/비밀번호 찾기
-        //button.btn.btn-block.mg_btn_join(type="button" data-toggle="modal" data-target="#signinModal") 전문가 회원가입
-        a.btn.btn-block.mg_btn_join(href="/signin") 전문가 회원가입
+        a.btn.btn-block.mg_btn_join(ui-sref="signin") 전문가 회원가입
   .login_desc_wrap
     ul
       li
