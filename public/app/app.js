@@ -1,6 +1,6 @@
 (function(){
   var app = angular.module('app', ['controllers','ui.router']);
-  /*
+
   app.config(function($stateProvider, $urlRouterProvider){
 
     var appSocket = io();  //socket.io 생성.
@@ -54,6 +54,6 @@
     $urlRouterProvider.otherwise("login");
 
   });
-  */
+  
 
 })();

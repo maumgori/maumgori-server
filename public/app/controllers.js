@@ -2,7 +2,13 @@
 
   var ctrls = angular.module('controllers',['ngImgCrop','services']);
 
-  ctrls.controller('maumCtrl', function($scope,socket){
+  //메인 화면 컨트롤러.
+  ctrls.controller('mainCtrl', function($scope,socket){
+
+  });
+
+  //처음 화면 컨트롤러.
+  ctrls.controller('indexCtrl', function($scope,socket){
     $scope.login_obj = {
       id : '',
       passwd : ''
@@ -109,6 +115,7 @@
 
   });
 
+  //회원가입 화면 컨트롤러.
   ctrls.controller('signinCtrl', function($scope,$http,socket){
 
     //회원 정보 객체.
@@ -844,5 +851,25 @@
     });
   });
   */
+
+  ctrls.controller('menuCtrl', function($scope,socket,$state){
+    $scope.menu_val = '';
+    $scope.goto = function(menu_1,menu_2){
+      if(menu_2){
+        $state.go(menu_1+"/"+menu_2,menu_1);
+      } else {
+        $state.go(menu_1,menu_1);
+      }
+    }
+    
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+      // console.log(event);
+      // console.log(toState);
+      // console.log(toParams);
+      // console.log(fromState);
+      // console.log(fromParams);
+      $scope.menu_val = toState.name.split('/')[0];
+    });
+  });
 
 })();

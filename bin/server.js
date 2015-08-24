@@ -78,7 +78,6 @@ io.on('connection', function(socket){
     es.appUserSignin(socket,data);
   });
 
-
   //app.js 에 메뉴 status 생성.
   socket.emit('renderMenu',menu_obj);
 
@@ -115,15 +114,16 @@ app.get('/metadata', function(req, res){
 });
 
 //jade 에서 include 하는 파트 파일들 존재하는 디렉토리.
-/*
 app.get('/partials/:partialFile', function(req, res) {
   res.render('partials/' + req.params.partialFile);
 });
-*/
+
 //네비게이션 바 디렉토리
+console.log(menu_obj);
 app.get('/nav/:navFile', function(req, res) {
-  res.render('nav/' + req.params.navFile, menu_obj);
+  res.render('nav/' + req.params.navFile);
 });
+
 //메뉴 디렉토리
 app.get('/pages/:page1', function(req, res) {
   res.render('pages/' + req.params.page1);
@@ -142,7 +142,7 @@ app.get('/signin', function(req, res) {
 });
 
 app.get('/main', function(req, res){
-  res.render('main');
+  res.render('main', menu_obj); //메뉴가 아니라 여기서 보내줘야 메뉴에서 제대로 나옴.
 });
 // index.jade 실행.
 // '/' 대신 '*' 로 해 놓으면 모든 경로에서 로딩.

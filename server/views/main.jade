@@ -1,22 +1,13 @@
 doctype html
 html
   include ../includes/head
-  body
-    div(ui-view="nav")
+  body(ng-app='app' ng-controller='mainCtrl')
+    include nav/navbar
     .container
       // 페이지 타이틀 영역
       .row
         // 왼쪽 메뉴 영역
         .col.col-md-3
-          .row
-            .container-fluid(ui-view="login")
-              .float_user_btn
-                button.btn-smry-toggle
-                  span.glyphicon.glyphicon-user(aria-hidden="true")
-                  span
-                    | 보기
+          include partials/loginForm
         // 중앙 메인 영역
         .col.col-md-9
-          .row
-            .container-fluid(ui-view="page")
-      include ./footer
