@@ -16,6 +16,12 @@ img.has-primary {
   width: 420px;
   height: 300px;
 }
+.cropAreaSm {
+  background: #e4e4e4;
+  overflow: hidden;
+  width: 280px;
+  height: 190px;
+}
 /* 카테고리 컬러 감싸고 그림자 효과 주기 */
 .cate-name {
   padding: 5px;

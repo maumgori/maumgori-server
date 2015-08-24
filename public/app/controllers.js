@@ -10,6 +10,10 @@
 
     //console.log("id : "+sessionStorage["maum_login_id"]);
     //console.log("passwd : "+sessionStorage["maum_login_passwd"]);
+    if(localStorage["maum_login_id_cookie"]){
+      $scope.login_obj.id = localStorage["maum_login_id_cookie"];
+      $scope.local_id_cookie = true;
+    }
 
     //세션 존재하면 자동 로그인.
     delete sessionStorage["maum_login_signin_obj"];
@@ -40,7 +44,13 @@
     }
 
     socket.on('login', function(data){
-      console.log(data);
+      //console.log(data);
+      if($scope.local_id_cookie){
+        localStorage["maum_login_id_cookie"] = $scope.login_obj.id;
+      } else {
+        delete localStorage["maum_login_id_cookie"];
+      }
+
       if(!data.idExist){
         toastr.error('존재하지 않는 아이디입니다.', '로그인 실패');
         delete sessionStorage["maum_login_id"];
@@ -99,7 +109,7 @@
 
   });
 
-  ctrls.controller('signinCtrl', function($scope,socket){
+  ctrls.controller('signinCtrl', function($scope,$http,socket){
 
     //회원 정보 객체.
     $scope.user_obj = {
@@ -270,6 +280,20 @@
       },
       add_complete_logout : function(){
         location.replace("/");
+      },
+      upload_photo : function(){
+        //console.log($scope.user_obj.user_photo_data);
+        var photoData = {
+          photo : $scope.signin_params.user_photo_data,
+          id : $scope.user_obj.id
+        };
+        $http.post('/fileupload/photo',photoData).success(function(data){
+          //console.log("result : "+data);
+          $scope.user_obj.user_photo = data+"?"+new Date().getTime(); //뒤에 이런식으로 파라메터 붙여놔야 이미지 리프레시 됨.
+          $('#imgUploadModal').modal('hide');
+        }).error(function(error){
+          console.log("error : "+error);
+        });
       }
     };
 
@@ -356,6 +380,21 @@
         $scope.signin_func.methodCheck();
       }
     });
+
+    //사용자 프로필 이미지 크롭 기능.
+    $scope.myImage='';
+    $scope.myCroppedImage='';
+    var handleFileSelect=function(evt) {
+      var file=evt.currentTarget.files[0];
+      var reader = new FileReader();
+      reader.onload = function (evt) {
+        $scope.$apply(function($scope){
+          $scope.myImage=evt.target.result;
+        });
+      };
+      reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#user_photo_file')).on('change',handleFileSelect);
 
   });
 

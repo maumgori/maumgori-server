@@ -1,3 +1,28 @@
+//프로파일 이미지 크롭 모달.
+input#user_photo_file(type="file" name="photoFile" accept="image/*" style="display:none;" onchange="$('#imgUploadModal').modal('show')")
+form(name="user_photo_frm" method="POST" action="/fileupload/photo")
+  input(type="hidden" name="user_id" ng-value="user_obj.id")
+  input#user_photo_file_crop(type="hidden" name="photoFileCrop")
+  .modal#imgUploadModal(data-keyboard="false" data-backdrop="static")
+    .modal-dialog
+      .modal-content
+        .modal-body
+          .row
+            .col-sm-9
+              .cropArea.hidden-xs
+                img-crop(image="myImage" result-image="signin_params.user_photo_data" area-min-size=40 result-image-size=400 result-image-format="image/jpeg" result-image-quality=0.8)
+              .cropAreaSm.visible-xs
+                img-crop(image="myImage" result-image="signin_params.user_photo_data" area-min-size=40 result-image-size=400 result-image-format="image/jpeg" result-image-quality=0.8)
+            .col-sm-3(style="padding-left: 0px")
+              .col-sm-12.col-xs-6
+                .thumbnail
+                  img.img-circle(ng-src="{{signin_params.user_photo_data}}" width="100%")
+              .col-sm-12.col-xs-6
+                button.btn.btn-block.btn-success(type="button" ng-click="signin_func.upload_photo();")
+                  | 이미지 저장
+                button.btn.btn-block.btn-danger(type="button" onclick="$('#imgUploadModal').modal('hide')")
+                  | 취소
+
 .row
   .container-fluid.signin_page_title_wrap
     h1.signin_page_title
@@ -25,9 +50,12 @@ form.form-horizontal
       .form-group.signin_formgroup
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.center_cell
           .photo_preview
-            img(src="images/blank-user.jpg")
+            label(for="user_photo_file")
+              img.img-circle(ng-src="{{user_obj.user_photo}}" width="100%")
+            label.btn.btn-sm.btn-block.btn-default(for="user_photo_file")
+              | 사진 선택
         .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell.center_cell.btn_cell
-          button.signin_uploadphoto_btn.btn(type="button")
+          label.signin_uploadphoto_btn.btn(for="user_photo_file")
             span.glyphicon.glyphicon-open
             | &nbsp;&nbsp;사진 올리기
           ul.text-left

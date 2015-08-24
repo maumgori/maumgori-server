@@ -115,9 +115,11 @@ app.get('/metadata', function(req, res){
 });
 
 //jade 에서 include 하는 파트 파일들 존재하는 디렉토리.
+/*
 app.get('/partials/:partialFile', function(req, res) {
   res.render('partials/' + req.params.partialFile);
 });
+*/
 //네비게이션 바 디렉토리
 app.get('/nav/:navFile', function(req, res) {
   res.render('nav/' + req.params.navFile, menu_obj);
