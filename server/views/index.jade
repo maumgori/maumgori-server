@@ -1,9 +1,10 @@
 doctype html
 html
   include ../includes/head
-  body(ng-app='app')
+  body(ng-app='app' ng-controller='commonCtrl')
     div(ui-view="init")
     div(ui-view="nav")
+    div(ui-view="error")
     .container
       .row
         // 왼쪽 메뉴 영역

@@ -155,7 +155,7 @@ exports.login = function(socket, req_data){
     method: 'GET',
     headers: headers
   };
-  
+
   var es_req = http.request(options, function(es_res) {
     es_res.setEncoding('utf-8');
     var responseString = '';
@@ -177,7 +177,7 @@ exports.login = function(socket, req_data){
         } else {
           resObj.idExist = false;
         }
-
+        //console.log(req_emit);
         socket.emit(req_emit,resObj);
       } else {
         socket.emit('error',error);

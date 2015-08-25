@@ -26,7 +26,7 @@ io.on('connection', function(socket){
 
   //console.log('socket.io connected');
 
-  //메타데이타 겟.
+  //메타데이타 겟.  
   socket.on('getMetaData', function(){
     var metadata_obj = YAML.load($MAUM_HOME+'/config/metadata.yml');
     socket.emit('metaData',metadata_obj);
