@@ -26,17 +26,10 @@ io.on('connection', function(socket) {
 
   //console.log('socket.io connected');
 
-<<<<<<< Updated upstream
-  //메타데이타 겟.  
-  socket.on('getMetaData', function(){
-    var metadata_obj = YAML.load($MAUM_HOME+'/config/metadata.yml');
-    socket.emit('metaData',metadata_obj);
-=======
   //메타데이타 겟.
   socket.on('getMetaData', function() {
     var metadata_obj = YAML.load($MAUM_HOME + '/config/metadata.yml');
     socket.emit('metaData', metadata_obj);
->>>>>>> Stashed changes
   });
 
   //_search로 aggs 겟.
@@ -151,12 +144,10 @@ app.get('/signin', function(req, res) {
   res.render('signin');
 });
 
-<<<<<<< Updated upstream
 app.get('/main', function(req, res){
   res.render('main'); //메뉴가 아니라 여기서 보내줘야 메뉴에서 제대로 나옴.
 });
 */
-=======
 app.get('/main', function(req, res) {
   res.render('main');
 });
@@ -173,7 +164,6 @@ app.get('/expert_list', function(req, res) {
   res.render('admin/member/expert_list');
 });
 
->>>>>>> Stashed changes
 // index.jade 실행.
 // '/' 대신 '*' 로 해 놓으면 모든 경로에서 로딩.
 app.get('/', function(req, res) {
