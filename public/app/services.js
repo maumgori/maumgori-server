@@ -15,6 +15,9 @@
         });
       },
       emit: function (eventName, data, callback) {
+        // console.log("eventName : " + eventName);
+        // console.log("data : " + data);
+        // console.log("callback : " + callback);
         socket.emit(eventName, data, function () {
           var args = arguments;
           $rootScope.$apply(function () {

@@ -2,67 +2,17 @@
 
   var ctrls = angular.module('controllers',['ngImgCrop','services']);
 
-  //메인 화면 컨트롤러.
-  ctrls.controller('mainCtrl', function($scope,$state,socket){
+  //메인 화면 사용자 정보 컨트롤러.
+  ctrls.controller('profileCtrl', function($rootScope,$scope,$state,socket){
 
-    //회원 정보 객체.
-    $scope.user_obj = {
-      signin_step : 0,
-      type : 'expert',
-      id : '',
-      passwd : '',
-      passwd_enc : '',
-      user_photo : '/images/blank-user.jpg',
-      name : '',
-      gender : 'male',
-      birthday : null,
-      phone : ["",""],
-      email : '',
-      homepage : '',
-      kakao : '',
-      naver_line : '',
-      facebook : '',
-      twitter : '',
-      googleplus : '',
-      linkedin : '',
-      instagram : '',
-      category_list : null,
-      category: null,
-      expert_type : '',
-      location : '',
-      career : '',
-      activity: '',
-      profile_title : '',
-      profile_text : '',
-      proflie_txt_color : false,
-      proflie_txt_location : 'top',
-      profile_bg_img : '/images/profile_background.png',
-      method_list : null,
-      method : [],
-      method_price_min : 0,
-      method_price_max : 0
-    }
-
-    //console.log("maum_login_id: "+sessionStorage["maum_login_id"]);
-    //console.log("maum_login_passwd: "+sessionStorage["maum_login_passwd"]);
-    //console.log("maum_login_signin_obj: "+sessionStorage["maum_login_signin_obj"]);
-    /*
+    //정상적으로 로그인 되었는지 체크. 정상적이지 않으면 오류 화면으로 이동.
     if(sessionStorage["maum_login_signin_obj"]){
-      $scope.user_obj = JSON.parse(sessionStorage["maum_login_signin_obj"]);
-      $scope.user_obj.passwd_enc = $scope.user_obj.passwd;
-    } else {
-      delete sessionStorage["maum_login_id"];
-      delete sessionStorage["maum_login_passwd"];
-      location.replace("/");
-    }
-    */
-
-    if(sessionStorage["maum_login_signin_obj"]){
-      $scope.user_obj = JSON.parse(sessionStorage["maum_login_signin_obj"]);
-      $scope.user_obj.passwd_enc = $scope.user_obj.passwd;
+      $rootScope.user_obj = JSON.parse(sessionStorage["maum_login_signin_obj"]);
+      $rootScope.user_obj.passwd_enc = $rootScope.user_obj.passwd;
     } else {
       $state.go('error');
     }
+
 
     $scope.user_func = {
       logout : function(){
@@ -121,10 +71,10 @@
   });
 
   //회원가입 화면 컨트롤러.
-  ctrls.controller('signinCtrl', function($scope,$http,$state,socket){
+  ctrls.controller('signinCtrl', function($rootScope,$scope,$http,$state,socket){
 
-    //회원 정보 객체.
-    $scope.user_obj = {
+    //회원 정보 객체. 원래 common 에 놓아야 하는데 여기가 사용 제일 많이 하니까 여기에 놓음.
+    $rootScope.user_obj = {
       signin_step : 0,
       type : 'expert',
       id : '',
@@ -171,7 +121,7 @@
     }
 
     //회원가입 시 검증 플래그들 모음 객체.
-    $scope.signin_params = {
+    $rootScope.signin_params = {
       is_loggedin : false,
       register_done : false,
       id_check_val : false,
@@ -184,7 +134,7 @@
     }
 
     //회원가입 함수 모음 객체.
-    $scope.signin_func = {
+    $rootScope.signin_func = {
       go_next : function(){
         $('html,body').scrollTop(0);
         $scope.user_obj.signin_step++;
@@ -339,62 +289,8 @@
       socket.emit('insertExpert',req_data);
     };
 
-    socket.on('idExists', function(data){
-      //console.log(data);
-      if(data){
-        $scope.signin_params.id_validate_text = "이미 존재하는 아이디 입니다.";
-        $scope.signin_params.id_check_val = false;
-        return false;
-      } else {
-        $scope.signin_params.id_validate_text = "사용 가능한 아이디 입니다.";
-        $scope.signin_params.id_check_val = true;
-        return true;
-      }
-    });
-
-    socket.on('insertExpertRes',function(data){
-      toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
-      $scope.signin_func.go_next();
-      //console.log(data);
-    });
-
-    socket.on('insertExpertAddRes',function(data){
-      toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
-      sessionStorage["maum_login_signin_obj"] = JSON.stringify($scope.user_obj);
-      //console.log(data);
-    });
-
     //메타데이터 셋팅.
     socket.emit('getMetaData');
-    socket.on('metaData', function(data){
-      //console.log(data);
-      $scope.metadata = data;
-      //보유자격
-      if($scope.user_obj.expert_type === null || $scope.user_obj.expert_type === "" ){
-        $scope.user_obj.expert_type = $scope.metadata.expert_type[0];
-      }
-      //활동지역
-      if($scope.user_obj.location === null || $scope.user_obj.location === "" ){
-        $scope.user_obj.location = $scope.metadata.location[0];
-      }
-      //전문분야
-      if($scope.user_obj.category_list === null || $scope.user_obj.category_list === "" || $scope.user_obj.category_list.length === 0){
-        $scope.user_obj.category_list = [];
-        var cate_temp = data.category;
-        for(var i=0; i<cate_temp.length; i++ ){
-          $scope.user_obj.category_list.push(cate_temp[i]);
-        }
-      }
-      //서비스 비용
-      if($scope.user_obj.method_list === null || $scope.user_obj.method_list === "" || $scope.user_obj.method_list.length === 0){
-        $scope.user_obj.method_list = [];
-        var method_temp = data.method;
-        for(var i=0; i<method_temp.length; i++ ){
-          $scope.user_obj.method_list.push(method_temp[i]);
-        }
-        $scope.signin_func.methodCheck();
-      }
-    });
 
     //사용자 프로필 이미지 크롭 기능.
     $scope.myImage='';
@@ -434,10 +330,16 @@
   });
 
   //공통 변수 및 소켓들 여기에 넣기. 안그러면 소켓 emit 중복 실행됨.
-  ctrls.controller('commonCtrl', function($rootScope,socket,$state){
+  ctrls.controller('commonCtrl', function($rootScope,$state,socket){
 
+    //소켓 오류 출력.
+    socket.on('error',function(error){
+      console.log(error);
+    });
+
+    //로그인
     socket.on('login', function(data){
-      console.log(data);
+      //console.log(data);
       if($rootScope.local_id_cookie){
         localStorage["maum_login_id_cookie"] = $rootScope.login_obj.id;
       } else {
@@ -476,9 +378,63 @@
       }
     });
 
-    socket.on('error',function(error){
-      console.log('error');
-      console.log(error);
+    //아이디 체크.
+    socket.on('idExists', function(data){
+      //console.log(data);
+      if(data){
+        $rootScope.signin_params.id_validate_text = "이미 존재하는 아이디 입니다.";
+        $rootScope.signin_params.id_check_val = false;
+        //return false;
+      } else {
+        $rootScope.signin_params.id_validate_text = "사용 가능한 아이디 입니다.";
+        $rootScope.signin_params.id_check_val = true;
+        //return true;
+      }
+    });
+
+    //회원가입 정보 저장.
+    socket.on('insertExpertRes',function(data){
+      toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
+      $rootScope.signin_func.go_next();
+      //console.log(data);
+    });
+
+    //회원가입 추가정보 저장.
+    socket.on('insertExpertAddRes',function(data){
+      toastr.success('사용자 정보가 저장되었습니다.', '저장 완료');
+      sessionStorage["maum_login_signin_obj"] = JSON.stringify($rootScope.user_obj);
+      //console.log(data);
+    });
+
+    //회원가입 추가정보 입력 화면 : 메타데이터 셋팅.
+    socket.on('metaData', function(data){
+      //console.log(data);
+      $rootScope.metadata = data;
+      //보유자격
+      if($rootScope.user_obj.expert_type === null || $rootScope.user_obj.expert_type === "" ){
+        $rootScope.user_obj.expert_type = $rootScope.metadata.expert_type[0];
+      }
+      //활동지역
+      if($rootScope.user_obj.location === null || $rootScope.user_obj.location === "" ){
+        $rootScope.user_obj.location = $rootScope.metadata.location[0];
+      }
+      //전문분야
+      if($rootScope.user_obj.category_list === null || $rootScope.user_obj.category_list === "" || $rootScope.user_obj.category_list.length === 0){
+        $rootScope.user_obj.category_list = [];
+        var cate_temp = data.category;
+        for(var i=0; i<cate_temp.length; i++ ){
+          $rootScope.user_obj.category_list.push(cate_temp[i]);
+        }
+      }
+      //서비스 비용
+      if($rootScope.user_obj.method_list === null || $rootScope.user_obj.method_list === "" || $rootScope.user_obj.method_list.length === 0){
+        $rootScope.user_obj.method_list = [];
+        var method_temp = data.method;
+        for(var i=0; i<method_temp.length; i++ ){
+          $rootScope.user_obj.method_list.push(method_temp[i]);
+        }
+        $rootScope.signin_func.methodCheck();
+      }
     });
 
   });

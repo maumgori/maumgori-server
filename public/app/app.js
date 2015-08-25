@@ -23,7 +23,7 @@
                   },
                   "profile" : {
                     templateUrl: "partials/profile",
-                    controller: 'mainCtrl'
+                    controller: 'profileCtrl'
                   },
                   "page" : {
                     templateUrl: "pages/"+menu_lv_1[i].id+"/"+menu_lv_2[j].id
@@ -42,7 +42,7 @@
                 controller: "menuCtrl"
               },
               "profile" : { templateUrl: "partials/profile",
-                controller: 'mainCtrl'
+                controller: 'profileCtrl'
               },
               "page" : {
                 templateUrl: "pages/"+menu_lv_1[i].id
