@@ -1,0 +1,22 @@
+nav.navbar.navbar-fixed-top.navbar-inverse(ng-controller="menuCtrl")
+  .container
+    include adminNavHeader
+    #navbar.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        each menu_1 in super_menu
+          if menu_1.sub_menues !== null
+            li.dropdown(ng-class="{'active' : menu_val==='#{menu_1.id}' }")
+              a.dropdown-toggle(data-toggle='dropdown', role='button', aria-expanded='false')
+                =menu_1.text
+                | &nbsp;
+                span.caret
+              ul.dropdown-menu(role='menu')
+                each menu_2 in menu_1.sub_menues
+                  li(ng-class="{'divider':'#{menu_2.id}'==='devider'}")
+                    if menu_2.id !== 'devider'
+                      a(ui-sref="#{menu_1.id}/#{menu_2.id}")
+                        =menu_2.text
+          else
+            li(ng-class="{'active' : menu_val==='#{menu_1.id}' }")
+              a(ui-sref="#{menu_1.id}")
+                =menu_1.text

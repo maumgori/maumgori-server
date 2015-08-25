@@ -4,19 +4,19 @@ category :
     checked : false
     style :
       color : "#fff"
-      background-color : "#FA5858"
+      background-color : "#8181F7"
   - name : "연애"
     comment : "이성과의 만남, 교제"
     checked : false
     style :
       color : "#fff"
-      background-color : "#DA81F5"
+      background-color : "#f99bff"
   - name : "인간관계"
     comment : "사회성 훈련, 성격개조"
     checked : false
     style :
       color : "#fff"
-      background-color : "#8181F7"
+      background-color : "#41ff33"
   - name : "힐링"
     comment : "마음 회복"
     checked : false

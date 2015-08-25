@@ -1,0 +1,36 @@
+.mg_page-header
+  h1
+    | 전문가 회원관리
+    small
+      | 전문가 회원을 관리합니다.
+
+.row
+  .container-fluid
+    ol.breadcrumb
+      li
+        a(ui-sref="main_page")
+          | Home
+      li
+        | 회원관리
+      li.active
+        | 전문가 회원관리
+
+.row(ng-app="tabsApp" ng-controller="tabsController")
+  .container-fluid
+    ul.nav.nav-tabs.nav_tabs
+      li.active(role="presentation" ng-click="selectTab(1)" ng-class="{active:isActive(1)}")
+        a(href="#")
+          | 회원조회/검색
+      li(role="presentation" ng-click="selectTab(2)" ng-class="{active:isActive(2)}")
+        a(href="#")
+          | 검증/승인관리
+      li(role="presentation" ng-click="selectTab(3)" ng-class="{active:isActive(3)}")
+        a(href="#")
+          | 징계관리
+    div(ng-show="isActive(1)")
+      include ./expert_list
+    div(ng-show="isActive(2)")
+      include ./expert_confirm
+    div(ng-show="isActive(3)")
+      include ./expert_penalty
+      

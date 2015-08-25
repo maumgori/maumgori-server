@@ -1,0 +1,37 @@
+nav.navbar.navbar-fixed-top.navbar-inverse(ng-controller="menuCtrl")
+  .container
+    // 네비게이션 부분 헤더 삽입
+    include adminNavHeader
+    #navbar.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown', role='button', aria-expanded='false')
+            | 회원관리
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li
+              a 전문가 회원관리
+            li
+              a 일반 회원관리
+            li
+              a 관리자 회원관리
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown', role='button', aria-expanded='false')
+            | 정산관리
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li
+              a 메뉴1
+            li
+              a 메뉴2
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown', role='button', aria-expanded='false')
+            | 주문관리
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li
+              a 메뉴1
+            li
+              a 메뉴2
+        li(role='button')
+          a 클레임관리

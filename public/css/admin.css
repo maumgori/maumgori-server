@@ -1,0 +1,6 @@
+/* navbar */
+.navbar-inverse{background-color:#D20E6F;border-color:#D20E6F;}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{background-color:#AD0A5A;}
+
+
+.login_btn_wrap .mg_btn_login{background-color:#D20E6F;}

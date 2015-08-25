@@ -1,0 +1,31 @@
+doctype html
+html
+  title 마음고리 Administrator (관리시스템)
+  include ../includes/head
+  link(rel="stylesheet", href="/css/admin.css")
+
+  body(ng-app='app' ng-controller='maumCtrl')
+    //로그인 안 했을때
+    .login_before(ng-hide='user_obj.is_loggedin')
+      include partials/adminInit
+    //로그인 했을 때
+    .login_main(ng-show='user_obj.is_loggedin')
+      div(ui-view="nav")
+      .container
+        // 페이지 타이틀 영역
+        .row
+          // 왼쪽 메뉴 영역
+          .col.col-md-3
+            .row
+              .container-fluid(ui-view="login")
+                .float_user_btn
+                  button.btn-smry-toggle
+                    span.glyphicon.glyphicon-user(aria-hidden="true")
+                    span
+                      | 보기
+          // 중앙 메인 영역
+          .col.col-md-9
+            .row
+              .container-fluid(ui-view="page")
+        include footer
+// vi: se et ts=2 sw=2:

@@ -1,0 +1,271 @@
+.row
+  .container-fluid
+    form.form-inline
+      .form-group.list_search_set
+        select.form-control.input-sm
+          option
+            | 아이디
+          option
+            | 이름
+          option
+            | 전화번호
+          option
+            | 이메일
+          option
+            | 특이사항
+        | &nbsp;
+        input.form-control.input-sm.cst_srch_input(type="text" placeholder="" size="8" maxlength="8")
+        | &nbsp;
+        button.btn.btn-default.input-sm.search_btn(type="submit")
+          span.glyphicon.glyphicon-search(aria-hidden="true")
+          | &nbsp;검색
+.row
+  .container-fluid
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th.center_cell
+              input#selectCheckbox(type="checkbox" value="option1" aria-label="...")
+            th.center_cell
+              | 사용자명
+              br
+              | 아이디
+            th.center_cell
+              | 연락처
+            th.center_cell
+              | 진행실적
+              br
+              | (진행/종료/중단)
+            th.center_cell
+              | 지역
+            th.center_cell
+              | 자격사항
+              br
+              | 전문분야
+            th.center_cell
+              | 회원등급
+              br
+              | 회원상태
+        tbody
+          tr
+            td.center_cell
+              input#selectCheckbox(type="checkbox" value="option1" aria-label="...")
+            td.center_cell
+              a(href="#" data-toggle="modal" data-target="#modal_sample") 홍길동
+              br
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              a(href="#" onclick="window.alert('SMS발송창 팝업')") 010-0000-0000
+              br
+              a(href="#" onclick="window.alert('Email작성창 팝업')") userid@gmail.com
+            td.center_cell
+              a(href="#" onclick="window.alert('진행중내역 팝업')") 3
+              |  / 
+              a(href="#" onclick="window.alert('종료내역 팝업')") 4
+              |  / 
+              a(href="#" onclick="window.alert('중단내역 팝업')") 1
+            td.center_cell
+              | 서울/경기/인천
+            td.center_cell
+              | 심리치료사
+              br
+              | 꿈과진로/연애/자아성찰
+            td.center_cell
+              | 일반전문가
+              br
+              a(href="#" onclick="window.alert('회원상태상세내역 팝업')") 정상
+          tr
+            td.center_cell
+              input#selectCheckbox(type="checkbox" value="option1" aria-label="...")
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 홍길순
+              br
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              a(href="#" onclick="window.alert('SMS발송창 팝업')") 010-0000-0000
+              br
+              a(href="#" onclick="window.alert('이메일발송창 팝업')") userid@gmail.com
+            td.center_cell
+              a(href="#" onclick="window.alert('진행중내역 팝업')") 1 
+              |  / 
+              a(href="#" onclick="window.alert('종료내역 팝업')") 9
+              |  / 
+              a(href="#" onclick="window.alert('중단내역 팝업')") 3
+            td.center_cell
+              | 전국
+            td.center_cell
+              | 전문상담사
+              br
+              | 치유/자아성찰
+            td.center_cell
+              | 일반전문가
+              br
+              a(href="#" onclick="window.alert('회원상태상세내역 팝업')") 정상
+          tr
+            td.center_cell
+              input#selectCheckbox(type="checkbox" value="option1" aria-label="...")
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 김종민
+              br
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              a(href="#" onclick="window.alert('SMS발송창 팝업')") 010-0000-0000
+              br
+              a(href="#" onclick="window.alert('이메일발송창 팝업')") userid@gmail.com
+            td.center_cell
+              a(href="#" onclick="window.alert('진행중내역 팝업')") 1
+              |  / 
+              a(href="#" onclick="window.alert('종료내역 팝업')") 39
+              |  / 
+              a(href="#" onclick="window.alert('중단내역 팝업')") 1
+            td.center_cell
+              | 전국
+            td.center_cell
+              | 라이프코치
+              br
+              | 연애
+            td.center_cell
+              | 인기전문가
+              br
+              a(href="#" onclick="window.alert('회원상태상세내역 팝업')") 정상
+          tr
+            td.center_cell
+              input#selectCheckbox(type="checkbox" value="option1" aria-label="...")
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 정진
+              br
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 010-0000-0000
+              br
+              | userid@gmail.com
+            td.center_cell
+              | 5 / 43 / 1
+            td.center_cell
+              | 세종/대전/충청
+            td.center_cell
+              | 라이프코치
+              br
+              | 꿈과진로/연애/치유
+            td.center_cell
+              | 인기전문가
+              br
+              a.text_darkgray.text_bold(href="#" onclick="window.alert('회원상태상세내역 팝업')") 일시중지
+          tr
+            td.center_cell
+              input#selectCheckbox(type="checkbox" value="option1" aria-label="...")
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 김진선
+              br
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 010-0000-0000
+              br
+              | userid@gmail.com
+            td.center_cell
+              | 3 / 7 / 34
+            td.center_cell
+              | 대구/부산/경상
+            td.center_cell
+              | 정신과의사
+              br
+              | 경청/힐링/치유
+            td.center_cell
+              | 일반전문가
+              br
+              a.text_red.text_bold(href="#" onclick="window.alert('회원상태상세내역 팝업')") 징계처리
+          tr
+            td.center_cell
+              input#selectCheckbox(type="checkbox" value="option1" aria-label="...")
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 김말똥
+              br
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 010-0000-0000
+              br
+              | userid@gmail.com
+            td.center_cell
+              | 0 / 0 / 0
+            td.center_cell
+              | 대구/부산/경상
+            td.center_cell
+              | 라이프코치
+              br
+              | 연애
+            td.center_cell
+              | 일반전문가
+              br
+              a.text_blue.text_bold(href="#" onclick="window.alert('회원상태상세내역 팝업')") 승인대기
+              
+  nav.mg_pagination
+    ul.pagination.pagination-sm
+      li.disabled
+        a(ui-sref="#" aria-label="Previous")
+          span(aria-hidden="true")
+            | &laquo;
+      li.active
+        a(ui-sref="#")
+          | 1
+      li
+        a(ui-sref="#")
+          | 2
+      li
+        a(ui-sref="#")
+          | 3
+      li
+        a(ui-sref="#")
+          | 4
+      li
+        a(ui-sref="#")
+          | 5
+      li
+        a(ui-sref="#")
+          | 6
+      li
+        a(ui-sref="#")
+          | 7
+      li
+        a(ui-sref="#")
+          | 8
+      li
+        a(ui-sref="#")
+          | 9
+      li
+        a(ui-sref="#" aria-label="Next")
+          span(aria-hidden="true")
+            | &raquo;
+
+  .bottom_btn_wrap
+    .col-md-12.right_btn
+      a.btn.btn-default.btn-sm(ui-sref="#" role="button")
+        | SMS보내기
+      a.btn.btn-default.btn-sm(ui-sref="#" role="button")
+        | 이메일보내기
+
+.row
+  .container-fluid
+    ol.page_advice_ol
+      li
+        | SMS 또는 이메일은 수신을 허용한 고객 및 현재 진행중인 고객에게만 전송가능합니다.
+      li
+        | 고객의 개인정보는 서비스를 제공하기 위한 용도로만 사용이 가능하며, 이외의 용도로 사용할 수 없습니다.
+      li
+        | 각각의 이름을 누르면 내용에 해당하는 팝업이 표출됩니다.
+
+.modal.fade#modal_sample(tabindex="-1" role="dialog" aria-labelledby="ModalLabel")
+  .modal-dialog(role="document")
+    .modal-content
+      .modal-header
+        button.close(type="button" data-dismiss="modal" aria-label="Close")
+          span(aria-hidden="true")
+            | &times;
+        h4.modal-title#myModalLabel
+          | 회원상세보기
+      .modal-body
+        
+      .modal-footer
+        button.btn.btn-default(type="button" data-dismiss="modal") Close
+        button.btn.btn-primary(type="button") Save changes
+        

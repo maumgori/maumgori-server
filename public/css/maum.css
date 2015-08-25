@@ -172,9 +172,9 @@ background:#002349;
 /* 로고 이미지 */
 #mg_exp_t_logo{
   width:150px;
-	display:inline;
-	vertical-align:middle;
-	padding-right:5px;
+  display:inline;
+  vertical-align:middle;
+  padding-right:5px;
 }
 
 /* 간단 프로필 */
@@ -264,11 +264,25 @@ background:#002349;
   .withdraw_ttext{text-align:center;}
 }
 
-/* 메시지발송 */
-.msg_nav_tabs{margin:0;}
+/* 탭 */
+.nav_tabs{margin:0 0 20px 0;}
 
+
+/* 메시지발송 */
 #msg_rsb_sel{margin-left:10px;}
 .msg_send_form{padding:20px;margin:0;border-left:1px solid #ddd;border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
 .msg_sel_num{display:inline-block;padding-left:10px;}
 
-/* vim: se et ts=2 sw=2: */
+/* 텍스트 옵션 */
+.text_red{color:#ff0000;}
+.text_blue{color:#0000ff;}
+.text_green{color:#00ff00;}
+.text_pink{color:#c21ed6;}
+.text_skyblue{color:#03b1ff;}
+.text_darkgray{color:#2e2e2e;}
+.text_lightgray{color:##c2c2c2;}
+.text_bold{font-weight:bold;}
+
+
+/* 모달창 디자인 */
+.modal-content{border-radius:0;}

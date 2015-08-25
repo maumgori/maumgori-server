@@ -80,3 +80,20 @@ expert_menu:
       - id : "logout"
         text : "로그아웃"
         sub_menues : null
+        
+super_menu:
+  - id : "main_page"
+    text : "메인페이지"
+    sub_menues : null
+  - id : "progress"
+    text : "진행관리"
+    sub_menues :
+      - id : "new"
+        text : "신규신청내역"
+        sub_menues : null
+      - id : "ing"
+        text : "진행내역"
+        sub_menues : null
+      - id : "end"
+        text : "중단/종료내역"
+        sub_menues : null

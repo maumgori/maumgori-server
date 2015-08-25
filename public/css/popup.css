@@ -1,0 +1,5 @@
+/* 팝업 전체 감싸기 */
+.popup_wrap{border:1px solid #eee;padding:10px;}
+
+/* 팝업 타이틀 */
+.popup_wrap h1{margin:0 0 10px 0;padding:0 10px 10px 10px;border-bottom:3px solid #eee;}

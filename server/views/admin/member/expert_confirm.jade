@@ -1,0 +1,173 @@
+.row
+  .container-fluid
+    form.form-inline
+      .form-group.list_search_set
+        select.form-control.input-sm
+          option
+            | 아이디
+          option
+            | 이름
+          option
+            | 전화번호
+          option
+            | 이메일
+          option
+            | 특이사항
+        | &nbsp;
+        input.form-control.input-sm.cst_srch_input(type="text" placeholder="" size="8" maxlength="8")
+        | &nbsp;
+        button.btn.btn-default.input-sm.search_btn(type="submit")
+          span.glyphicon.glyphicon-search(aria-hidden="true")
+          | &nbsp;검색
+.row
+  .container-fluid
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th.center_cell
+              | 사용자명
+            th.center_cell
+              | UserID
+            th.center_cell
+              | 지역
+            th.center_cell
+              | 자격사항
+            th.center_cell
+              | 전문분야
+            th.center_cell
+              | 상태
+        tbody
+          tr
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 홍길동
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 서울/경기/인천
+            td.center_cell
+              | 심리치료사
+            td.center_cell
+              | 꿈과진로/연애/자아성찰
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 신규회원
+          tr
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 홍길순
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 전국
+            td.center_cell
+              | 전문상담사
+            td.center_cell
+              | 치유/자아성찰
+            td.center_cell
+              a.text_green.text_bold(href="#" onclick="window.alert('회원상세보기 팝업')") 검증진행중
+          tr
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 김종민
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 전국
+            td.center_cell
+              | 라이프코치
+            td.center_cell
+              | 연애
+            td.center_cell
+              a.text_blue.text_bold(href="#" onclick="window.alert('회원상세보기 팝업')") 추가검증신청
+          tr
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 정진
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 세종/대전/충청
+            td.center_cell
+              | 라이프코치
+            td.center_cell
+              | 꿈과진로/연애/치유
+            td.center_cell
+              a.text_darkgray.text_bold(href="#" onclick="window.alert('회원상태상세내역 팝업')") 검증중지
+          tr
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 김진선
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 대구/부산/경상
+            td.center_cell
+              | 정신과의사
+            td.center_cell
+              | 경청/힐링/치유
+            td.center_cell
+              a.text_green.text_bold(href="#" onclick="window.alert('회원상세보기 팝업')") 검증진행중
+          tr
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") 김말똥
+            td.center_cell
+              a(href="#" onclick="window.alert('회원상세보기 팝업')") userID
+            td.center_cell
+              | 대구/부산/경상
+            td.center_cell
+              | 라이프코치
+            td.center_cell
+              | 연애
+            td.center_cell
+              a.text_red.text_bold(href="#" onclick="window.alert('회원상세보기 팝업')") 검증반려
+              
+  nav.mg_pagination
+    ul.pagination.pagination-sm
+      li.disabled
+        a(ui-sref="#" aria-label="Previous")
+          span(aria-hidden="true")
+            | &laquo;
+      li.active
+        a(ui-sref="#")
+          | 1
+      li
+        a(ui-sref="#")
+          | 2
+      li
+        a(ui-sref="#")
+          | 3
+      li
+        a(ui-sref="#")
+          | 4
+      li
+        a(ui-sref="#")
+          | 5
+      li
+        a(ui-sref="#")
+          | 6
+      li
+        a(ui-sref="#")
+          | 7
+      li
+        a(ui-sref="#")
+          | 8
+      li
+        a(ui-sref="#")
+          | 9
+      li
+        a(ui-sref="#" aria-label="Next")
+          span(aria-hidden="true")
+            | &raquo;
+
+  .bottom_btn_wrap
+    .col-md-12.right_btn
+      a.btn.btn-default.btn-sm(ui-sref="#" role="button")
+        | SMS보내기
+      a.btn.btn-default.btn-sm(ui-sref="#" role="button")
+        | 이메일보내기
+
+.row
+  .container-fluid
+    ol.page_advice_ol
+      li
+        | 검증이 완료된 회원은 검증/승인관리 목록에 나타나지 않습니다.
+      li
+        | 고객의 개인정보는 서비스를 제공하기 위한 용도로만 사용이 가능하며, 이외의 용도로 사용할 수 없습니다.
+      li
+        | 각각의 이름을 누르면 내용에 해당하는 팝업이 표출됩니다.
