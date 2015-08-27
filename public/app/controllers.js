@@ -259,6 +259,38 @@
         }).error(function(error){
           console.log("error : "+error);
         });
+      },
+      profileBgImgUpload : function(){
+        $('#bntBgImgSave').attr('disabeld',true);
+        var bgCanvas = $('#profile_bg_img').cropper('getCroppedCanvas');
+        //console.log(bgCanvas.toDataURL());
+
+        //이미지 640x320 으로 리사이즈
+        var finalImageResize  = "";
+        var tmp_canvas = document.getElementById('tmp_canvas');
+        tmp_canvas.width= 640;
+        tmp_canvas.height = 320;
+        var context2 = tmp_canvas.getContext("2d");
+        var tmp_image = document.getElementById("tmp_image");
+        tmp_image.src = bgCanvas.toDataURL();
+        tmp_image.onload = function() {
+          context2.drawImage(tmp_image, 0, 0, 640, 320);
+          finalImageResize = tmp_canvas.toDataURL("image/jpeg", 0.8);
+          var photoData = {
+            photo : finalImageResize,
+            id : $scope.user_obj.id+'_bg'
+          };
+          $http.post('/fileupload/photo',photoData).success(function(data){
+            //console.log("result : "+data);
+            d = new Date();
+            $scope.user_obj.profile_bg_img = data+"?"+d.getTime();
+            $("#profile_bg_img_div").load();
+            $('#profileBgModal').modal('hide');
+            $('#profile_bg_img').cropper('destroy');
+          }).error(function(error){
+            console.log("error : "+error);
+          });
+        };
       }
     };
 

@@ -38,7 +38,7 @@ form(name="profile_bg_frm" method="POST" action="/fileupload/photo")
             .col-sm-9
               img#profile_bg_img(width="100%")
             .col-sm-3(style="padding-left: 0px")
-              button#bntBgImgSave.btn.btn-block.btn-success(type="button" ng-click="user_func.profileBgImgUpload();")
+              button#bntBgImgSave.btn.btn-block.btn-success(type="button" ng-click="signin_func.profileBgImgUpload();")
                 | 배경 저장
               button.btn.btn-block.btn-danger(type="button" onclick="$('#profileBgModal').modal('hide')")
                 | 취소
