@@ -139,6 +139,7 @@ app.get('/pages/:page1/:page2', function(req, res) {
 app.get('/signin/:signinFiles', function(req, res) {
   res.render('signin/' + req.params.signinFiles);
 });
+
 /*
 app.get('/signin', function(req, res) {
   res.render('signin');
@@ -148,9 +149,6 @@ app.get('/main', function(req, res){
   res.render('main'); //메뉴가 아니라 여기서 보내줘야 메뉴에서 제대로 나옴.
 });
 */
-app.get('/main', function(req, res) {
-  res.render('main');
-});
 
 app.get('/admin', function(req, res) {
   res.render('admin');
