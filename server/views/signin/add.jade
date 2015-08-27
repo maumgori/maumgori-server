@@ -18,9 +18,9 @@ form(name="user_photo_frm" method="POST" action="/fileupload/photo")
                 .thumbnail
                   img.img-circle(ng-src="{{signin_params.user_photo_data}}" width="100%")
               .col-sm-12.col-xs-6
-                button.btn.btn-block.btn-success(type="button" ng-click="signin_func.upload_photo();")
+                button.btn.btn-block.signin_uploadphoto_btn(type="button" ng-click="signin_func.upload_photo();")
                   | 이미지 저장
-                button.btn.btn-block.btn-danger(type="button" onclick="$('#imgUploadModal').modal('hide')")
+                button.btn.btn-block(type="button" onclick="$('#imgUploadModal').modal('hide')")
                   | 취소
 
 //앱 배경 업로드 모달.
@@ -38,9 +38,9 @@ form(name="profile_bg_frm" method="POST" action="/fileupload/photo")
             .col-sm-9
               img#profile_bg_img(width="100%")
             .col-sm-3(style="padding-left: 0px")
-              button#bntBgImgSave.btn.btn-block.btn-success(type="button" ng-click="signin_func.profileBgImgUpload();")
-                | 배경 저장
-              button.btn.btn-block.btn-danger(type="button" onclick="$('#profileBgModal').modal('hide')")
+              button#bntBgImgSave.btn.btn-block.signin_uploadphoto_btn(type="button" ng-click="signin_func.profileBgImgUpload();")
+                | 이미지 저장
+              button.btn.btn-block(type="button" onclick="$('#profileBgModal').modal('hide')")
                 | 취소
 
 .row
@@ -50,7 +50,7 @@ form(name="profile_bg_frm" method="POST" action="/fileupload/photo")
 .row
   .container-fluid
     .col-sm-10.col-sm-offset-1
-      ul
+      ul.advice_list
         li
           | 전문가회원님의 상세 프로필을 입력합니다.
         li
@@ -78,7 +78,7 @@ form.form-horizontal
           label.signin_uploadphoto_btn.btn(for="user_photo_file")
             span.glyphicon.glyphicon-open
             | &nbsp;&nbsp;사진 올리기
-          ul.text-left
+          ul.text-left.advice_inner
             li
               | 최소 가로 200픽셀, 세로 200픽셀 이상의 파일을 업로드 해주세요.
             li
@@ -222,96 +222,105 @@ form.form-horizontal
                 span.cate-name(ng-style="cate.style" style="border-radius:0;width:80px;display:inline-block;text-align:center;")
                   | {{cate.name}}
                 small(ng-class="{'text-muted': user_obj.category.length>2 && !cate.checked }")
-                  | - {{cate.comment}}
+                  | &nbsp;&nbsp;{{cate.comment}}
 
   .row
     .container-fluid.form_divide
       .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+        h4
+          | 소개
+      .form-group.signin_formgroup
         form(name="user_frm_3")
-          .animate-show(ng-show="user_obj.signin_step===3")
-            .row
-              .col-sm-2.text-right(style="padding:1px;")
-                h5
-                  label(for="profile_title")
-                    span.text-danger
-                      | *
-                    | &nbsp;한줄 소개
-              .col-sm-6(style="padding-right:2px;")
-                input#profile_title.form-control(type="text" maxlength=20 ng-model="user_obj.profile_title" placeholder="한줄 소개 (최대 20자)")
-              .col-sm-3
-                label.btn.btn-block.btn-info(for="profile_bg_file")
-                  | 배경 이미지
-            .row
-              .col-sm-2.text-right(style="padding:1px;")
-                h5
-                  label(for="profile_text")
-                    | 상세 소개
-              .col-sm-6(style="padding-right:2px;")
-                textarea#profile_text.form-control(rows=3 maxlength=100 ng-model="user_obj.profile_text" placeholder="상세 소개 (최대 100자)")
-              .col-sm-4(style="padding-right:2px;")
-                label.control-label
-                  input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="top")
-                  | &nbsp;텍스트 배치 - 상단
-                label.control-label
-                  input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="bottom")
-                  | &nbsp;텍스트 배치 - 하단
-                label.control-label
-                  input(type="checkbox" ng-model="user_obj.proflie_txt_color")
-                  | &nbsp;텍스트 색 반전
-            br
-            .row
-              .col-sm-2.text-right(style="padding:1px;")
-                h5
-                  label(for="profile_text")
-                    | 앱 미리보기
-              .col-sm-10
-                .thumbnail(style="width:360px;padding:20px;background-color:black;border-radius: 40px;")
-                  div(style="width:320px;height:40px;padding:10px;margin:0px;")
-                    div(style="width:50px;height:10px;background-color:#444;border-radius: 5px;margin:auto;")
-                  div(style="width:320px;padding:0px;margin:0px;")
-                    #profile_bg_img_div(style="position:relative;width:320px;height:160px;background-size:320px;background-image:url({{user_obj.profile_bg_img}});margin:0px;padding:0px;")
-                      div(style="{{user_obj.proflie_txt_location}}:0;" ng-class="{'text-stroke-white':!user_obj.proflie_txt_color,'text-stroke-black':user_obj.proflie_txt_color}" class="app-text-preview")
-                        h4
-                          | {{user_obj.profile_title}}
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+          .col-sm-3
+            label.text_label(for='profile_title')
+              | * 간단소개
+          .col-sm-9.none_padding
+              input#profile_title.form-control(type="text" maxlength=20 ng-model="user_obj.profile_title" placeholder="한줄 소개 (최대 20자)")
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+          .col-sm-3
+            label.text_label(for='profile_text')
+              | * 상세소개
+          .col-sm-9.none_padding
+            textarea#profile_text.form-control(rows=3 maxlength=100 ng-model="user_obj.profile_text" placeholder="상세 소개 (최대 100자)")
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+          .col-sm-3
+            label.text_label
+              | * 텍스트 배치
+          .col-sm-9.none_padding
+            .signin_radio
+              label
+                input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="top")
+                | 상단 배치
+            .signin_radio
+              label
+                input(type="radio" name="txt_location" ng-model="user_obj.proflie_txt_location" value="bottom")
+                | 하단 배치
+            .signin_radio
+              label
+                input(type="checkbox" ng-model="user_obj.proflie_txt_color")
+                | 색상 반전
+        .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell.last_cell
+          .col-sm-3
+            label.text_label(for="profile_bg_file")
+              | * 배경 이미지
+          .col-sm-9.none_padding
+            label.btn.btn-block.btn-info(for="profile_bg_file")
+              span.glyphicon.glyphicon-open#profile_bg_file
+              | &nbsp;&nbsp;이미지 올리기
+              
+  .row
+    .container-fluid.form_divide
+      .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.signin_formcell
+        h4
+          | 미리보기
+  .row      
+      .thumbnail.app_review_wrap
+        .phone_top
+        .phone_body
+          .phone_body_inner_wrap
+            .phone_body_top#profile_bg_img_div(style="background-image:url({{user_obj.profile_bg_img}});")
+              .phone_desc_text.app-text-preview(style="{{user_obj.proflie_txt_location}}:0;" ng-class="{'text-stroke-white':!user_obj.proflie_txt_color,'text-stroke-black':user_obj.proflie_txt_color}")
+                h4
+                  | {{user_obj.profile_title}}
+                p
+                  | {{user_obj.profile_text}}
+            .profile_preview_table_wrap
+              table
+                tbody
+                  tr
+                    th.text-right
+                      strong
+                        | 이름
+                    td
+                      | {{user_obj.name}}
+                    tr
+                      th.text-right
+                        strong
+                          | 전문자격
+                      td
+                        | {{user_obj.expert_type}}
+                    tr
+                      th.text-right
+                        strong
+                          | 전문분야
+                      td
+                        span(class="cate-name" ng-repeat="cate in user_obj.category_list" ng-show="cate.checked" ng-style="cate.style")
+                          | {{cate.name}}
+                    tr
+                      th.text-right
+                        strong
+                          | 학력/경력
+                      td
+                        | {{user_obj.career}}
+                    tr
+                      th.text-right
+                        strong
+                          | 활동 이력
+                      td
                         span(style="white-space: pre;")
-                          | {{user_obj.profile_text}}
-                    .profile_preview_table_wrap
-                      table
-                        tbody
-                          tr
-                            th.text-right
-                              strong
-                                | 이름
-                            td
-                              | {{user_obj.name}}
-                            tr
-                              th.text-right
-                                strong
-                                  | 전문자격
-                              td
-                                | {{user_obj.expert_type}}
-                            tr
-                              th.text-right
-                                strong
-                                  | 전문분야
-                              td
-                                span(class="cate-name" ng-repeat="cate in user_obj.category_list" ng-show="cate.checked" ng-style="cate.style")
-                                  | {{cate.name}}
-                            tr
-                              th.text-right
-                                strong
-                                  | 학력/경력
-                              td
-                                | {{user_obj.career}}
-                            tr
-                              th.text-right
-                                strong
-                                  | 활동 이력
-                              td
-                                span(style="white-space: pre;")
-                                  | {{user_obj.activity}}
-                  div(style="width:320px;height:70px;padding-top:20px;margin:0px;")
-                    div(style="width:50px;height:50px;background-color:#444;border-radius: 50%;margin:auto;")
+                          | {{user_obj.activity}}
+        .phone_bottom
 
 .row
   .container-fluid.form_divide
