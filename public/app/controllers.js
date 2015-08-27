@@ -19,10 +19,17 @@
         delete sessionStorage["maum_login_signin_obj"];
         delete sessionStorage["maum_login_id"];
         delete sessionStorage["maum_login_passwd"];
+        delete sessionStorage["maum_page_location"];
+
         $state.go('login');
       }
     }
 
+  });
+
+  ctrls.controller('pageCtrl', function($state,$stateParams){
+    //console.log($state.current.name);
+    sessionStorage["maum_page_location"] = $state.current.name;
   });
 
   //처음 화면 컨트롤러.
@@ -397,7 +404,11 @@
           if(data.user_obj.signin_step > 4){
             sessionStorage["maum_login_signin_obj"] = JSON.stringify(data.user_obj);
             //location.replace("/main");
-            $state.go('main_page');
+            if(sessionStorage["maum_page_location"]){
+              $state.go(sessionStorage["maum_page_location"]);
+            } else {
+              $state.go('main_page');
+            }
           } else {
             if(data.user_obj.signin_step < 3 ){
               data.user_obj.signin_step = 3;

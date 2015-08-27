@@ -26,7 +26,11 @@
                     controller: 'profileCtrl'
                   },
                   "page" : {
-                    templateUrl: "pages/"+menu_lv_1[i].id+"/"+menu_lv_2[j].id
+                    templateUrl: "pages/"+menu_lv_1[i].id+"/"+menu_lv_2[j].id,
+                    controller: 'pageCtrl'
+                  },
+                  "footer" : {
+                    templateUrl: "partials/footer"
                   }
                 }
               });
@@ -45,7 +49,11 @@
                 controller: 'profileCtrl'
               },
               "page" : {
-                templateUrl: "pages/"+menu_lv_1[i].id
+                templateUrl: "pages/"+menu_lv_1[i].id,
+                controller: 'pageCtrl'
+              },
+              "footer" : {
+                templateUrl: "partials/footer"
               }
             }
           });
@@ -70,6 +78,9 @@
         "init" : {
           templateUrl: "signin/signin",
           controller: "signinCtrl"
+        },
+        "footer" : {
+          templateUrl: "partials/footer"
         }
       }
     });
@@ -77,7 +88,12 @@
     $stateProvider.state("error", {
       url: "/error",
       views : {
-        "error" : { templateUrl: "partials/error" }
+        "error" : {
+          templateUrl: "partials/error"
+        },
+        "footer" : {
+          templateUrl: "partials/footer"
+        }
       }
     });
 
